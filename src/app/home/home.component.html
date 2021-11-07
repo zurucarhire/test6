@@ -1,0 +1,44 @@
+<app-main-nav-bar></app-main-nav-bar>
+<div class="container" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-sm-4" style="padding-top: 2px;">
+            <div *ngIf="registered" class="card card-top">
+                <h4><b>Welcome to Legends {{username}}</b></h4>
+                <p>Your account is active. You can navigate to your profile to check if your submission has been approved. </p>
+                <button type="button" class="btn btn-warning" (click)="checkSubmission()">Check Submission</button>
+            </div>
+            <div *ngIf="!registered" class="card card-top">
+                <h4><b>Welcome to Legends {{username}}</b></h4>
+                <p>Your account is inactive, you need to complete registration process to start using our payment services. </p>
+                <button type="button" class="btn btn-danger" (click)="merchantRegistration()">Complete Registration</button>
+            </div>
+        </div>
+        <div class="col-sm-4" style="padding-top: 2px;">
+            <div class="card card-top">
+                <h4><b>Payment Gateway</b></h4>
+                <p>Receive MPESA payments, make card payments both visa and master card, process multiple bill payments.</p>
+                <button type="button" class="btn btn-primary">Continue</button>
+            </div>
+        </div>
+        <div class="col-sm-4" style="padding-top: 2px;">
+            <div class="card card-top">
+                <h4><b>API Credentials</b></h4>
+                <p>A payment API integration that gives you the ability to process card and mobile money payments securely.</p>
+                <button type="button" class="btn btn-primary">Get Started</button>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-sm-7">
+            <mat-card style="margin-top: 10px">
+                <div id="chartContainer" style="height: 290px; width: 100%; margin:auto;"></div>
+            </mat-card>
+        </div>
+        <div class="col-sm-5">
+            <mat-card style="margin-top: 10px">
+                <div id="chartContainer2" style="height: 290px; width: 100%; margin:auto;"></div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
