@@ -1,357 +1,146 @@
-<app-main-nav-bar></app-main-nav-bar>
-<mat-tab-group mat-align-tabs="center" animationDuration="0ms" (selectedTabChange)="selectedTab($event)"
-    style="font-family: montserrat;">
-    <mat-tab label="Documents" style="font-family: montserrat;">
-        <div class="section">
-            <div class="row" style="margin-top: 10px;margin-left: 20px; margin-right: 20px;">
-                <ng-template #documentsModal let-modal>
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="modal-basic-title"
-                            style="font-family: montserrat; font-weight: bold">{{modaltitle}}</h4>
-                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                            <span aria-hidden="true">×</span>
-                        </button>
+<app-navbar></app-navbar>
+<div class="container" style="margin-top: 30px; margin-bottom: 50px;">
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-lg-6" style="padding: 5px">
+            <mat-card style="min-height: 332px;">
+                <h4>Personal Information</h4>
+                <div class="form-row">
+                    <div class="col-md-6" >
+                        <label for="validationTooltip01">Client Name</label>
                     </div>
-                    <div class="modal-body">
-                        <form #documentsForm="ngForm" (ngSubmit)="editSubmit(documentsForm, modaltitle, modallabel)">
-                            <div class="form-group">
-                                <div *ngIf="modaldocumentsidorpassport" class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                        id="inlineRadio1" value="option1" (change)="idPassportEvent($event,'ID')">
-                                    <label style="font-family: montserrat;" class="form-check-label"
-                                        for="inlineRadio1">ID</label>
-                                </div>
-                                <div *ngIf="modaldocumentsidorpassport" class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                        id="inlineRadio2" value="option2" (change)="idPassportEvent($event,'Passport')">
-                                    <label style="font-family: montserrat;" class="form-check-label"
-                                        for="inlineRadio2">Passport</label>
-                                </div>
-                                <div *ngIf="modaldocumentsidorpassport" class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile"
-                                        style="font-family: montserrat;" multiple
-                                        (change)="onFileChangedDocuments($event, modallabel)"
-                                        (click)="onFileChangedIdPassportValidate($event)">
-                                    <label class="custom-file-label" for="customFile"
-                                        style="font-family: montserrat;">{{modalinputvalue}}</label>
-                                </div>
-                                <div *ngIf="!modaldocumentsidorpassport" class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile"
-                                        style="font-family: montserrat;"
-                                        (change)="onFileChangedDocuments($event, modallabel)">
-                                    <label class="custom-file-label" for="customFile"
-                                        style="font-family: montserrat;">{{modalinputvalue}}</label>
-                                </div>
-                            </div>
-                            <button style="font-family: montserrat; font-size: 13px; " type="submit"
-                                class="btn btn-primary" [disabled]="documentsForm.form.invalid">Submit</button>
-                            <img style="padding: 10px" *ngIf="loading"
-                                src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        </form>
-                    </div>
-                </ng-template>
-                <div class="container" style="padding: 20px;">
-                    <h4 *ngIf="!documentsavailable" style="font-family: montserrat; font-weight: bold;">You do not have
-                        any documents yet. <button style="font-size: 12px; font-weight: bold; margin-left: 10px;"
-                            type="button" class="btn btn-danger" (click)="completeRegistration()">Complete
-                            Registration</button></h4>
-                    <div *ngIf="documentsavailable" class="row justify-content-md-center">
-                        <div class="col-sm-10 align-self-center" style="padding-top: 2px;">
-                            <div class="col-sm-8 align-self-center" style="padding-top: 2px;  margin-bottom: 10px;">
-                                <div class="custom-control custom-switch ustify-content-md-center align-self-center">
-                                    <input type="checkbox" class="custom-control-input" disabled id="customSwitch1">
-                                    <label class="custom-control-label" for="customSwitch1">Pending Approval</label>
-                                </div>
-                            </div>
-                            <div class="card card-top">
-
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">ID / Passport</span>
-                                    </div>
-                                    <input type="text" class="form-control input-val-text" aria-label=""
-                                        value="{{idpassport}}" readonly>
-                                        <div class="input-group-append">
-                                            <span style="cursor: pointer;" class="input-group-text">
-                                                <a href="http://159.223.69.40/{{idpassport}}" target="_blank"
-                                                    download>
-                                                    <i style="color: #029cd8;" class="fa fa-eye"></i></a></span>
-                                        </div>
-                                    <div class="input-group-append"
-                                        (click)="editDocuments('Edit ID / Passport','ID / Passport', idpassport)">
-                                        <span style="cursor: pointer;" class="input-group-text"><i style="color: #013186;"
-                                                class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Business License</span>
-                                    </div>
-                                    <input type="text" class="form-control input-val-text" aria-label=""
-                                        value="{{businesslicense}}" readonly>
-                                        <div class="input-group-append">
-                                            <span style="cursor: pointer;" class="input-group-text">
-                                                <a href="http://159.223.69.40/{{businesslicense}}" target="_blank"
-                                                    download>
-                                                    <i style="color: #029cd8;" class="fa fa-eye"></i></a></span>
-                                        </div>
-                                    <div class="input-group-append"
-                                        (click)="editDocuments('Edit Business License','Business License', businesslicense)">
-                                        <span style="cursor: pointer;" class="input-group-text"><i style="color: #013186;"
-                                                class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Board resolution</span>
-                                    </div>
-                                    <input type="text" class="form-control input-val-text" aria-label=""
-                                        value="{{boardresolution}}" readonly>
-                                        <div class="input-group-append">
-                                            <span style="cursor: pointer;" class="input-group-text">
-                                                <a href="http://159.223.69.40/{{boardresolution}}" target="_blank"
-                                                    download>
-                                                    <i style="color: #029cd8;" class="fa fa-eye"></i></a></span>
-                                        </div>
-                                    <div class="input-group-append"
-                                        (click)="editDocuments('Edit Board Resolution','Board Resolution', boardresolution)">
-                                        <span style="cursor: pointer;" class="input-group-text"><i style="color: #013186;"
-                                                class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">KRA pin Certificate</span>
-                                    </div>
-                                    <input type="text" class="form-control input-val-text" aria-label=""
-                                        value="{{kracertificate}}" readonly>
-                                        <div class="input-group-append">
-                                            <span style="cursor: pointer;" class="input-group-text">
-                                                <a href="http://159.223.69.40/{{kracertificate}}" target="_blank"
-                                                    download>
-                                                    <i style="color: #029cd8;" class="fa fa-eye"></i></a></span>
-                                        </div>
-                                    <div class="input-group-append"
-                                        (click)="editDocuments('Edit KRA Certificate','KRA Certificate', kracertificate)">
-                                        <span style="cursor: pointer;" class="input-group-text"><i style="color: #013186;"
-                                                class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Bank Statement / Annual Returns</span>
-                                    </div>
-                                    <input type="text" class="form-control input-val-text" aria-label=""
-                                        value="{{bankstatementsannualreturns}}" readonly>
-                                        <div class="input-group-append">
-                                            <span style="cursor: pointer;" class="input-group-text">
-                                                <a href="http://159.223.69.40/{{bankstatementsannualreturns}}" target="_blank"
-                                                    download>
-                                                    <i style="color: #029cd8;" class="fa fa-eye"></i></a></span>
-                                        </div>
-                                    <div class="input-group-append"
-                                        (click)="editDocuments('Edit Bank Statement','Bank Statement', bankstatementsannualreturns)">
-                                        <span style="cursor: pointer;" class="input-group-text"><i style="color: #013186;"
-                                                class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Certificate of Incorporation</span>
-                                    </div>
-                                    <input type="text" class="form-control input-val-text" aria-label=""
-                                        value="{{registrationcertificate}}" readonly>
-                                    <div class="input-group-append">
-                                        <span style="cursor: pointer;" class="input-group-text">
-                                            <a href="http://159.223.69.40/{{registrationcertificate}}" target="_blank"
-                                                download>
-                                                <i style="color: #029cd8;" class="fa fa-eye"></i></a></span>
-                                    </div>
-                                    <div class="input-group-append"
-                                        (click)="editDocuments('Edit Incorporation Certificate','Incorporation Certificate', registrationcertificate)">
-                                        <span style="cursor: pointer;" class="input-group-text"><i style="color: #013186;"
-                                                class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Memorandum & Articles of Association</span>
-                                    </div>
-                                    <input type="text" class="form-control input-val-text" aria-label=""
-                                        value="{{memorandumarticlesofassociation}}" readonly>
-                                    <div class="input-group-append">
-                                        <span style="cursor: pointer;" class="input-group-text">
-                                            <a href="http://159.223.69.40/{{memorandumarticlesofassociation}}"
-                                                target="_blank" download>
-                                                <i style="color: #029cd8;" class="fa fa-eye"></i></a></span>
-                                    </div>
-                                    <div class="input-group-append"
-                                        (click)="editDocuments('Edit Memorandum & Articles of Association','Memorandum & Articles of Association', memorandumarticlesofassociation)">
-                                        <span style="cursor: pointer;" class="input-group-text"><i style="color: #013186;"
-                                                class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-6">
+                        <span class="pull-right">{{user.user.client.clientName}}</span>
                     </div>
                 </div>
-            </div>
+                <div class="form-row">
+                    <div class="col-md-6" >
+                        <label for="validationTooltip01">Username</label>
+                    </div>
+                    <div class="col-md-6" >
+                        <span class="pull-right">{{user.user.userName}}</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6" >
+                        <label for="validationTooltip01">Full Names</label>
+                    </div>
+                    <div class="col-md-6" >
+                        <span class="pull-right">{{user.user.fullName}}</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label for="validationTooltip01">Email Address</label>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="pull-right">{{emailaddressvalue}}</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label for="validationTooltip01">ID Number</label>
+                    </div>
+                    <div class="col-md-6" >
+                        <!-- <span (click)="editAccount()" class="pull-right">{{user.user.idNumber}}<i class="fa fa-pencil fa-lg"></i></span> -->
+                        <span class="pull-right">{{idnumbervalue}}</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6" >
+                        <label for="validationTooltip01">Phone Number</label>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="pull-right">{{msisdnvalue}}</span>
+                    </div>
+                </div>
+                <input type="submit" name="submit" class="submit action-button btn btn-warning" (click)="editAccount()" value="Edit"/>
+
+            </mat-card>
         </div>
-    </mat-tab>
-    <mat-tab label="Profile">
-        <div class="section">
-            <div class="row" style="margin-top: 10px;margin-left: 20px; margin-right: 20px;">
-                <ng-template #profileModal let-modal>
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="modal-basic-title"
-                            style="font-family: montserrat; font-weight: bold">{{modaltitle}}</h4>
-                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                            <span aria-hidden="true">×</span>
-                        </button>
+        <div class="col-lg-6" style="padding: 5px">
+            <mat-card style="min-height: 240px;">
+                <h4>Change Password</h4>
+                <form #form="ngForm" (ngSubmit)="changePasswordSubmit(form)">
+                    <div class="form-floating mb-3">
+                        <input name="oldpassword" type="password" class="form-control" id="formGroupExampleInput2"
+                        id="formGroupExampleInput" placeholder="Old Password" #oldpassword="ngModel"
+                        [class.is-invalid]="oldpassword.invalid && oldpassword.touched" ngModel required>
+                        <label for="floatingInput" style="font-size: 13px; color: #666;">Old Password</label>
                     </div>
-                    <div class="modal-body">
-                        <form #profileForm="ngForm" (ngSubmit)="editSubmit(profileForm, modaltitle, modallabel)">
-                            <div class="form-group">
-                                <label
-                                    style="font-family: montserrat; font-size: 13px; font-weight: bold;">{{modallabel}}</label>
-                                <input style="font-family: montserrat; font-size: 13px" type="text" class="form-control"
-                                    id="name" name="name" placeholder="{{modallabel}}" #name="ngModel"
-                                    [class.is-invalid]="name.invalid && name.touched" ngModel
-                                    [(ngModel)]="modalinputvalue" required>
-                                <p style="color: red; font-size: 12px; font-family: montserrat; "
-                                    [class.d-none]="name.valid || name.untouched">{{modallabel}} is required</p>
-                            </div>
-                            <button style="font-family: montserrat; font-size: 13px; " type="submit"
-                                class="btn btn-primary" [disabled]="profileForm.form.invalid">Submit</button>
-                            <img style="padding: 10px" *ngIf="loading"
-                                src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        </form>
+                    <div class="form-floating mb-3">
+                        <input name="newpassword" type="password" class="form-control" id="formGroupExampleInput2"
+                        id="formGroupExampleInput" placeholder="New Password" #newpassword="ngModel"
+                        [class.is-invalid]="newpassword.invalid && newpassword.touched" ngModel required>
+                        <label for="floatingInput" style="font-size: 13px; color: #666;">New Password</label>
                     </div>
-                </ng-template>
-
-                <div class="container" style="padding: 20px;">
-                    <div class="row justify-content-md-center">
-                        <div class="col-sm-7 align-self-center" style="padding-top: 2px;">
-                            <div class="card card-top">
-                                <h4 style="font-family: montserrat; font-weight: bold;">Personal Information</h4>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                                    </div>
-                                    <input style="font-size: 14px;" type="text" class="form-control" aria-label=""
-                                        value="{{email}}" readonly>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i style="color: gray;"
-                                                class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                    </div>
-                                    <input style="font-size: 14px;" type="text" class="form-control" aria-label=""
-                                        value="{{username}}" readonly>
-                                    <div class="input-group-append"
-                                        (click)="editPersonalInformation('Edit Username','Username', username)">
-                                        <span style="cursor: pointer;" class="input-group-text"><i style="color: #013186;"
-                                                class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                                    </div>
-                                    <input style="font-size: 14px;" type="text" class="form-control" aria-label=""
-                                        value="{{phone}}" readonly>
-                                    <div class="input-group-append"
-                                        (click)="editPersonalInformation('Edit Phone','Phone', phone)">
-                                        <span style="cursor: pointer;" class="input-group-text"><i style="color: #013186;"
-                                                class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="form-floating mb-3">
+                        <input name="repeatpassword" type="password" class="form-control" id="formGroupExampleInput2"
+                        id="formGroupExampleInput" placeholder="Repeat Password" #repeatpassword="ngModel"
+                        [class.is-invalid]="repeatpassword.invalid && repeatpassword.touched" ngModel required>
+                        <label for="floatingInput" style="font-size: 13px; color: #666;">Repeat Password</label>
                     </div>
-                </div>
-            </div>
+                    <input type="submit" name="submit" class="submit action-button btn btn-primary" [disabled]="form.form.invalid" value="Submit"/>
+                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+
+                </form>
+            </mat-card>
         </div>
-    </mat-tab>
-    <mat-tab label="Activity">
-        <div class="section">
-            <div class="row" style="margin-top: 10px;margin-left: 20px; margin-right: 20px;">
-                <div class="container" style="padding: 20px;">
-                    <h4 style="font-family: montserrat; font-weight: bold;">You do not have any activity yet</h4>
-                </div>
-            </div>
-        </div>
-    </mat-tab>
-    <mat-tab label="Settings">
-        <div class="section">
-            <div class="container" style="padding: 20px;">
-                <div class="row justify-content-md-center">
-                    <div class="col-sm-6 align-self-center" style="padding-top: 2px;">
-                        <div class="card card-top">
-                            <h4 style="font-family: montserrat; font-weight: bold;">Notifications</h4>
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" checked id="customSwitch1"
-                                    (change)="emailNotifications($event)">
-                                <label class="custom-control-label" for="customSwitch1">Receive Email
-                                    Notifications</label>
-                            </div>
-                            <br>
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch2"
-                                    (change)="smsNotifications($event)">
-                                <label class="custom-control-label" for="customSwitch2">Receive SMS
-                                    Notifications</label>
-                            </div>
-                            <br>
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch3"
-                                    (change)="newsletterNotifications($event)">
-                                <label class="custom-control-label" for="customSwitch3">Receive Weekly
-                                    Newsletter</label>
-                            </div>
-                        </div>
+    </div>
+</div>
+<ng-template #editAccountModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Account Update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #editForm="ngForm" (ngSubmit)="submitEditAccount(editForm)">
 
-                    </div>
-                </div>
-                <div class="row justify-content-md-center" style="margin-top: 10px;">
-                    <div class="col-sm-6 align-self-center" style="padding-top: 2px;">
-                        <div class="card card-top">
-                            <form>
-                                <h4 style="font-family: montserrat; font-weight: bold;">Change Password</h4>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                                    </div>
-                                    <input style="font-size: 13px;" type="text" class="form-control" aria-label=""
-                                        placeholder="Enter old password">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                                    </div>
-                                    <input style="font-size: 13px;" type="text" class="form-control" aria-label=""
-                                        placeholder="Enter new password">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                                    </div>
-                                    <input style="font-size: 13px;" type="text" class="form-control" aria-label=""
-                                        placeholder="Confirm password">
-                                </div>
-                                <button style="font-size: 13px; font-weight: bold;" type="submit"
-                                    class="btn btn-primary">Change</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="editemailaddress" type="text" class="form-control" id="formGroupExampleInput2"
+              #editemailaddress="ngModel"
+              [class.is-invalid]="editemailaddress.invalid && editemailaddress.touched" ngModel
+              [(ngModel)]="emailaddressvalue">
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Email Address</label>
+          </div>
         </div>
-    </mat-tab>
-</mat-tab-group>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="editidnumber" type="text" class="form-control" id="formGroupExampleInput2"
+              #editidnumber="ngModel" [class.is-invalid]="editidnumber.invalid && editidnumber.touched" ngModel
+              [(ngModel)]="idnumbervalue">
+            <label for="floatingInput" style="font-size: 13px; color: #666;">ID Number</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="editmsisdn" type="text" class="form-control" id="formGroupExampleInput2"
+              #editmsisdn="ngModel" [class.is-invalid]="editmsisdn.invalid && editmsisdn.touched" ngModel
+              [(ngModel)]="msisdnvalue">
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Phone Number</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button type="submit"
+            class="btn btn-primary btn-block" [disabled]="editForm.form.invalid">Edit</button>
+          <img style="margin-left: 10px;" *ngIf="loading"
+            src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+</ng-template>
 <app-footer></app-footer>

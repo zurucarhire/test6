@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import * as CanvasJS from '../../assets/js/canvasjs.min.js';
-import { ApiService } from '../service/api.service.js';
+import { NgForm } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RoleModalComponent } from '../modal/role-modal/role-modal.component';
+import { SearchModalComponent } from '../modal/search-modal/search-modal.component';
+import { Requesttype } from '../model/requesttype';
+import { User } from '../model/user';
+import { ApiService } from '../service/api.service';
+declare var $;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,105 +15,228 @@ import { ApiService } from '../service/api.service.js';
 })
 export class HomeComponent implements OnInit {
 
-  username: string;
-  registered = false;
-  constructor(private router: Router, private api: ApiService,) { 
-    let customer = JSON.parse(sessionStorage.getItem('customer'));
-    let idpassport = customer["idpassport"];
-    if (idpassport == "nil"){
-      this.registered = false;
-    } else {
-      this.registered = true;
-    }
-    this.username = customer["username"];
-  }
+  printData;
+  loading = false;
+  data = [];
+  d;
+  searchData;
+  searchDatatable:any;
+  requesttypedata: Requesttype[];
+  constructor(private api: ApiService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-		this.setUpCharts();
+    this.fetchRequestTypes()
+    //this.getSearch();
+    this.initSearchDatatables([]);
   }
 
-  merchantRegistration() {
-    this.router.navigate(["merchantregistration"]);
-  }
-
-  checkSubmission() {
-    this.router.navigate(["account"]);
-  }
-
-  setUpCharts(){
-    var chart= new CanvasJS.Chart("chartContainer", {
-      animationEnabled: true,
-      theme: "light2",
-      title:{
-        text: "My Settlements & Invoices"
-      },
-      axisX: {
-        valueFormatString: "DD MMM"
-      },
-      axisY2: {
-        minimum:25
-      },
-      toolTip: {
-        shared: true
-      },
-      data: [{
-        type: "stepLine",
-        connectNullData: true,
-        xValueFormatString: "MMM",
-        name: "Settlements",
-        dataPoints: [
-          { x: new Date("2018-01-01T20:51:05.000Z"), y: 15.00 },
-          { x: new Date("2018-02-02T20:51:05.000Z"), y: 14.50 },
-          { x: new Date("2018-03-03T20:51:05.000Z"), y: 14.00 },
-          { x: new Date("2018-04-04T20:51:05.000Z"), y: 14.50 },
-          { x: new Date("2018-05-05T20:51:05.000Z"), y: 14.75 },
-          { x: new Date("2018-06-06T20:51:05.000Z"), y: null },
-          { x: new Date("2018-07-07T20:51:05.000Z"), y: 15.80 },
-          { x: new Date("2018-08-08T20:51:05.000Z"), y: 17.50 }
-        ]
-      },
-      {
-        type: "stepLine",  
-        connectNullData: true,
-        xValueFormatString: "MMM",
-        name: "Invoices",
-        dataPoints: [
-          { x: new Date("2018-01-01T20:51:05.000Z"), y: 25.00 },
-          { x: new Date("2018-02-02T20:51:05.000Z"), y: 24.50 },
-          { x: new Date("2018-03-03T20:51:05.000Z"), y: 22.00 },
-          { x: new Date("2018-04-04T20:51:05.000Z"), y: 16.50 },
-          { x: new Date("2018-05-05T20:51:05.000Z"), y: 6.75 },
-          { x: new Date("2018-06-06T20:51:05.000Z"), y: null },
-          { x: new Date("2018-07-07T20:51:05.000Z"), y: 7.80 },
-          { x: new Date("2018-08-08T20:51:05.000Z"), y: 20.50 }
-        ]
-      }]
+  fetchRequestTypes(){
+    this.api.findAllRequestTypes().subscribe(
+      (data: Requesttype[]) => {
+        this.requesttypedata = data;
+    }, error => {
+      console.log(error);
     });
-    chart.render();
+  }
 
-    let chart2 = new CanvasJS.Chart("chartContainer2", {
-		theme: "light2",
-		animationEnabled: true,
-		exportEnabled: true,
-		title:{
-			text: "My Payments"
-		},
-		data: [{
-			type: "pie",
-			showInLegend: true,
-			toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
-			indexLabel: "{name} - #percent%",
-			dataPoints: [
-				{ y: 120, name: "Payment Links" },
-				{ y: 300, name: "B2B Payments" },
-				{ y: 800, name: "Bill Payments" },
-				{ y: 150, name: "Ticketing" }
-			]
-		}]
-	  });
-		
-	  chart.render();
-		
-	  chart2.render();
+  openModal2(view, data) {
+    const modalRef = this.modalService.open(view, {centered: true });
+    modalRef.componentInstance.modalData = data;
+    modalRef.result.then((result) => {
+      if (result) {
+        console.log(result);
+
+      }
+    });
+  }
+
+  getSearch(){
+    this.api.findAllUsers().subscribe(
+      (data: User[]) => {
+        this.data = data;
+       // this.initSearchCustomerDatatable(data);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  print(){
+    this.openModal2(SearchModalComponent,this.searchData);
+  }
+
+  initSearchDatatables(data) {
+  // console.log("qwqwee ", this.d[0]['citizenship']);
+    let dtOptionsSearchLogs = {
+      data: data,
+      responsive: true,
+      destroy: true,
+      retrieve: true,
+      lengthMenu: [5, 10],
+      //dom:'Bfrtip',
+      // buttons: [
+      //   {
+      //     extend: 'excel',
+      //     exportOptions: {
+      //         columns: [ 0, 1, 2, 3, 4 ]
+      //     }
+      //   }
+      // ],
+    //   buttons: [
+    //     {
+    //         extend: 'print',
+    //         exportOptions: {
+    //             stripHtml : false,
+    //             columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    //             //specify which column you want to print
+
+    //         }
+    //     }
+
+    // ],
+    //dom: 'Bfrtip',
+        // buttons: [
+        //     {
+        //         extend: 'pdfHtml5',
+        //         customize: function ( doc ) {
+        //             doc.content.splice( 1, 0, {
+        //                 margin: [ 0, 0, 0, 12 ],
+        //                 alignment: 'center',
+        //                 image: "data:image/png;https://shikatei.co.ke/liquoricon.jpg"
+        //               } );
+        //         }
+        //     }
+        // ],
+      columns: [
+        {
+          data: null,
+          className: 'details-control',
+          defaultContent: '',
+          responsivePriority: 1
+      },
+        {
+          title: 'ID Number',
+          data: 'idnumber',
+          className: "text-center"
+        },
+        {
+          title: 'Serial Number',
+          data: 'idserialNumber',
+          // render : function ( url, type, full) {
+          //   return '<img height="75%" width="75%" src="https://shikatei.co.ke/liquoricon.jpg"/>';
+          // },
+          className: "text-center"
+        },
+        {
+          title: 'Pin',
+          data: 'pin',
+          className: "text-center"
+        },
+        {
+          title: 'First Name',
+          data: 'firstName',
+          className: "text-center"
+        },
+        {
+          title: 'Other Name',
+          data: 'otherName',
+          className: "text-center"
+        },
+        {
+          title: 'Sur Name',
+          data: 'surName',
+          className: "text-center"
+        },
+        {
+          title: 'Family',
+          data: 'family',
+          className: "text-center"
+        },
+        {
+          title: 'Gender',
+          data: 'gender',
+          className: "text-center"
+        },
+        {
+          title: 'Citizenship',
+          data: 'citizenship',
+          className: "text-center"
+        },
+        {
+          title: 'Occupation',
+          data: 'occupation',
+          className: "text-center"
+        },{
+          title: '',
+          data: null,
+          className: 'delete',
+          defaultContent: '<i style="color: blue; cursor: pointer; text-align: center" class="fa fa-print"></>',
+          responsivePriority: 1
+        }
+      ]
+    };
+
+    this.searchDatatable = $('#dtSearchCustomer').DataTable(dtOptionsSearchLogs);
+
+    let scope = this;
+    $('#dtSearchCustomer tbody').on('click', 'td.delete', function () {
+      let tr = $(this).closest('tr');
+      let row = scope.searchDatatable.row(tr);
+      var rowIndex = tr.index();
+
+      let data = row.data();
+      scope.printData = data;
+      console.log(data)
+     scope.openModal2(SearchModalComponent,data);
+      //scope.openModal(scope.deleteRoleModal,'sm');
+    });
+    $('#dtSearchCustomer tbody').on('click', 'td.details-control', function () {
+      var tr = $(this).closest('tr');
+      var row = scope.searchDatatable.row(tr);
+      console.log("hooray")
+      var rowIndex = tr.index();
+      let data = row.data();
+
+
+      //scope.openModal2(scope.searchLogsModal);
+      if (row.child.isShown()) {
+        // This row is already open - close it
+        row.child.hide();
+        tr.removeClass('shown');
+      } else {
+        // Open this row
+        row.child(format(row.data())).show();
+        tr.addClass('shown');
+      }
+  });
+
+  function format(d) {
+    // `d` is the original data object for the row
+    //let userorder = [] ;
+    console.log("pi>>> ", d.surName);
+
+    let dRow = '';
+    dRow = dRow + '<tbody><tr>' +
+      '<td>' + d.dateOfBirth + '</td>' +
+      '<td>' + d.dateOfDeath + '</td>' +
+      '<td>' + d.dateOfIssue + '</td>' +
+      '<td>' + d.passportExpiryDate + '</td>' +
+      '<td>' + d.placeOfBirth + '</td>' +
+      '</tr></tbody>';
+
+    return '<table class="table "><thead class="thead-dark"><tr><th scope="col">Date Of Birth</th><th scope="col">PDate Of Death</th><th scope="col">Date Of Issue</th><th scope="col">Passport Expiry</th><th scope="col">Place</th></tr></thead>' + dRow + '</table>';
+  }
+  }
+
+  searchSubmit(form: NgForm){
+    console.log(form.value)
+    this.api.findAllSearch2(form.value.requesttype).subscribe(
+      data => {
+        console.log("data => ", data);
+        console.log("data => ", data[0]['citizenship']);
+        this.d = data;
+        this.searchDatatable.clear().rows.add(data).draw();
+    }, error => {
+      console.log(error);
+    });
   }
 }

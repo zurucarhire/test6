@@ -1,0 +1,11 @@
+.modal-header, h3,h4, .modal-body {
+  font-family: 'Changa';
+}
+
+h3{
+  color: brown;
+}
+
+h4 {
+  color: #0071c5;
+}

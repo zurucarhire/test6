@@ -1,0 +1,27 @@
+.modal-header, h3,h4, .modal-body {
+  font-family: 'Changa';
+}
+
+h3{
+  color: brown;
+}
+
+h4 {
+  color: #0071c5;
+}
+
+input, select {
+  font-size: 13px;
+}
+
+.row {
+  padding: 5px;
+  margin: 5px;
+  font-family: Changa;
+}
+
+@media print {
+  button {
+    display:none;
+  }
+}

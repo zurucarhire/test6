@@ -1,0 +1,60 @@
+section {
+    background-color: #ffffff;
+}
+
+table {
+    font-family: 'Changa' !important;
+    width: 100% !important;
+}
+
+span, label, h4, input {
+    font-family: 'Changa';
+    font-weight: normal;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none !important;
+}
+
+.input {
+    height: 52px;
+}
+
+select {
+    height: 52px !important;
+}
+
+
+mat-label {
+    font-family: Changa !important;
+    font-size: 13px;
+  }
+
+h4 {
+    font-size: 16px;
+    color: #0071c5;
+    font-weight: bold;
+}
+
+.btn {
+    font-size: 13px;
+    color: #f0f0f0;
+}
+
+::ng-deep .mat-tab-label .mat-tab-label-content {
+    font-family: 'Changa' !important;
+    font-weight: bold;
+}
+
+.modal-title {
+    font-family: 'Changa' !important;
+    font-weight: bold;
+}
+
+
+.modal-body, select,h3, input, button {
+    font-family: 'Changa' !important;
+    font-size: 12px;
+}

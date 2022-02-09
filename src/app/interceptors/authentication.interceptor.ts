@@ -10,10 +10,10 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   constructor(private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    if (sessionStorage.getItem('email') && sessionStorage.getItem('token')) {
+    if (sessionStorage.getItem('email') && sessionStorage.getItem('accesstoken')) {
       req = req.clone({
         setHeaders: {
-          Authorization: sessionStorage.getItem('token')
+          Authorization: "Bearer "+sessionStorage.getItem('accesstoken')
         }
       })
     }

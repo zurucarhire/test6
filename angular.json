@@ -28,24 +28,16 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
               "src/assets/css/bootstrap.min.css",
-              "src/assets/vendor/aos/aos.css",
-              "src/assets/vendor/boxicons/css/boxicons.min.css",
-              "src/assets/vendor/bootstrap-icons/bootstrap-icons.css",
-              "node_modules/datatables.net-dt/css/jquery.dataTables.css",
-              "node_modules/datatables.net/css/d.css",
-              "node_modules/datatables.net/css/responsive.dataTables.min.css",
-              "node_modules/datatables.net/css/jquery.dataTables.buttons.min.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/sweetalert2/dist/sweetalert2.css",
+              "src/assets/css/d.css",
+              "node_modules/datatables.net/css/responsive.dataTables.min.css"
             ],
             "scripts": [
-              "src/assets/js/jquery-3.5.1.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/moment.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/assets/js/bootstrap.min.js",
-              "src/assets/js/main.js",
-              "src/assets/vendor/aos/aos.js",
-              "src/assets/vendor/swiper/swiper-bundle.min.js",
-              "src/assets/vendor/isotope-layout/isotope.pkgd.min.js",
-              "src/assets/vendor/glightbox/js/glightbox.min.js",
-              "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.min.js",
               "node_modules/datatables.net/js/dataTables.responsive.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.buttons.min.js",
@@ -54,7 +46,9 @@
               "node_modules/datatables.net/js/pdfmake.min.js",
               "node_modules/datatables.net/js/vfs_fonts.js",
               "node_modules/datatables.net/js/buttons.html5.min.js",
-              "node_modules/datatables.net/js/buttons.print.min.js"
+              "node_modules/datatables.net/js/buttons.print.min.js",
+              "src/assets/js/datetime-moment.js"
+              
             ]
           },
           "configurations": {

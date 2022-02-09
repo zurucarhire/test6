@@ -1,0 +1,51 @@
+<div class="container" style="padding: 10px;" id="">
+  <div id="DivIdToPrint">
+  <div class="row">
+    <div class="col-md-6">Photo</div>
+    <div class="col-md-6 text-right" style="float: right;"><img src="../../../assets/images/standard-chartered-logo-top-resized.png"></div>
+  </div><br>
+  <div class="row">
+    <div class="col-md-6">ID Number</div>
+    <div class="col-md-6 text-right" style="float: right;">{{modalData.idnumber}}</div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">Serial Number</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.idserialNumber}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Pin</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.pin}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">First Name</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.firstName}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Sur Name</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.surName}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Other Names</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.otherName}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Family</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.family}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Gender</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.gender}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Citizenship</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.citizenship}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Occupation</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.occupation}}</div>
+</div>
+</div>
+
+<button (click)="passBack()" type="submit" class="btn btn-primary w-100">Update</button>
+</div>

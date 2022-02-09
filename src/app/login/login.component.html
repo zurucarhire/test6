@@ -1,35 +1,30 @@
-<app-nil-nav-bar></app-nil-nav-bar>
-<!-- MultiStep Form -->
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12 mx-auto">
-            <form id="msform" #form="ngForm" (ngSubmit)="submit(form)">
-                <fieldset>
-                    <h2 class="fs-title">Login To Your Account</h2>
-                    <h3 class="fs-subtitle">Fill in your credentials</h3>
-                    <input type="text" name="email" placeholder="Email" #email="ngModel" [class.is-invalid]="email.invalid && email.touched" ngModel required autofocus/>
-                    <p class="fs-error" [class.d-none]="email.valid || email.untouched">Email is required</p>
-                    <input type="password" name="password" placeholder="Password" #password="ngModel" [class.is-invalid]="password.invalid && password.touched" ngModel required autofocus/>
-                    <p class="fs-error" [class.d-none]="password.valid || password.untouched">Password is required</p>
-                    <input type="submit" name="submit" class="submit action-button" [disabled]="form.form.invalid" value="Submit"/>
-                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-                </fieldset>
-            </form>
-        </div>
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="../../assets/img/stanchart.png" id="icon" alt="User Icon" />
+      </div>
+  
+      <!-- Login Form -->
+      <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+        <input type="text" id="login" class="fadeIn second" name="username" #username="ngModel" ngModel placeholder="Username">
+        <input type="text" id="password" class="fadeIn third" name="password" #password="ngModel" ngModel placeholder="Password">
+        <input type="submit" class="fadeIn fourth" value="Sign In">
+        <img style="margin-left: 10px;" *ngIf="loading"
+        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+      </form>
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="javascript:void(0)">Cellulant Copyright ©, All rights reserved</a>
+      </div>
+  
     </div>
+  </div>
 </div>
-<footer id="footer" class="fixed-bottom">
-    <div class="container" style="border: 1px solid #fff;">
-        <div class="cont d-flex justify-content-end" style="border: 1px solid #fff;">
-            <div class="copyright mr-auto p-2"> &copy; Copyright <strong><span>LegendsPay</span></strong>. All Rights
-                Reserved</div>
-            <div class="p-2">
-                <ul class="list-group list-group-horizontal">
-                    <li class="list-group-item">Help</li>
-                    <li class="list-group-item">Terms & Conditions</li>
-                    <li class="list-group-item">Privacy Policy</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
+
+<!-- <app-footer></app-footer> -->

@@ -1,0 +1,214 @@
+<!-- <div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Simple modal</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <input [(ngModel)]="modalData.name" type="text">
+  <input [(ngModel)]="modalData.age" type="number">
+  <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Pass back</button>
+</div> -->
+<!-- <div *ngIf="modalData.tag == 'createUser';then create else delete">here is ignored</div> -->
+<ng-template #create [ngIf]="modalData.tag == 'createUser'">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Create User</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #createUserForm="ngForm">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <select name="clientname" class="form-select" id="floatingSelect"
+              aria-label="Floating label select example" #clientname="ngModel"
+              [class.is-invalid]="clientname.invalid && clientname.touched" ngModel
+              [(ngModel)]="modalData.clientID" required autofocus>
+              <option [value]="item.clientID" *ngFor="let item of modalData.clients">{{item.clientName}}
+              </option>
+            </select>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Client</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="username" type="text" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" placeholder="Email your password" #username="ngModel"
+              [(ngModel)]="modalData.userName"
+              [class.is-invalid]="username.invalid && username.touched" ngModel required >
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Username</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="fullname" type="text" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" placeholder="Email your password" #fullname="ngModel"
+              [(ngModel)]="modalData.fullName"
+              [class.is-invalid]="fullname.invalid && fullname.touched" ngModel required >
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Full Name</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="emailAddress" type="text" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" placeholder="Full name" #emailAddress="ngModel"
+              [(ngModel)]="modalData.emailAddress"
+              [class.is-invalid]="emailAddress.invalid && emailAddress.touched" ngModel required>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Email Address</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="idNumber" type="number" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #idNumber="ngModel"
+              [(ngModel)]="modalData.idNumber"
+              [class.is-invalid]="idNumber.invalid && idNumber.touched" ngModel required>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">ID Number</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="msisdn" type="number" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #msisdn="ngModel"
+              [(ngModel)]="modalData.msisdn"
+              [class.is-invalid]="msisdn.invalid && msisdn.touched" ngModel required>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Phone Number</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button (click)="passBack()" [disabled]="createUserForm.form.invalid" type="submit" class="btn btn-primary w-100">Create</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #edit [ngIf]="modalData.tag == 'editUser'">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update User</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #editUserForm="ngForm">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <select name="clientname" class="form-select" id="floatingSelect"
+              aria-label="Floating label select example" #clientname="ngModel"
+              [class.is-invalid]="clientname.invalid && clientname.touched" ngModel
+              [(ngModel)]="modalData.clientID" required autofocus >
+              <option disabled [value]="item.clientID" *ngFor="let item of modalData.clients">{{item.clientName}}
+              </option>
+            </select>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Client</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="username" type="text" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" placeholder="Email your password" #username="ngModel"
+              [(ngModel)]="modalData.userName" readonly
+              [class.is-invalid]="username.invalid && username.touched" ngModel required >
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Username</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="fullname" type="text" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" placeholder="Email your password" #fullname="ngModel"
+              [(ngModel)]="modalData.fullName"
+              [class.is-invalid]="fullname.invalid && fullname.touched" ngModel required >
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Full Name</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="emailAddress" type="text" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" placeholder="Full name" #emailAddress="ngModel"
+              [(ngModel)]="modalData.emailAddress"
+              [class.is-invalid]="emailAddress.invalid && emailAddress.touched" ngModel required>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Email Address</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="idNumber" type="number" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #idNumber="ngModel"
+              [(ngModel)]="modalData.idNumber"
+              [class.is-invalid]="idNumber.invalid && idNumber.touched" ngModel required>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">ID Number</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="msisdn" type="number" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #msisdn="ngModel"
+              [(ngModel)]="modalData.msisdn"
+              [class.is-invalid]="msisdn.invalid && msisdn.touched" ngModel required>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Phone Number</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button (click)="passBack()" [disabled]="editUserForm.form.invalid" type="submit" class="btn btn-primary w-100">Update</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #delete [ngIf]="modalData.tag == 'deleteUser'">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Delete User</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #deleteGroupForm="ngForm">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <h3 style="text-align: center;">Are you sure you want to delete the user?</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Delete</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

@@ -1,0 +1,128 @@
+<section>
+    <div class="container" style="padding: 0px 0px 0px 0px; ">
+        <nav class="navbar navbar-expand-md navbar-dark">
+          <a class="navbar-brand" href="javascript:void(0)"><img src="../../assets/img/sc3.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon">
+                    <!-- <i class="fa fa-bars" style="color:tomato; font-size:28px;"></i> -->
+                    <!-- <img src="https://legendspay.com/lp.png"> -->
+                </span>
+            </button>
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <!-- <a style="font-weight: bolder; " class="nav-link"><img src="../../assets/img/standard-chartered-logo-top.png"></a> -->
+                        <!-- <a style="font-weight: bolder; margin-top: -8px;" class="nav-link"><i class="fa fa-cog"></i></a> -->
+                    </li>
+
+                    <li class="nav-item" style="margin-left: 20px;" >
+                        <a style="font-weight: bolder;" class="nav-link search-nav" href="#" [routerLink]="[ '/home']"
+                            routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Search</a>
+                    </li>
+                    <li class="nav-item" *ngIf="roleId==1 || roleId==2">
+                        <div class="dropdown show">
+                            <a style="border: 0; font-weight: bold; margin-top: 1px; " class="btn btn-default dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Users
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#" [routerLink]="[ '/users']"
+                                routerLinkActive="active-list-item"
+                                [routerLinkActiveOptions]="{exact: true}"
+                                [queryParams]= "{tag:'users',value:'users'}">Users</a>
+
+                              <a class="dropdown-item" href="#" [routerLink]="[ '/users']"
+                              routerLinkActive="active-list-item"
+                              [routerLinkActiveOptions]="{exact: true}"
+                              [queryParams]= "{tag:'users',value:'roles'}">Roles</a>
+                              <a class="dropdown-item" href="#" [routerLink]="[ '/users']"
+                                routerLinkActive="active-list-item"
+                                [routerLinkActiveOptions]="{exact: true}"
+                                [queryParams]= "{tag:'users',value:'user roles'}">User Roles</a>
+                                <!-- <a class="dropdown-item" href="#" [routerLink]="[ '/users']"
+                                routerLinkActive="active-list-item"
+                                [routerLinkActiveOptions]="{exact: true}"
+                                [queryParams]= "{tag:'users',value:'permissions'}"
+                                *ngIf="roleId==1">Permissions</a>
+                                <a class="dropdown-item" href="#" [routerLink]="[ '/users']"
+                                routerLinkActive="active-list-item"
+                                [routerLinkActiveOptions]="{exact: true}"
+                                [queryParams]= "{tag:'users',value:'module actions'}"
+                                *ngIf="roleId==1">Module Actions</a> -->
+                            </div>
+                          </div>
+                    </li>
+                    <li class="nav-item">
+                         <div class="dropdown show">
+                            <a style="border: 0; font-weight: bold; margin-top: 1px;" class="btn btn-default dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Reports
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#" [routerLink]="[ '/report']"
+                                routerLinkActive="active-list-item"
+                                [routerLinkActiveOptions]="{exact: true}"
+                                [queryParams]= "{tag:'report',value:'search logs'}">Search Logs</a>
+
+                              <a class="dropdown-item" href="#" [routerLink]="[ '/report']"
+                              routerLinkActive="active-list-item"
+                              [routerLinkActiveOptions]="{exact: true}"
+                              [queryParams]= "{tag:'report',value:'iprs requests'}">IPRS Requests</a>
+                              <a class="dropdown-item" href="#" [routerLink]="[ '/report']"
+                                routerLinkActive="active-list-item"
+                                [routerLinkActiveOptions]="{exact: true}"
+                                [queryParams]= "{tag:'report',value:'customer records'}">Customer Records</a>
+                                <!-- <a class="dropdown-item" href="#" [routerLink]="[ '/report']"
+                                routerLinkActive="active-list-item"
+                                [routerLinkActiveOptions]="{exact: true}"
+                                [queryParams]= "{tag:'report',value:'discrepant records'}">Discrepant Records</a>
+                                <a class="dropdown-item" href="#" [routerLink]="[ '/report']"
+                                routerLinkActive="active-list-item"
+                                [routerLinkActiveOptions]="{exact: true}"
+                                [queryParams]= "{tag:'report',value:'refreshed records'}">Refreshed Records</a> -->
+                            </div>
+                          </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown show">
+                            <a style="border: 0; font-weight: bold; margin-top: 1px;" class="btn btn-default dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Audit
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#" [routerLink]="[ '/audit']"
+                                routerLinkActive="active-list-item"
+                                [routerLinkActiveOptions]="{exact: true}"
+                                [queryParams]= "{tag:'logs',value:'user logs'}">User Logs</a>
+
+                              <a class="dropdown-item" href="#" [routerLink]="[ '/audit']"
+                              routerLinkActive="active-list-item"
+                              [routerLinkActiveOptions]="{exact: true}"
+                              [queryParams]= "{tag:'logs',value:'change logs'}">Change Logs</a>
+                            </div>
+                          </div>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" style="padding: 4px;">
+                <ul class="navbar-nav ml-auto" style="margin-top: -3px;">
+
+                    <li class="nav-item">
+                        <a style="font-weight: bolder;" class="nav-link" href="#" [routerLink]="[ '/expiry']"
+                            routerLinkActive="active-list-item"
+                            [routerLinkActiveOptions]="{exact: true}"><i class="fa fa-cog fa-lg"></i></a>
+                    </li>
+                    <li class="nav-item">
+                      <a style="font-weight: bolder;" class="nav-link" href="#" [routerLink]="[ '/account']"
+                          routerLinkActive="active-list-item"
+                          [routerLinkActiveOptions]="{exact: true}"><i class="fa fa-user fa-lg"></i></a>
+                  </li>
+                    <li class="nav-item" style="padding-left: 5px;">
+                        <a style="font-weight: bolder; cursor: pointer;" class="nav-link" (click)="signOut()"><i class="fa fa-sign-out fa-lg"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</section>

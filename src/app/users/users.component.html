@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row">
+    <mat-tab-group mat-align-tabs="center" animationDuration="0ms" (selectedTabChange)="selectedTab($event)"
+    [(selectedIndex)]="tabIndex">
+    <mat-tab label="Users">
+      <div class="container" style="padding: 15px">
+        <div class="row justify-content-sm-center">
+          <!-- <img class="" style="padding: 10px; width: 40px; height: 40px;" -->
+            <!-- src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /> -->
+          <mat-card>
+            <button *ngIf="roleId == 1" type="button" class="btn btn-primary" style="margin-bottom: 20px; " (click)="createUser()">Create User</button>
+              <table #dataTable id="dt" class="display datatable">
+              </table>
+          </mat-card>
+
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Roles">
+      <div class="container" style="padding: 15px">
+        <div class="row justify-content-sm-center">
+          <mat-card>
+            <button *ngIf="roleId == 1" type="button" class="btn btn-primary" style="margin-bottom: 20px; " (click)="createRole()">Create Role</button>
+              <table #dataTable id="dt2" class="display datatable">
+              </table>
+          </mat-card>
+
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="User Roles">
+      <div class="container" style="padding: 15px;">
+        <div class="row justify-content-sm-center">
+          <mat-card>
+              <table #dtUserRoles id="dtUserRoles" class="display datatable">
+              </table>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+  </div>
+</div>
+
+<app-footer></app-footer>

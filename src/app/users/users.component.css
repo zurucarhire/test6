@@ -1,0 +1,39 @@
+section {
+    background-color: #ffffff;
+}
+
+table {
+    font-family: 'Changa' !important;
+    width: 100% !important;
+}
+
+.btn {
+    font-size: 13px;
+    color: #f0f0f0;
+}
+
+::ng-deep .mat-tab-label .mat-tab-label-content {
+    font-family: 'Changa' !important;
+    font-weight: bold;
+}
+
+.modal-title {
+    font-family: 'Changa' !important;
+    font-weight: bold;
+}
+
+
+.modal-body, select,h3, input, button {
+    font-family: 'Changa' !important;
+    font-size: 12px;
+}
+
+body  {
+    /* float: right !important; */
+    background-color: black !important;
+    text-align: right;
+    }
+
+    .dataTables_Filter{
+        float: left;
+    }

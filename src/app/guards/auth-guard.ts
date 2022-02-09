@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
     // if (this.apiService.isAuthenticated()) {
     //     return true;
     // }
-    if (sessionStorage.getItem('token')) {
+    if (sessionStorage.getItem('accesstoken')) {
         // logged in so return true
         return true;
     }

@@ -10,59 +10,51 @@ import { NotificationService } from '../service/notification.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loading = false;
-  emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  constructor(private router: Router, 
-    private api: ApiService,
-    private notifyService: NotificationService) { }
+
+  loginattempts: number = 1;
+  loading: boolean = false;
+  constructor(private router: Router,private api: ApiService, private notifyService: NotificationService) { }
 
   ngOnInit(): void {
   }
 
-  login(){
-    this.router.navigate(['/login', {}]);
-  }
-
-  signup(){
-    this.router.navigate(['/register', {}]);
-  }
-
-  submit(form: NgForm){
-    
-    const email:string = form.value.email;
-    const password:string = form.value.password;
-    console.log(email)
+  login(form: NgForm){
+    let username = form.value.username;
+    let password = form.value.password;
+    console.log(username)
     console.log(password)
 
-    if (email == '' || password == '') {
-      this.notifyService.showError("Please enter all fields", "Validation error");
-      return;
+    if (username == "" || password == ""){
+      this.notifyService.showError("Something went wrong, please try again", "Something went wrong");
+     return 
     }
 
-    if (!this.emailRegex.test(email)) {
-      this.notifyService.showError("Invalid email address", "Email Invalid");
-      return;
-    }
-
-    this.loading = true;
-    let user = {email: email.trim().toLowerCase(), password: password.trim()};
+    let user = {email: username, password: password.trim(), loginAttempt: this.loginattempts};
     sessionStorage.clear()
     this.api.authenticate(user).subscribe(
       data => {
         this.loading = false;
         console.log("data => ",data);
-        sessionStorage.setItem('customer', JSON.stringify(data));
-        sessionStorage.setItem("email", data['email']);
-        sessionStorage.setItem("token", "Bearer " + data['token']);
+        if (data["active"] == 0){
+          this.notifyService.showError("Please contact administrator to activate your account", "Account Inactive");
+          return;
+        }
+        sessionStorage.setItem('user', JSON.stringify(data));
+        let u = JSON.parse(sessionStorage.getItem('user'));
+        sessionStorage.setItem("email", data['user']['emailAddress']);
+        sessionStorage.setItem("accesstoken", data['accessToken']);
+        sessionStorage.setItem("refreshtoken", data['refreshToken']);
         this.notifyService.showSuccess("Login Successful", "Success");
         this.router.navigate(['/home']);
       },
       error => {
+        this.loginattempts = this.loginattempts + 1;
         this.loading = false;
         console.log("error => ",error);
         this.notifyService.showError("Invalid Credentials", "Unable to login");
       }
     );
+   // this.router.navigate(['/home', {}]);
   }
 
 }

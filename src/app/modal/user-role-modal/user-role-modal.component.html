@@ -1,0 +1,73 @@
+<!-- <div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Simple modal</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <input [(ngModel)]="modalData.name" type="text">
+  <input [(ngModel)]="modalData.age" type="number">
+  <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Pass back</button>
+</div> -->
+<div *ngIf="modalData.tag == 'editUserRoles';then edit else delete">here is ignored</div>
+<ng-template #edit>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">User Role Update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #editUserRoleForm="ngForm" >
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+
+            <select name="edituserroleroleid" class="form-select" id="floatingSelect"
+              aria-label="Floating label select example" [(ngModel)]="modalData.roleName"
+              [class.is-invalid]="edituserroleroleid.invalid && edituserroleroleid.touched"
+              ngModel #edituserroleroleid="ngModel"
+               required autofocus>
+              <option [value]="item.roleID" *ngFor="let item of modalData.roles">{{item.roleName}}
+              </option>
+            </select>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Select Role</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button (click)="passBack()" [disabled]="editUserRoleForm.form.invalid" type="submit" class="btn btn-primary w-100">Edit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #delete>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Delete User Role</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #deleteGroupForm="ngForm">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <h3 style="text-align: center;">Are you sure you want to delete the user role?</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Delete</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

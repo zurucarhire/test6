@@ -1,0 +1,57 @@
+
+
+<ng-template #edit [ngIf]="modalData.tag == 'edit'">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update Expiry Period</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #editUserForm="ngForm">
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="expiryPeriod" type="number" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #expiryPeriod="ngModel"
+              [(ngModel)]="modalData.expiryPeriod"
+              [class.is-invalid]="expiryPeriod.invalid && expiryPeriod.touched" ngModel required >
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Expiry Period</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button (click)="passBack()" [disabled]="editUserForm.form.invalid" type="submit" class="btn btn-primary w-100">Update</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #delete [ngIf]="modalData.tag == 'delete'">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Delete Expiry Period</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #deleteGroupForm="ngForm">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <h3 style="text-align: center;">Are you sure you want to delete the expiry period?</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Delete</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

@@ -1,50 +1,37 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AccountComponent } from './account/account.component';
 import { AuthGuard } from './guards/auth-guard';
-import { HomeComponent } from './home/home.component';
-import { InvoiceComponent } from './invoice/invoice.component';
-import { LandingpageComponent } from './landingpage/landingpage.component';
-import { LoginComponent } from './login/login.component';
-import { MerchantregistrationComponent } from './merchantregistration/merchantregistration.component';
-import { RegisterComponent } from './register/register.component';
-import { SettlementComponent } from './settlement/settlement.component';
-import { SigninComponent } from './signin/signin.component';
-import { SignupComponent } from './signup/signup.component';
-import { TransactionComponent } from './transaction/transaction.component';
 
 
 const routes: Routes = [{path: '', redirectTo: '/', pathMatch: 'full'},
-{path: '', component: LandingpageComponent},
 {
   path: '',
-  children: [
-    { path: '', component: LandingpageComponent},
-  ]
+  loadChildren: () => import('src/app/login/login.module').then(m => m.LoginModule)
 },
 {
-  path: 'signin',
-  component: SigninComponent,
+  path: 'home', canActivate: [AuthGuard],
+  loadChildren: () => import('src/app/home/home.module').then(m => m.HomeModule)
 },
 {
-  path: 'login',
-  component: LoginComponent,
+  path: 'users', canActivate: [AuthGuard],
+  loadChildren: () => import('src/app/users/users.module').then(m => m.UsersModule)
 },
 {
-  path: 'signup',
-  component: SignupComponent,
+  path: 'audit',canActivate: [AuthGuard],
+  loadChildren: () => import('src/app/audit/audit.module').then(m => m.AuditModule)
 },
 {
-  path: 'register',
-  component: RegisterComponent,
+  path: 'account',
+  loadChildren: () => import('src/app/account/account.module').then(m => m.AccountModule)
 },
-{path:'home',component: HomeComponent, canActivate: [AuthGuard]},
-{path:'merchantregistration',component: MerchantregistrationComponent, canActivate: [AuthGuard]},
-{path:'invoices',component: InvoiceComponent, canActivate: [AuthGuard]},
-{path:'settlements',component: SettlementComponent, canActivate: [AuthGuard]},
-{path:'transactions',component: TransactionComponent, canActivate: [AuthGuard]},
-{path:'account',component: AccountComponent, canActivate: [AuthGuard]},
-
+{
+  path: 'expiry',
+  loadChildren: () => import('src/app/expirycheck/expirycheck.module').then(m => m.ExpirycheckModule)
+},
+{
+  path: 'report',
+  loadChildren: () => import('src/app/report/report.module').then(m => m.ReportModule)
+},
 {path: '**', redirectTo: '/'}
 ];
 
