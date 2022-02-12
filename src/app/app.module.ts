@@ -20,7 +20,7 @@ import { SearchModalComponent } from './modal/search-modal/search-modal.componen
 @NgModule({
   declarations: [
     AppComponent,
-    SearchModalComponent,
+    SearchModalComponent
   ],
   imports: [
     BrowserModule,

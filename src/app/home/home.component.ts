@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RoleModalComponent } from '../modal/role-modal/role-modal.component';
 import { SearchModalComponent } from '../modal/search-modal/search-modal.component';
-import { Requesttype } from '../model/requesttype';
+import { RequestType } from '../model/requestType';
 import { User } from '../model/user';
 import { ApiService } from '../service/api.service';
 declare var $;
@@ -21,18 +21,18 @@ export class HomeComponent implements OnInit {
   d;
   searchData;
   searchDatatable:any;
-  requesttypedata: Requesttype[];
+  requesttypedata: RequestType[];
   constructor(private api: ApiService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.fetchRequestTypes()
+    this.getActiveRequestTypes()
     //this.getSearch();
     this.initSearchDatatables([]);
   }
 
-  fetchRequestTypes(){
-    this.api.findAllRequestTypes().subscribe(
-      (data: Requesttype[]) => {
+  getActiveRequestTypes(){
+    this.api.findAllActiveRequestTypes().subscribe(
+      (data: RequestType[]) => {
         this.requesttypedata = data;
     }, error => {
       console.log(error);

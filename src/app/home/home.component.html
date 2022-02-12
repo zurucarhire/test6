@@ -14,7 +14,7 @@
                                         <select name="requesttype" class="form-select" id="floatingSelect"
                             aria-label="Floating label select example" #requesttype="ngModel"
                             [class.is-invalid]="requesttype.invalid && requesttype.touched" ngModel required autofocus>
-                            <option [value]="item.requestname" *ngFor="let item of requesttypedata">{{item.requestname}}</option>
+                            <option [value]="item.requestTypeName" *ngFor="let item of requesttypedata">{{item.requestTypeName}}</option>
                         </select>
                                         <label for="floatingSelect">Request Type</label>
                                     </div>

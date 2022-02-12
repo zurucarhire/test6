@@ -15,6 +15,10 @@ export class AuditComponent implements OnInit {
   data = [];
   dtOptionsUserLogs: any;
   dtOptionsChangeLogs: any;
+
+  userLogsDatatable;
+  changeLogsDatatable;
+
   constructor(private api: ApiService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -25,12 +29,15 @@ export class AuditComponent implements OnInit {
         if (value == 'user logs'){
           this.tabIndex = 0
           //this.intd();
+          this.getUserLogs2()
         } else if (value == 'change logs'){
           this.tabIndex = 1
           //this.getChangeLogs();
+          this.getChangeLogs2()
         } else {
           console.log("gggkkkk",params);
           this.tabIndex = 0
+          this.getUserLogs2();
           //this.getUserLogs();
         }
       }
@@ -39,12 +46,35 @@ export class AuditComponent implements OnInit {
 
   ngAfterViewInit(){
     if (this.tabIndex == 0){
-      this.intd();
+      //this.intd();
+      this.initUserLogsDatatables([]);
     } else if (this.tabIndex == 1){
-      this.intd2();
+      //this.intd2();
+      this.initChangeLogsDatatables([]);
     } else {
-      this.intd();
+      //this.intd();
+      this.initUserLogsDatatables([]);
     }
+  }
+
+  getUserLogs2() {
+    this.api.findAllLoginLogs().subscribe(
+      data => {
+        console.log("ppoopp",data);
+        this.userLogsDatatable.clear().rows.add(data).draw();
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  getChangeLogs2() {
+    this.api.findAllChangeLogs().subscribe(
+      data => {
+        console.log("lolo", data);
+        this.changeLogsDatatable.clear().rows.add(data).draw();
+      }, error => {
+        console.log(error);
+      });
   }
 
   getUserLogs(){
@@ -159,28 +189,33 @@ export class AuditComponent implements OnInit {
       columns: [
         {
           title: 'User Name',
-          data: 'clientname',
+          data: 'user.userName',
           className: "text-center"
         },
         {
           title: 'Login Time',
-          data: 'emailaddress',
+          data: 'loginTime',
           className: "text-center"
         },
         {
           title: 'Logout Time',
-          data: 'emailaddress',
+          data: 'logoutTime',
           className: "text-center"
         },
         {
           title: 'Login Ip',
-          data: 'emailaddress',
+          data: 'loginIP',
+          className: "text-center"
+        },
+        {
+          title: 'Login Attempts',
+          data: 'attemptsBeforeLogin',
           className: "text-center"
         }
       ]
     };
 
-    $('#dtUserLogs').DataTable(this.dtOptionsUserLogs);
+    this.userLogsDatatable = $('#dtLoginLogs').DataTable(this.dtOptionsUserLogs);
   }
 
   initChangeLogsDatatables(data) {
@@ -192,28 +227,41 @@ export class AuditComponent implements OnInit {
       retrieve: true,
       columns: [
         {
-          title: 'User Name',
-          data: 'clientname',
+          title: 'Inserted By',
+          data: 'user.userName',
           className: "text-center"
         },
         {
-          title: 'Login Time',
-          data: 'emailaddress',
+          title: 'Narration',
+          data: 'narration',
+          className: "text-center"
+        },
+        {
+          title: 'Date Created',
+          data: 'dateCreated',
           className: "text-center"
         }
       ]
     };
 
-    $('#dtChangeLogs').DataTable(this.dtOptionsChangeLogs);
+    this.changeLogsDatatable = $('#dtChangeLogs').DataTable(this.dtOptionsChangeLogs);
   }
 
   selectedTab(e: MatTabChangeEvent) {
     console.log(e.index);
     let index = e.index;
     if (index == 0) {
-      this.getUserLogs();
+     //this.getUserLogs();
+     if (this.userLogsDatatable == null || this.userLogsDatatable == undefined) {
+      this.initUserLogsDatatables([]);
+    }
+    this.getUserLogs2();
     } else if (index == 1) {
-      this.getChangeLogs();
+      //this.getChangeLogs();
+      if (this.changeLogsDatatable == null || this.changeLogsDatatable == undefined) {
+        this.initChangeLogsDatatables([]);
+      }
+      this.getChangeLogs2();
     }
   }
 }

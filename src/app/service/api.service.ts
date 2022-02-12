@@ -56,7 +56,7 @@ export class ApiService {
   }
 
   findExpiry() {
-    const url = this.url+"/api/iprs/expiry/findall";
+    const url = this.url+"/api/iprs/expiryperiod/findall";
     return this.http.get(url);
   }
 
@@ -76,6 +76,11 @@ export class ApiService {
     return this.http.get(url);
   }
 
+  findAllActiveRoles() {
+    const url = this.url+"/api/iprs/role/findallactiveroles";
+    return this.http.get(url);
+  }
+
   updateUser(id, updatedBy, user) {
     const url = this.url+"/api/iprs/user/update/"+id+"/"+updatedBy;
     return this.http.put(url,user);
@@ -86,19 +91,29 @@ export class ApiService {
     return this.http.put(url,{});
   }
 
-  updateRole(id, description) {
-    const url = this.url+"/api/iprs/role/update/"+id+"/"+description
-    return this.http.put(url,{});
+  updateRole(id, role) {
+    const url = this.url+"/api/iprs/role/update/"+id;
+    return this.http.put(url,role);
+  }
+
+  saveExpiryPeriod(createdBy, expiryPeriod) {
+    const url = this.url+"/api/iprs/expiryperiod/create/"+createdBy;
+    return this.http.post(url,expiryPeriod);
   }
 
   updateExpiryPeriod(id, period) {
-    const url = this.url+"/api/iprs/expiry/update/"+id+"/"+period
+    const url = this.url+"/api/iprs/expiryperiod/update/"+id+"/"+period
     return this.http.put(url,{});
   }
 
   deleteUser(id, updatedBy) {
     const url = this.url+"/api/iprs/user/delete/"+id+"/"+updatedBy
     return this.http.delete(url,{});
+  }
+
+  resetPassword(userId, updatedBy) {
+    const url = this.url+"/api/iprs/user/resetpassword/"+userId+"/"+updatedBy
+    return this.http.put(url,{});
   }
 
   deleteExpiryPeriod(id) {
@@ -112,9 +127,46 @@ export class ApiService {
     return this.http.delete(url,{});
   }
 
-  saveUser(insertedby, user) {
-    const url = this.url+"/api/iprs/user/create/"+insertedby;
+  saveUser(createdBy, user) {
+    const url = this.url+"/api/iprs/user/create/"+createdBy;
     return this.http.post(url,user);
+  }
+
+  saveClient(createdBy, client) {
+    const url = this.url+"/api/iprs/client/create/"+createdBy;
+    return this.http.post(url,client);
+  }
+
+  updateClient(clientId, updatedBy, client) {
+    const url = this.url+"/api/iprs/client/update/"+clientId+"/"+updatedBy;
+    return this.http.put(url,client);
+  }
+
+  deleteClient(clientId, updatedBy) {
+    const url = this.url+"/api/iprs/client/delete/"+clientId+"/"+updatedBy;
+    return this.http.delete(url,{});
+  }
+
+  saveRequestType(createdBy, client) {
+    const url = this.url+"/api/iprs/requesttype/create/"+createdBy;
+    return this.http.post(url,client);
+  }
+
+  updateRequestType(requestTypeId, updatedBy, requestType) {
+    console.log(requestType['requestTypeID']);
+    console.log(requestType['requestTypeName']);
+    console.log(requestType['active']);
+    console.log(requestType['createdBy']);
+    console.log(requestType['updatedBy']);
+    console.log(requestType['dateCreated']);
+    console.log(requestType['dateModified']);
+    const url = this.url+"/api/iprs/requesttype/update/"+requestTypeId+"/"+updatedBy;
+    return this.http.put(url, requestType);
+  }
+
+  deleteRequestType(requestTypeId, updatedBy) {
+    const url = this.url+"/api/iprs/requesttype/delete/"+requestTypeId+"/"+updatedBy;
+    return this.http.delete(url,{});
   }
 
   editAccount(id, email, idNumber, msisdn) {
@@ -143,8 +195,23 @@ export class ApiService {
     return this.http.get(url);
   }
 
+  findAllLoginLogs() {
+    const url = this.url+"/api/iprs/loginlog/findall";
+    return this.http.get(url);
+  }
+
+  findAllChangeLogs() {
+    const url = this.url+"/api/iprs/changelog/findall";
+    return this.http.get(url);
+  }
+
   findAllRequestTypes() {
     const url = this.url+"/api/iprs/requesttype/findall";
+    return this.http.get(url);
+  }
+
+  findAllActiveRequestTypes() {
+    const url = this.url+"/api/iprs/requesttype/findallactiverequesttypes";
     return this.http.get(url);
   }
 }

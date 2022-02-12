@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExpirycheckComponent } from './expirycheck.component';
+import { RequestTypeModalComponent } from './request-type-modal.component';
 
-describe('ExpirycheckComponent', () => {
-  let component: ExpirycheckComponent;
-  let fixture: ComponentFixture<ExpirycheckComponent>;
+describe('RequestTypeModalComponent', () => {
+  let component: RequestTypeModalComponent;
+  let fixture: ComponentFixture<RequestTypeModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExpirycheckComponent ]
+      declarations: [ RequestTypeModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExpirycheckComponent);
+    fixture = TestBed.createComponent(RequestTypeModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

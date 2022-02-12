@@ -1,16 +1,4 @@
-<!-- <div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Simple modal</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<div class="modal-body">
-  <input [(ngModel)]="modalData.name" type="text">
-  <input [(ngModel)]="modalData.age" type="number">
-  <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Pass back</button>
-</div> -->
-<!-- <div *ngIf="modalData.tag == 'createUser';then create else delete">here is ignored</div> -->
-<ng-template #create [ngIf]="modalData.tag == 'createUser'">
+<ng-template #createUser [ngIf]="modalData.tag == 'createUser'">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Create User</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -70,10 +58,10 @@
       <div class="row">
         <div class="col-md-12 col-sm-1 col-lg-12">
           <div class="form-floating mb-3">
-            <input name="idNumber" type="number" class="form-control" id="formGroupExampleInput2"
-              id="formGroupExampleInput" #idNumber="ngModel"
+            <input name="create_user_idnumber" type="text" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #create_user_idnumber="ngModel"
               [(ngModel)]="modalData.idNumber"
-              [class.is-invalid]="idNumber.invalid && idNumber.touched" ngModel required>
+              [class.is-invalid]="create_user_idnumber.invalid && create_user_idnumber.touched" ngModel required>
             <label for="floatingInput" style="font-size: 13px; color: #666;">ID Number</label>
           </div>
         </div>
@@ -91,6 +79,20 @@
       </div>
       <div class="row">
         <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <select name="user_create_roles" class="form-select" id="floatingSelect"
+              aria-label="Floating label select example" #user_create_roles="ngModel"
+              [class.is-invalid]="user_create_roles.invalid && user_create_roles.touched" ngModel
+              [(ngModel)]="modalData.roleID" required autofocus>
+              <option [value]="item.roleID" *ngFor="let item of modalData.roles">{{item.roleAlias}}
+              </option>
+            </select>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Roles</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
           <button (click)="passBack()" [disabled]="createUserForm.form.invalid" type="submit" class="btn btn-primary w-100">Create</button>
         </div>
       </div>
@@ -98,7 +100,7 @@
   </div>
 </ng-template>
 
-<ng-template #edit [ngIf]="modalData.tag == 'editUser'">
+<ng-template #editUser [ngIf]="modalData.tag == 'editUser'">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Update User</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -111,9 +113,9 @@
       <div class="row">
         <div class="col-md-12 col-sm-1 col-lg-12">
           <div class="form-floating mb-3">
-            <select name="clientname" class="form-select" id="floatingSelect"
-              aria-label="Floating label select example" #clientname="ngModel"
-              [class.is-invalid]="clientname.invalid && clientname.touched" ngModel
+            <select name="client_name_edit" class="form-select" id="floatingSelect"
+              aria-label="Floating label select example" #client_name_edit="ngModel"
+              [class.is-invalid]="client_name_edit.invalid && client_name_edit.touched" ngModel
               [(ngModel)]="modalData.clientID" required autofocus >
               <option disabled [value]="item.clientID" *ngFor="let item of modalData.clients">{{item.clientName}}
               </option>
@@ -179,6 +181,34 @@
       </div>
       <div class="row">
         <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <select name="user_role_edit" class="form-select" id="floatingSelect"
+              aria-label="Floating label select example" #user_role_edit="ngModel"
+              [class.is-invalid]="user_role_edit.invalid && user_role_edit.touched" ngModel
+              [(ngModel)]="modalData.roleID" required autofocus>
+              <option [value]="item.roleID" *ngFor="let item of modalData.roles">{{item.roleAlias}}
+              </option>
+            </select>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Roles</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <select name="user_active_edit" class="form-select" id="floatingSelect"
+              aria-label="Floating label select example" #user_active_edit="ngModel"
+              [class.is-invalid]="user_active_edit.invalid && user_active_edit.touched" ngModel
+              [(ngModel)]="modalData.active" required>
+              <option [value]="1">Yes</option>
+              <option [value]="0">No</option>
+            </select>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Active?</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
           <button (click)="passBack()" [disabled]="editUserForm.form.invalid" type="submit" class="btn btn-primary w-100">Update</button>
         </div>
       </div>
@@ -186,7 +216,7 @@
   </div>
 </ng-template>
 
-<ng-template #delete [ngIf]="modalData.tag == 'deleteUser'">
+<ng-template #deleteUser [ngIf]="modalData.tag == 'deleteUser'">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Delete User</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -207,6 +237,33 @@
       <div class="row">
         <div class="col-md-12 col-sm-1 col-lg-12">
           <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Delete</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #resetUserPassword [ngIf]="modalData.tag == 'resetUserPassword'">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Reset User Password</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #resetPasswordGroupForm="ngForm">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <h3 style="text-align: center;">Are you sure you want to reset the user password?</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Reset Password</button>
         </div>
       </div>
     </form>

@@ -1,6 +1,6 @@
-export interface RequestType {
-  requestTypeID: number;
-  requestName: string;
+export interface ExpiryPeriod {
+  expiryID: number;
+  expiryPeriod: number;
   active: number;
   createdBy: number;
   updatedBy: number;

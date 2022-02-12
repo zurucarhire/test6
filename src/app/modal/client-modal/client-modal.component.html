@@ -1,0 +1,140 @@
+<ng-template #createClient [ngIf]="modalData.tag == 'create'">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Create Client</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #createClientForm="ngForm">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="client_name_create" type="text" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #client_name_create="ngModel"
+              [(ngModel)]="modalData.clientName"
+              [class.is-invalid]="client_name_create.invalid && client_name_create.touched" ngModel required >
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Client Name</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <textarea class="form-control" id="floatingTextarea"
+              name="client_description_create" #client_description_create="ngModel"
+              [(ngModel)]="modalData.clientDescription"
+              [class.is-invalid]="client_description_create.invalid && client_description_create.touched" ngModel required></textarea>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Description</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <select name="client_active_create" class="form-select" id="floatingSelect"
+              aria-label="Floating label select example" #client_active_create="ngModel"
+              [class.is-invalid]="client_active_create.invalid && client_active_create.touched" ngModel
+              [(ngModel)]="modalData.active" required>
+              <option [value]="1">Yes</option>
+              <option [value]="0">No</option>
+            </select>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Active?</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button (click)="passBack()" [disabled]="createClientForm.form.invalid" type="submit" class="btn btn-primary w-100">Create</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #editClient [ngIf]="modalData.tag == 'edit'">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Client</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #editClientForm="ngForm">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="client_name_edit" type="text" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #client_name_edit="ngModel"
+              [(ngModel)]="modalData.clientName"
+              [class.is-invalid]="client_name_edit.invalid && client_name_edit.touched" ngModel required >
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Client Name</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <textarea class="form-control" id="floatingTextarea"
+              name="client_description_edit" #client_description_edit="ngModel"
+              [(ngModel)]="modalData.clientDescription"
+              [class.is-invalid]="client_description_edit.invalid && client_description_edit.touched" ngModel required></textarea>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Description</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <select name="client_active_edit" class="form-select" id="floatingSelect"
+              aria-label="Floating label select example" #client_active_edit="ngModel"
+              [class.is-invalid]="client_active_edit.invalid && client_active_edit.touched" ngModel
+              [(ngModel)]="modalData.active" required>
+              <option [value]="1">Yes</option>
+              <option [value]="0">No</option>
+            </select>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Active?</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button (click)="passBack()" [disabled]="editClientForm.form.invalid" type="submit" class="btn btn-primary w-100">Create</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #deleteClient [ngIf]="modalData.tag == 'delete'">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Delete Client</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #deleteGroupForm="ngForm">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <h3 style="text-align: center;">Are you sure you want to delete the client?</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Delete</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

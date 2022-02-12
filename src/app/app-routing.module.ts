@@ -25,8 +25,8 @@ const routes: Routes = [{path: '', redirectTo: '/', pathMatch: 'full'},
   loadChildren: () => import('src/app/account/account.module').then(m => m.AccountModule)
 },
 {
-  path: 'expiry',
-  loadChildren: () => import('src/app/expirycheck/expirycheck.module').then(m => m.ExpirycheckModule)
+  path: 'settings',
+  loadChildren: () => import('src/app/settings/settings.module').then(m => m.SettingsModule)
 },
 {
   path: 'report',

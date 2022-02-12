@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ExpirycheckComponent } from './expirycheck.component';
+import { SettingsComponent } from './settings.component';
 
 
 const routes: Routes = [{
   path: "",
-  component: ExpirycheckComponent
+  component: SettingsComponent
 }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ExpirycheckRoutingModule { }
+export class SettingsRoutingModule { }
