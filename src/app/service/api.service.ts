@@ -170,7 +170,7 @@ export class ApiService {
   }
 
   editAccount(id, email, idNumber, msisdn) {
-    const url = this.url+"/api/iprs/user/editaccount?userId="+id+"&email="+email+"&idNumber="+idNumber+"&msisdn="+msisdn;
+    const url = this.url+"/api/iprs/user/updateaccount?userId="+id+"&email="+email+"&idNumber="+idNumber+"&msisdn="+msisdn;
     return this.http.put(url,{});
   }
 

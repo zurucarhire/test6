@@ -21,6 +21,10 @@ export class AccountComponent implements OnInit {
   idnumbervalue;
   msisdnvalue;
 
+  oldPasswordVal: string;
+  newPasswordVal: string;
+  confirmPasswordVal: string;
+
   emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
   constructor(private api: ApiService, private notifyService: NotificationService,private modalService: NgbModal) { }
@@ -58,12 +62,23 @@ export class AccountComponent implements OnInit {
     let newPassword = form.value.newpassword;
     let confirmPassword = form.value.repeatpassword;
 
+    if (newPassword != confirmPassword){
+      this.notifyService.showError("Passwords do not match", "Password mismatch");
+      return
+    }
+
     this.api.changePassword(this.userId, oldPassword, newPassword, confirmPassword).subscribe(
       data => {
-        this.notifyService.showSuccess("Update successful", "Success");
+        this.oldPasswordVal = "";
+        this.newPasswordVal = "";
+        this.confirmPasswordVal = "";
+        this.notifyService.showSuccess("Your password has been changed", "Success");
     }, error => {
-      console.log(error);
-      this.notifyService.showError("Something went wrong, please try again", "Oops");
+      if (error.error != null) {
+        this.notifyService.showError(error.error.message, "Warning");
+      } else {
+        this.notifyService.showError("Something went wrong, please try again", "Oops");
+      }
     });
   }
 

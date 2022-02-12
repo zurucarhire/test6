@@ -64,19 +64,19 @@
                     <div class="form-floating mb-3">
                         <input name="oldpassword" type="password" class="form-control" id="formGroupExampleInput2"
                         id="formGroupExampleInput" placeholder="Old Password" #oldpassword="ngModel"
-                        [class.is-invalid]="oldpassword.invalid && oldpassword.touched" ngModel required>
+                        [class.is-invalid]="oldpassword.invalid && oldpassword.touched" [(ngModel)]="oldPasswordVal" ngModel required>
                         <label for="floatingInput" style="font-size: 13px; color: #666;">Old Password</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input name="newpassword" type="password" class="form-control" id="formGroupExampleInput2"
                         id="formGroupExampleInput" placeholder="New Password" #newpassword="ngModel"
-                        [class.is-invalid]="newpassword.invalid && newpassword.touched" ngModel required>
+                        [class.is-invalid]="newpassword.invalid && newpassword.touched" [(ngModel)]="newPasswordVal" ngModel required>
                         <label for="floatingInput" style="font-size: 13px; color: #666;">New Password</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input name="repeatpassword" type="password" class="form-control" id="formGroupExampleInput2"
                         id="formGroupExampleInput" placeholder="Repeat Password" #repeatpassword="ngModel"
-                        [class.is-invalid]="repeatpassword.invalid && repeatpassword.touched" ngModel required>
+                        [class.is-invalid]="repeatpassword.invalid && repeatpassword.touched" [(ngModel)]="confirmPasswordVal" ngModel required>
                         <label for="floatingInput" style="font-size: 13px; color: #666;">Repeat Password</label>
                     </div>
                     <input type="submit" name="submit" class="submit action-button btn btn-primary" [disabled]="form.form.invalid" value="Submit"/>
@@ -112,7 +112,7 @@
       <div class="row">
         <div class="col-md-12 col-sm-1 col-lg-12">
           <div class="form-floating mb-3">
-            <input name="editidnumber" type="text" class="form-control" id="formGroupExampleInput2"
+            <input name="editidnumber" type="number" class="form-control" id="formGroupExampleInput2"
               #editidnumber="ngModel" [class.is-invalid]="editidnumber.invalid && editidnumber.touched" ngModel
               [(ngModel)]="idnumbervalue">
             <label for="floatingInput" style="font-size: 13px; color: #666;">ID Number</label>
@@ -122,7 +122,7 @@
       <div class="row">
         <div class="col-md-12 col-sm-1 col-lg-12">
           <div class="form-floating mb-3">
-            <input name="editmsisdn" type="text" class="form-control" id="formGroupExampleInput2"
+            <input name="editmsisdn" type="number" class="form-control" id="formGroupExampleInput2"
               #editmsisdn="ngModel" [class.is-invalid]="editmsisdn.invalid && editmsisdn.touched" ngModel
               [(ngModel)]="msisdnvalue">
             <label for="floatingInput" style="font-size: 13px; color: #666;">Phone Number</label>
