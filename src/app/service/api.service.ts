@@ -77,7 +77,7 @@ export class ApiService {
   }
 
   findAllActiveRoles() {
-    const url = this.url+"/api/iprs/role/findallactiveroles";
+    const url = this.url+"/api/iprs/role/findallactive";
     return this.http.get(url);
   }
 
@@ -195,6 +195,11 @@ export class ApiService {
     return this.http.get(url);
   }
 
+  findAllActiveClients() {
+    const url = this.url+"/api/iprs/client/findallactive";
+    return this.http.get(url);
+  }
+
   findAllLoginLogs() {
     const url = this.url+"/api/iprs/loginlog/findall";
     return this.http.get(url);
@@ -211,7 +216,7 @@ export class ApiService {
   }
 
   findAllActiveRequestTypes() {
-    const url = this.url+"/api/iprs/requesttype/findallactiverequesttypes";
+    const url = this.url+"/api/iprs/requesttype/findallactive";
     return this.http.get(url);
   }
 }

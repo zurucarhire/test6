@@ -159,7 +159,7 @@ export class UsersComponent implements OnInit {
   }
 
   fetchAsync() {
-    let clients = this.api.findAllClients();
+    let clients = this.api.findAllActiveClients();
     let roles = this.api.findAllActiveRoles();
     let requestTypes = this.api.findAllRequestTypes();
     forkJoin([clients, roles, requestTypes]).subscribe(results => {
