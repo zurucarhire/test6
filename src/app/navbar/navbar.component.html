@@ -19,7 +19,7 @@
                         <a style="font-weight: bolder;" class="nav-link search-nav" href="#" [routerLink]="[ '/home']"
                             routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Search</a>
                     </li>
-                    <li class="nav-item" *ngIf="roleId==1 || roleId==2">
+                    <li class="nav-item" *ngIf="roleId==1 || roleId==2 || roleId==3">
                         <div class="dropdown show">
                             <a style="border: 0; font-weight: bold; margin-top: 1px; " class="btn btn-default dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               User Management
@@ -83,7 +83,7 @@
                             </div>
                           </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="roleId==1 || roleId==2">
                         <div class="dropdown show">
                             <a style="border: 0; font-weight: bold; margin-top: 1px;" class="btn btn-default dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Audit
@@ -108,7 +108,7 @@
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" style="padding: 4px;">
                 <ul class="navbar-nav ml-auto" style="margin-top: -3px;">
 
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="roleId==1 || roleId==2 || roleId==3">
                         <a style="font-weight: bolder;" class="nav-link" href="#" [routerLink]="[ '/settings']"
                             routerLinkActive="active-list-item"
                             [routerLinkActiveOptions]="{exact: true}"><i class="fa fa-cog fa-lg"></i></a>

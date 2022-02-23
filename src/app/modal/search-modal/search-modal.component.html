@@ -2,7 +2,8 @@
   <div id="DivIdToPrint">
   <div class="row">
     <div class="col-md-6">Photo</div>
-    <div class="col-md-6 text-right" style="float: right;"><img src="../../../assets/images/standard-chartered-logo-top-resized.png"></div>
+    <div class="col-md-6 text-right" style="float: right;"><img src="../../../assets/images/profilemale2.png"></div>
+    <!-- <div class="col-md-6 text-right" style="float: right;"><img src="https://shikatei.co.ke/{{modalData.photo}}"></div> -->
   </div><br>
   <div class="row">
     <div class="col-md-6">ID Number</div>
@@ -45,7 +46,35 @@
   <div class="col-md-6">Occupation</div>
   <div class="col-md-6 text-right" style="float: right;">{{modalData.occupation}}</div>
 </div>
+<div class="row">
+  <div class="col-md-6">Date Of Birth</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.dateOfBirth}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Place Of Birth</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.placeOfBirth}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Place Of Live</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.placeOfLive}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Place Of Death</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.placeOfDeath}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Date Of Issue</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.dateOfIssue}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Passport Expiry Date</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.passportExpiryDate}}</div>
+</div>
+<div class="row">
+  <div class="col-md-6">Reg Office</div>
+  <div class="col-md-6 text-right" style="float: right;">{{modalData.regOffice}}</div>
+</div>
 </div>
 
-<button (click)="passBack()" type="submit" class="btn btn-primary w-100">Update</button>
+<button (click)="passBack()" type="submit" class="btn btn-primary w-100">Print</button>
 </div>

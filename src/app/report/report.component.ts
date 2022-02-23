@@ -4,8 +4,10 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { forkJoin } from 'rxjs';
+import { Iprsrequest } from '../model/iprsrequest';
 import { User } from '../model/user';
 import { ApiService } from '../service/api.service';
+import { NotificationService } from '../service/notification.service';
 declare var $;
 @Component({
   selector: 'app-report',
@@ -33,6 +35,8 @@ export class ReportComponent implements OnInit {
   userdata: any;
 
   tabPosition = 0;
+  iprsrequeststartdate: string;
+  iprsrequestenddate: string;
 
   data = [];
   dtOptionsSearchLogs: any;
@@ -49,13 +53,16 @@ export class ReportComponent implements OnInit {
   dateofdeathvalue: string;
   dateofissuevalue: string;
 
+  requestfromdate: string;
+  requesttodate: string;
+
   myHolidayFilter = (d: Date): boolean => {
     const time = d.getTime();
     return !this.myDatesArray.find(x => x.getTime() == time);
   }
 
   constructor(private api: ApiService, private activatedRoute: ActivatedRoute,
-    private modalService: NgbModal) {
+    private modalService: NgbModal, private notifyService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -97,9 +104,10 @@ export class ReportComponent implements OnInit {
 
   ngAfterViewInit(): void{
     if (this.tabIndex == 0){
-      this.initSearchLogsDatatables([]);
-    } else if (this.tabIndex == 1){
       this.initIprsRequestsDatatables([]);
+
+    } else if (this.tabIndex == 1){
+      this.initSearchLogsDatatables([]);
     } else if (this.tabIndex == 2){
       this.initCustomerRecordsDatatables([]);
     }
@@ -107,7 +115,7 @@ export class ReportComponent implements OnInit {
 
   fetchAsync() {
     let users = this.api.findAllUsers();
-    let requestTypes = this.api.findAllRequestTypes();
+    let requestTypes = this.api.findAllActiveRequestTypes();
     forkJoin([users, requestTypes]).subscribe(results => {
       console.log("results 1 => ", results);
       this.userdata = results[0];
@@ -118,28 +126,57 @@ export class ReportComponent implements OnInit {
     ///this.fundChart(data);
   }
 
-  getSearchLogs(name){
-    this.api.findAllSearch2(name).subscribe(
-      data => {
-        console.log(this.searchLogsDatatable);
+  getSearchLogs(value){
+    let startDate = value.refreshedrequeststartdate;
+    let endDate = value.refreshedrequestenddate;
+    let requestedBy= value.refreshedrequestedby;
+    let requestType= value.refreshedrequesttype;
+    let requestNumber = value.refreshedrequestnumber;
+    let requestSerialNumber = value.refreshedrequestserialnumber;
+
+    this.api.findRequests(this.requestfromdate,this.requesttodate, "REFRESHED_LOG", requestType, requestNumber,requestSerialNumber,requestedBy).subscribe(
+      (data: Iprsrequest[]) => {
+        if (data.length == 0){
+          this.notifyService.showError("No data available", "Empty");
+        }
         this.searchLogsDatatable.clear().rows.add(data).draw();
     }, error => {
       console.log(error);
     });
   }
 
-  getIprsRequests(name){
-    this.api.findAllSearch2(name).subscribe(
-      data => {
+  getIprsRequests(value){
+    let startDate = value.iprsrequeststartdate;
+    let endDate = value.iprsrequestenddate;
+    let requestedBy= value.iprsrequestedby;
+    let requestType= value.iprsrequesttype;
+    let requestNumber = value.iprsrequestnumber;
+    let requestSerialNumber = value.iprsrequestserialnumber;
+
+    this.api.findRequests(this.requestfromdate,this.requesttodate, "IPRS_REQUEST_LOG", requestType, requestNumber,requestSerialNumber,requestedBy).subscribe(
+      (data: Iprsrequest[]) => {
+        if (data.length == 0){
+          this.notifyService.showError("No data available", "Empty");
+        }
         this.iprsRequestsDatatable.clear().rows.add(data).draw();
     }, error => {
       console.log(error);
     });
   }
 
-  getCustomerRecords(name){
-    this.api.findAllSearch2(name).subscribe(
-      data => {
+  getCustomerRecords(value){
+    let startDate = value.customerrequeststartdate;
+    let endDate = value.customerrequestenddate;
+    let requestedBy= value.customerrequestedby;
+    let requestType= value.customerrequesttype;
+    let requestNumber = value.customerrequestnumber;
+    let requestSerialNumber = value.customerrequestserialnumber;
+
+    this.api.findRequests(this.requestfromdate,this.requesttodate, "CUSTOMER_REQUEST_LOG", requestType, requestNumber,requestSerialNumber,requestedBy).subscribe(
+      (data: Iprsrequest[]) => {
+        if (data.length == 0){
+          this.notifyService.showError("No data available", "Empty");
+        }
         this.customerRecordsDatatable.clear().rows.add(data).draw();
     }, error => {
       console.log(error);
@@ -299,100 +336,39 @@ export class ReportComponent implements OnInit {
         {
           extend: 'excel',
           exportOptions: {
-              columns: [ 0, 1, 2, 3, 4 ]
+              columns: [ 0, 1, 2, 3, 4]
           }
         }
       ],
       columns: [
         {
-          data: null,
-          className: 'details-control',
-          defaultContent: '',
-          responsivePriority: 1
-      },
-        {
-          title: 'ID Number',
-          data: 'idnumber',
+          title: 'Username',
+          data: 'userName',
           className: "text-center"
         },
         {
-          title: 'Serial Number',
-          data: 'idserialNumber',
+          title: 'Request Type',
+          data: 'requestType',
           className: "text-center"
         },
         {
-          title: 'Pin',
-          data: 'pin',
+          title: 'Request Number',
+          data: 'requestNumber',
           className: "text-center"
         },
         {
-          title: 'First Name',
-          data: 'firstName',
+          title: 'Request Serial Number',
+          data: 'requestSerialNumber',
           className: "text-center"
         },
         {
-          title: 'Other Name',
-          data: 'otherName',
+          title: 'Date Created',
+          data: 'dateCreated',
           className: "text-center"
         },
-        {
-          title: 'Sur Name',
-          data: 'surName',
-          className: "text-center"
-        },
-        {
-          title: 'Family',
-          data: 'family',
-          className: "text-center"
-        },
-        {
-          title: 'Gender',
-          data: 'gender',
-          className: "text-center"
-        },
-        {
-          title: 'Citizenship',
-          data: 'citizenship',
-          className: "text-center"
-        },
-        {
-          title: 'Occupation',
-          data: 'occupation',
-          className: "text-center"
-        }
       ]
     };
     this.iprsRequestsDatatable = $('#dtIprsRequests').DataTable(dtOptions);
-
-    let scope = this;
-    $('#dtIprsRequests tbody').on('click', 'td.details-control', function () {
-      var tr = $(this).closest('tr');
-      var row = scope.iprsRequestsDatatable.row(tr);
-
-      if (row.child.isShown()) {
-        // This row is already open - close it
-        row.child.hide();
-        tr.removeClass('shown');
-      } else {
-        // Open this row
-        row.child(format2(row.data())).show();
-        tr.addClass('shown');
-      }
-  });
-
-  function format2(d) {
-    // `d` is the original data object for the row
-    let dRow = '';
-    dRow = dRow + '<tbody><tr>' +
-      '<td>' + d.dateOfBirth + '</td>' +
-      '<td>' + d.dateOfDeath + '</td>' +
-      '<td>' + d.dateOfIssue + '</td>' +
-      '<td>' + d.passportExpiryDate + '</td>' +
-      '<td>' + d.placeOfBirth + '</td>' +
-      '</tr></tbody>';
-
-    return '<table class="table "><thead class="thead-dark"><tr><th scope="col">Date Of Birth</th><th scope="col">PDate Of Death</th><th scope="col">Date Of Issue</th><th scope="col">Passport Expiry</th><th scope="col">Place</th></tr></thead>' + dRow + '</table>';
-  }
   }
 
   initCustomerRecordsDatatables(data) {
@@ -494,180 +470,21 @@ export class ReportComponent implements OnInit {
     // `d` is the original data object for the row
     let dRow = '';
     dRow = dRow + '<tbody><tr>' +
+      //'<td><img height="50%" width="50%" src="'+photo+'"/></td>' +
       '<td>' + d.dateOfBirth + '</td>' +
       '<td>' + d.dateOfDeath + '</td>' +
       '<td>' + d.dateOfIssue + '</td>' +
       '<td>' + d.passportExpiryDate + '</td>' +
       '<td>' + d.placeOfBirth + '</td>' +
+      '<td>' + d.placeOfLive + '</td>' +
+      '<td>' + d.placeOfDeath + '</td>' +
+      '<td>' + d.dateCreated + '</td>' +
+      '<td>' + d.regOffice + '</td>' +
       '</tr></tbody>';
 
-    return '<table class="table "><thead class="thead-dark"><tr><th scope="col">Date Of Birth</th><th scope="col">PDate Of Death</th><th scope="col">Date Of Issue</th><th scope="col">Passport Expiry</th><th scope="col">Place</th></tr></thead>' + dRow + '</table>';
+    return '<table class="table "><thead class="thead-dark"><tr><th scope="col">Birth Date</th><th scope="col">Death Date</th><th scope="col">Issue Date</th><th scope="col">Passport Expiry</th><th scope="col">Birth Place</th><th scope="col">Live Place</th><th scope="col">Death Place</th><th scope="col">Date Created</th><th scope="col">Reg Office</th></tr></thead>' + dRow + '</table>';
   }
   }
-
-  // initCustomerRecordsDatatables(data) {
-  //   console.log("qwqwee ", data);
-  //   let dtOptions = {
-  //     data: data,
-  //     responsive: true,
-  //     destroy: true,
-  //     retrieve: true,
-  //     lengthMenu: [5, 10],
-  //     columns: [
-  //       {
-  //         data: null,
-  //         className: 'details-control',
-  //         defaultContent: '',
-  //         responsivePriority: 1
-  //     },
-  //       {
-  //         title: 'ID Number',
-  //         data: 'idnumber',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'Serial Number',
-  //         data: 'idserialNumber',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'Pin',
-  //         data: 'pin',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'First Name',
-  //         data: 'firstName',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'Other Name',
-  //         data: 'otherName',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'Sur Name',
-  //         data: 'surName',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'Family',
-  //         data: 'family',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'Gender',
-  //         data: 'gender',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'Citizenship',
-  //         data: 'citizenship',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'Occupation',
-  //         data: 'occupation',
-  //         className: "text-center"
-  //       }
-  //     ]
-  //   };
-
-  //   this.customerRecordsDatatable = $('#dtCustomerRecords').DataTable(dtOptions);
-
-  //   let scope = this;
-  //   $('#dtCustomerRecords tbody').on('click', 'td.details-control', function () {
-  //     var tr = $(this).closest('tr');
-  //     var row = scope.customerRecordsDatatable.row(tr);
-
-  //     if (row.child.isShown()) {
-  //       // This row is already open - close it
-  //       row.child.hide();
-  //       tr.removeClass('shown');
-  //     } else {
-  //       // Open this row
-  //       row.child(format(row.data())).show();
-  //       tr.addClass('shown');
-  //     }
-  // });
-
-  // function format(d) {
-  //   // `d` is the original data object for the row
-  //   //let userorder = [] ;
-  //   console.log("pi>>> ", d.userName);
-
-  //   let dRow = '';
-  //   dRow = dRow + '<tbody><tr>' +
-  //     '<td>' + d.dateOfBirth + '</td>' +
-  //     '<td>' + d.dateOfDeath + '</td>' +
-  //     '<td>' + d.dateOfIssue + '</td>' +
-  //     '<td>' + d.passportExpiryDate + '</td>' +
-  //     '<td>' + d.placeOfBirth + '</td>' +
-  //     '</tr></tbody>';
-
-  //   return '<table class="table "><thead class="thead-dark"><tr><th scope="col">Date Of Birth</th><th scope="col">PDate Of Death</th><th scope="col">Date Of Issue</th><th scope="col">Passport Expiry</th><th scope="col">Place</th></tr></thead>' + dRow + '</table>';
-  // }
-  // }
-
-  // initIprsRequestsDatatables(data) {
-  //   console.log("qwqwee ", data);
-  //   this.dtOptionsIprsRequests = {
-  //     data: data,
-  //     responsive: true,
-  //     destroy: true,
-  //     retrieve: true,
-  //     lengthMenu: [5, 10],
-  //     columns: [
-  //       {
-  //         title: 'User Name',
-  //         data: 'clientname',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'Login Time',
-  //         data: 'emailaddress',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'Logout Time',
-  //         data: 'emailaddress',
-  //         className: "text-center"
-  //       }
-  //     ]
-  //   };
-
-  //   $('#dtIprsRequests').DataTable(this.dtOptionsIprsRequests);
-  // }
-
-  // initCustomerRecordsDatatables(data) {
-  //   console.log("qwqwee ", data);
-  //   this.dtOptionsCustomerRecords = {
-  //     data: data,
-  //     responsive: true,
-  //     destroy: true,
-  //     retrieve: true,
-  //     lengthMenu: [5, 10],
-  //     columns: [
-  //       {
-  //         title: 'User Name',
-  //         data: 'clientname',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'Login Time',
-  //         data: 'emailaddress',
-  //         className: "text-center"
-  //       },
-  //       {
-  //         title: 'Customer Records',
-  //         data: 'emailaddress',
-  //         className: "text-center"
-  //       }
-  //     ]
-  //   };
-
-  //   $('#dtCustomerRecords').DataTable(this.dtOptionsCustomerRecords);
-  // }
 
   initDiscrepantRecordsDatatables(data) {
     console.log("qwqwee ", data);
@@ -733,13 +550,14 @@ export class ReportComponent implements OnInit {
     console.log(88);
     let index = e.index;
     if (index == 0) {
+      if (this.iprsRequestsDatatable == null || this.iprsRequestsDatatable == undefined ){
+        this.initIprsRequestsDatatables([]);
+      }
+    } else if (index == 1) {
       if (this.searchLogsDatatable == null || this.searchLogsDatatable == undefined ){
         this.initSearchLogsDatatables([]);
        }
-    } else if (index == 1) {
-       if (this.iprsRequestsDatatable == null || this.iprsRequestsDatatable == undefined ){
-        this.initIprsRequestsDatatables([]);
-      }
+
     } else if (index == 2) {
       if (this.customerRecordsDatatable == null || this.customerRecordsDatatable == undefined ){
         this.initCustomerRecordsDatatables([]);
@@ -754,29 +572,61 @@ export class ReportComponent implements OnInit {
   searchLogsSubmit(form: NgForm) {
     console.log(1)
     console.log(form.value);
-    this.getSearchLogs(form.value.searchrequestserialnumber);
+    this.getSearchLogs(form.value);
   }
 
   iprsRequestSubmit(form: NgForm) {
     console.log(2)
     console.log(form.value);
-    this.getIprsRequests(form.value.iprsrequestserialnumber);
+    this.getIprsRequests(form.value);
   }
 
   customerRecordsSubmit(form: NgForm) {
     console.log(2)
     console.log(form.value);
-    this.getCustomerRecords(form.value.customerrequestserialnumber);
+    this.getCustomerRecords(form.value);
   }
 
   fromDateEvent(e) {
     console.log(e);
-
+    const momentDate = new Date("Wed Feb 02 2022");
+    console.log(momentDate);
+    let fromDate = e.toLocaleDateString('en-US', {timeZone: 'EAT'});
+    console.log(fromDate);
+    let formatFromDate = fromDate.split("/");
+    let day = formatFromDate[1].length == 2 ? formatFromDate[1] : "0"+formatFromDate[1];
+    let month = formatFromDate[0].length == 2 ? formatFromDate[0] : "0"+formatFromDate[0];
+    let year = formatFromDate[2];
+    let dte = year+month+day;
+    console.log(day);
+    console.log(month);
+    console.log(dte);
+    // let day = formatFromDate[0].length() == 1 ?
+     this.requestfromdate = dte;
   }
 
   toDateEvent(e) {
     console.log(e);
+    let toDate = e.toLocaleDateString('en-US', {timeZone: 'EAT'});
 
+
+    var today = new Date(toDate);
+    var tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate()+1);
+    tomorrow.toLocaleDateString();
+
+    console.log(tomorrow)
+    let tomorrowDate = tomorrow.toLocaleDateString('en-US', {timeZone: 'EAT'});
+    let formatTomorrowDate = tomorrowDate.split("/");
+    let day = formatTomorrowDate[1].length == 2 ? formatTomorrowDate[1] : "0"+formatTomorrowDate[1];
+    let month = formatTomorrowDate[0].length == 2 ? formatTomorrowDate[0] : "0"+formatTomorrowDate[0];
+    let year = formatTomorrowDate[2];
+    let dte = year+month+day;
+    console.log(day);
+    console.log(month);
+    console.log(dte);
+    // let day = formatFromDate[0].length() == 1 ?
+     this.requesttodate = dte;
   }
 
   requestTypeSelectOnChange(e){

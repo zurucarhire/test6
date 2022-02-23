@@ -3,12 +3,108 @@
     <div class="row">
         <mat-tab-group mat-align-tabs="center" animationDuration="0ms" (selectedTabChange)="selectedTab($event)"
             [(selectedIndex)]="tabIndex">
-            <mat-tab label="Search Logs">
+            <mat-tab label="IPRS Requests">
+              <div class="container">
+                  <div class="row" style="margin-top: 10px;">
+                      <div class="col-lg-12" style="padding: 5px; float:none;margin:auto;">
+                          <mat-card>
+                              <h4>IPRS Requests</h4>
+                              <form #iprsRequestform="ngForm" (ngSubmit)="iprsRequestSubmit(iprsRequestform)">
+                                  <div class="row">
+                                      <div class="col">
+                                          <mat-form-field appearance="fill" style="width: 100%;">
+                                              <mat-label>From Date</mat-label>
+                                              <input matInput [matDatepicker]="iprsStartDatepicker" [min]="minDate" data-date-format='YYYY-MM-DD'
+                                                  [max]="maxDate" name="iprsrequeststartdate" [(ngModel)]="iprsrequeststartdate"
+                                                  (ngModelChange)="fromDateEvent($event)" readonly required>
+                                              <mat-datepicker-toggle matSuffix [for]="iprsStartDatepicker">
+                                              </mat-datepicker-toggle>
+                                              <mat-datepicker #iprsStartDatepicker></mat-datepicker>
+                                          </mat-form-field>
+
+                                      </div>
+                                      <div class="col">
+                                          <mat-form-field appearance="fill" style="width: 100%;">
+                                              <mat-label>To Date</mat-label>
+                                              <input style="font-family: 'Josefin Sans';" matInput
+                                                  [matDatepicker]="iprsEndDatepicker" [min]="minDate" [max]="maxDate"
+                                                  name="iprsrequestenddate" [(ngModel)]="iprsrequestenddate"
+                                                  (ngModelChange)="toDateEvent($event)" readonly required>
+                                              <mat-datepicker-toggle matSuffix [for]="iprsEndDatepicker">
+                                              </mat-datepicker-toggle>
+                                              <mat-datepicker #iprsEndDatepicker></mat-datepicker>
+                                          </mat-form-field>
+                                      </div>
+                                      <div class="col">
+                                          <div class="form-floating mb-3">
+                                              <input name="iprsrequestnumber" type="number" class="form-control input"
+                                                  id="formGroupExampleInput2" ngModel >
+                                              <label for="floatingInput" style="font-size: 12px; color: #666;">Request
+                                                  Number</label>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col">
+                                        <div class="form-floating mb-3">
+                                          <input name="iprsrequestserialnumber" type="number" class="form-control input"
+                                              id="formGroupExampleInput2"  ngModel>
+                                          <label for="floatingInput" style="font-size: 12px; color: #666;">Request
+                                              Serial Number</label>
+                                      </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="form-floating mb-3">
+                                          <select name="iprsrequesttype" class="form-select" id="floatingSelect"
+                                              aria-label="Floating label select example" #iprsrequesttype="ngModel"
+                                              [class.is-invalid]="iprsrequesttype.invalid && iprsrequesttype.touched" ngModel
+                                              >
+                                              <!-- <option selected>Open this select menu</option> -->
+                                              <!-- <option value="{{clientnamevalue}}" selected>{{clientnamevalue}}</option> -->
+                                              <option [value]="item.requestTypeName" *ngFor="let item of requesttypedata">{{item.requestTypeName}}
+                                              </option>
+                                            </select>
+
+                                            <label for="floatingSelect">Request Type</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                      <div class="form-floating mb-3">
+                                        <select name="iprsrequestedby" class="form-select" id="floatingSelect"
+                                            aria-label="Floating label select example" #iprsrequestedby="ngModel"
+                                            [class.is-invalid]="iprsrequestedby.invalid && iprsrequestedby.touched" ngModel
+                                           >
+                                            <option [value]="item.userName" *ngFor="let item of userdata">{{item.userName}}
+                                            </option>
+                                      </select>
+                                          <label for="floatingSelect">Requested By</label>
+                                      </div>
+                                  </div>
+                                  </div>
+                                  <input type="submit" name="submit" class="submit action-button btn btn-primary"
+                                  [disabled]="iprsRequestform.form.invalid" value="Search" />
+                                      <!-- [disabled]="form.form.invalid" value="Submit" /> -->
+                                  <img *ngIf="loading"
+                                      src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+                              </form>
+                          </mat-card>
+                      </div>
+                      <div class="col-lg-12" style="padding: 5px; float:none;margin:auto;">
+                          <mat-card>
+                              <table #dataTableIprsRequests id="dtIprsRequests" class="display datatable" >
+                              </table>
+                          </mat-card>
+                      </div>
+                  </div>
+              </div>
+          </mat-tab>
+            <mat-tab label="Refreshed Records">
                 <div class="container">
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-lg-12" style="padding: 5px; float:none;margin:auto;">
                             <mat-card>
-                                <h4>Search Logs</h4>
+                                <h4>Refreshed Records</h4>
                                 <form #form="ngForm" (ngSubmit)="searchLogsSubmit(form)">
                                     <div class="row">
                                         <div class="col">
@@ -36,8 +132,9 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-floating mb-3">
-                                                <input name="atccode" type="text" class="form-control input"
-                                                    id="formGroupExampleInput2" placeholder="Request Number" required>
+                                                <input name="refreshedrequestnumber" type="text" class="form-control input"
+                                                    id="formGroupExampleInput2" placeholder="Request Number"
+                                                    #refreshedrequestnumber="ngModel" required ngModel>
                                                 <label for="floatingInput" style="font-size: 12px; color: #666;">Request
                                                     Number</label>
                                             </div>
@@ -46,21 +143,21 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-floating mb-3">
-                                                <input name="searchrequestserialnumber" type="text" class="form-control input"
-                                                    id="formGroupExampleInput2" placeholder="Request Number" #searchrequestserialnumber="ngModel" required ngModel >
+                                                <input name="refreshedrequestserialnumber" type="text" class="form-control input"
+                                                    id="formGroupExampleInput2" placeholder="Request Number" #refreshedrequestserialnumber="ngModel" required ngModel >
                                                 <label for="floatingInput" style="font-size: 12px; color: #666;">Request
                                                     Serial Number</label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-floating mb-3">
-                                              <select name="requesttype" class="form-select" id="floatingSelect"
-                                                  aria-label="Floating label select example" #requesttype="ngModel"
-                                                  [class.is-invalid]="requesttype.invalid && requesttype.touched" ngModel
+                                              <select name="refreshedrequesttype" class="form-select" id="floatingSelect"
+                                                  aria-label="Floating label select example" #refreshedrequesttype="ngModel"
+                                                  [class.is-invalid]="refreshedrequesttype.invalid && refreshedrequesttype.touched" ngModel
                                                   required>
                                                   <!-- <option selected>Open this select menu</option> -->
                                                   <!-- <option value="{{clientnamevalue}}" selected>{{clientnamevalue}}</option> -->
-                                                  <option [value]="item.requestname" *ngFor="let item of requesttypedata">{{item.requestname}}
+                                                  <option [value]="item.requestTypeName" *ngFor="let item of requesttypedata">{{item.requestTypeName}}
                                                   </option>
                                                 </select>
 
@@ -69,9 +166,9 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-floating mb-3">
-                                              <select name="requestedby" class="form-select" id="floatingSelect"
-                                                  aria-label="Floating label select example" #requestedby="ngModel"
-                                                  [class.is-invalid]="requestedby.invalid && requestedby.touched" ngModel
+                                              <select name="refreshedrequestedby" class="form-select" id="floatingSelect"
+                                                  aria-label="Floating label select example" #refreshedrequestedby="ngModel"
+                                                  [class.is-invalid]="refreshedrequestedby.invalid && refreshedrequestedby.touched" ngModel
                                                   required>
                                                   <option [value]="item.userName" *ngFor="let item of userdata">{{item.userName}}
                                                   </option>
@@ -99,101 +196,7 @@
                 </div>
             </mat-tab>
 
-            <mat-tab label="IPRS Requests">
-                <div class="container">
-                    <div class="row" style="margin-top: 10px;">
-                        <div class="col-lg-12" style="padding: 5px; float:none;margin:auto;">
-                            <mat-card>
-                                <h4>IPRS Requests</h4>
-                                <form #iprsRequestform="ngForm" (ngSubmit)="iprsRequestSubmit(iprsRequestform)">
-                                    <div class="row">
-                                        <div class="col">
-                                            <mat-form-field appearance="fill" style="width: 100%;">
-                                                <mat-label>From Date</mat-label>
-                                                <input matInput [matDatepicker]="iprsStartDatepicker" [min]="minDate"
-                                                    [max]="maxDate" name="startdate" [(ngModel)]="startdatemodel"
-                                                    (ngModelChange)="fromDateEvent($event)" readonly>
-                                                <mat-datepicker-toggle matSuffix [for]="iprsStartDatepicker">
-                                                </mat-datepicker-toggle>
-                                                <mat-datepicker #iprsStartDatepicker></mat-datepicker>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col">
-                                            <mat-form-field appearance="fill" style="width: 100%;">
-                                                <mat-label>To Date</mat-label>
-                                                <input style="font-family: 'Josefin Sans';" matInput
-                                                    [matDatepicker]="iprsEndDatepicker" [min]="minDate" [max]="maxDate"
-                                                    name="startdate" [(ngModel)]="enddatemodel"
-                                                    (ngModelChange)="toDateEvent($event)" readonly>
-                                                <mat-datepicker-toggle matSuffix [for]="iprsEndDatepicker">
-                                                </mat-datepicker-toggle>
-                                                <mat-datepicker #iprsEndDatepicker></mat-datepicker>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-floating mb-3">
-                                                <input name="atccode" type="text" class="form-control input"
-                                                    id="formGroupExampleInput2" placeholder="Request Number" required>
-                                                <label for="floatingInput" style="font-size: 12px; color: #666;">Request
-                                                    Number</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                          <div class="form-floating mb-3">
-                                            <input name="iprsrequestserialnumber" type="text" class="form-control input"
-                                                id="formGroupExampleInput2" placeholder="Request Number" #iprsrequestserialnumber="ngModel" required ngModel >
-                                            <label for="floatingInput" style="font-size: 12px; color: #666;">Request
-                                                Serial Number</label>
-                                        </div>
-                                        </div>
-                                        <div class="col">
-                                          <div class="form-floating mb-3">
-                                            <select name="iprsrequesttype" class="form-select" id="floatingSelect"
-                                                aria-label="Floating label select example" #iprsrequesttype="ngModel"
-                                                [class.is-invalid]="iprsrequesttype.invalid && iprsrequesttype.touched" ngModel
-                                                required>
-                                                <!-- <option selected>Open this select menu</option> -->
-                                                <!-- <option value="{{clientnamevalue}}" selected>{{clientnamevalue}}</option> -->
-                                                <option [value]="item.requestname" *ngFor="let item of requesttypedata">{{item.requestname}}
-                                                </option>
-                                              </select>
 
-                                              <label for="floatingSelect">Request Type</label>
-                                          </div>
-                                      </div>
-                                      <div class="col">
-                                        <div class="form-floating mb-3">
-                                          <select name="iprsrequestedby" class="form-select" id="floatingSelect"
-                                              aria-label="Floating label select example" #iprsrequestedby="ngModel"
-                                              [class.is-invalid]="iprsrequestedby.invalid && iprsrequestedby.touched" ngModel
-                                              required>
-                                              <option [value]="item.userName" *ngFor="let item of userdata">{{item.userName}}
-                                              </option>
-                                        </select>
-                                            <label for="floatingSelect">Requested By</label>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <input type="submit" name="submit" class="submit action-button btn btn-primary"
-                                        value="Submit" />
-                                        <!-- [disabled]="form.form.invalid" value="Submit" /> -->
-                                    <img *ngIf="loading"
-                                        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-
-                                </form>
-                            </mat-card>
-                        </div>
-                        <div class="col-lg-12" style="padding: 5px; float:none;margin:auto;">
-                            <mat-card>
-                                <table #dataTableIprsRequests id="dtIprsRequests" class="display datatable" >
-                                </table>
-                            </mat-card>
-                        </div>
-                    </div>
-                </div>
-            </mat-tab>
             <mat-tab label="Customer Records">
               <div class="container">
                   <div class="row" style="margin-top: 10px;">
@@ -207,7 +210,7 @@
                                               <mat-label>From Date</mat-label>
                                               <input matInput [matDatepicker]="customerRecordsStartDatepicker" [min]="minDate"
                                                   [max]="maxDate" name="startdate" [(ngModel)]="startdatemodel"
-                                                  (ngModelChange)="fromDateEvent($event)" readonly>
+                                                  (ngModelChange)="fromDateEvent($event)" readonly required>
                                               <mat-datepicker-toggle matSuffix [for]="customerRecordsStartDatepicker">
                                               </mat-datepicker-toggle>
                                               <mat-datepicker #customerRecordsStartDatepicker></mat-datepicker>
@@ -219,7 +222,7 @@
                                               <input style="font-family: 'Josefin Sans';" matInput
                                                   [matDatepicker]="customerRecordsEndDatepicker" [min]="minDate" [max]="maxDate"
                                                   name="startdate" [(ngModel)]="enddatemodel"
-                                                  (ngModelChange)="toDateEvent($event)" readonly>
+                                                  (ngModelChange)="toDateEvent($event)" readonly required>
                                               <mat-datepicker-toggle matSuffix [for]="customerRecordsEndDatepicker">
                                               </mat-datepicker-toggle>
                                               <mat-datepicker #customerRecordsEndDatepicker></mat-datepicker>
@@ -227,8 +230,8 @@
                                       </div>
                                       <div class="col">
                                           <div class="form-floating mb-3">
-                                              <input name="atccode" type="text" class="form-control input"
-                                                  id="formGroupExampleInput2" placeholder="Request Number" required>
+                                              <input name="customerrequestnumber" type="text" class="form-control input"
+                                                  id="formGroupExampleInput2" placeholder="Request Number" ngModel>
                                               <label for="floatingInput" style="font-size: 12px; color: #666;">Request
                                                   Number</label>
                                           </div>
@@ -238,7 +241,7 @@
                                       <div class="col">
                                         <div class="form-floating mb-3">
                                           <input name="customerrequestserialnumber" type="text" class="form-control input"
-                                              id="formGroupExampleInput2" placeholder="Request Number" #customerrequestserialnumber="ngModel" required ngModel >
+                                              id="formGroupExampleInput2" placeholder="Request Number" #customerrequestserialnumber="ngModel" ngModel >
                                           <label for="floatingInput" style="font-size: 12px; color: #666;">Request
                                               Serial Number</label>
                                       </div>
@@ -247,9 +250,8 @@
                                         <div class="form-floating mb-3">
                                           <select name="customerrequesttype" class="form-select" id="floatingSelect"
                                               aria-label="Floating label select example" #customerrequesttype="ngModel"
-                                              [class.is-invalid]="customerrequesttype.invalid && customerrequesttype.touched" ngModel
-                                              required>
-                                              <option [value]="item.requestname" *ngFor="let item of requesttypedata">{{item.requestname}}
+                                              [class.is-invalid]="customerrequesttype.invalid && customerrequesttype.touched" ngModel>
+                                              <option [value]="item.requestTypeName" *ngFor="let item of requesttypedata">{{item.requestTypeName}}
                                               </option>
                                             </select>
 
@@ -260,8 +262,7 @@
                                       <div class="form-floating mb-3">
                                         <select name="customerrequestedby" class="form-select" id="floatingSelect"
                                             aria-label="Floating label select example" #customerrequestedby="ngModel"
-                                            [class.is-invalid]="customerrequestedby.invalid && customerrequestedby.touched" ngModel
-                                            required>
+                                            [class.is-invalid]="customerrequestedby.invalid && customerrequestedby.touched" ngModel>
                                             <option [value]="item.userName" *ngFor="let item of userdata">{{item.userName}}
                                             </option>
                                       </select>
@@ -270,7 +271,7 @@
                                   </div>
                                   </div>
                                   <input type="submit" name="submit" class="submit action-button btn btn-primary"
-                                      value="Submit" />
+                                      value="Search" [disabled]="customerRecordsRequestform.form.invalid"/>
                                       <!-- [disabled]="form.form.invalid" value="Submit" /> -->
                                   <img *ngIf="loading"
                                       src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />

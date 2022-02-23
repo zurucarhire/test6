@@ -2,27 +2,27 @@
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <!-- Tabs Titles -->
-  
+
       <!-- Icon -->
       <div class="fadeIn first">
         <img src="../../assets/img/stanchart.png" id="icon" alt="User Icon" />
       </div>
-  
+
       <!-- Login Form -->
       <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
         <input type="text" id="login" class="fadeIn second" name="username" #username="ngModel" ngModel placeholder="Username">
-        <input type="text" id="password" class="fadeIn third" name="password" #password="ngModel" ngModel placeholder="Password">
+        <input type="password" id="password" class="fadeIn third" name="password" #password="ngModel" ngModel placeholder="Password">
         <input type="submit" class="fadeIn fourth" value="Sign In">
         <img style="margin-left: 10px;" *ngIf="loading"
         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 
       </form>
-  
+
       <!-- Remind Passowrd -->
       <div id="formFooter">
         <a class="underlineHover" href="javascript:void(0)">Cellulant Copyright ©, All rights reserved</a>
       </div>
-  
+
     </div>
   </div>
 </div>

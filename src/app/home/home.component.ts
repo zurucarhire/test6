@@ -22,9 +22,12 @@ export class HomeComponent implements OnInit {
   searchData;
   searchDatatable:any;
   requesttypedata: RequestType[];
+  userId: number;
   constructor(private api: ApiService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    let user = JSON.parse(sessionStorage.getItem('user'));
+    this.userId = user["user"]["userID"];
     this.getActiveRequestTypes()
     //this.getSearch();
     this.initSearchDatatables([]);
@@ -72,7 +75,7 @@ export class HomeComponent implements OnInit {
       destroy: true,
       retrieve: true,
       lengthMenu: [5, 10],
-      //dom:'Bfrtip',
+      dom:'rtip',
       // buttons: [
       //   {
       //     extend: 'excel',
@@ -113,6 +116,13 @@ export class HomeComponent implements OnInit {
           defaultContent: '',
           responsivePriority: 1
       },
+      // {
+      //   title: 'Photo',
+      //   render : function ( url, type, full) {
+      //     return '<img height="100%" width="100%" src="https://shikatei.co.ke/liquoricon.jpg"/>';
+      //   },
+      //   className: "text-center"
+      // },
         {
           title: 'ID Number',
           data: 'idnumber',
@@ -212,29 +222,43 @@ export class HomeComponent implements OnInit {
   function format(d) {
     // `d` is the original data object for the row
     //let userorder = [] ;
-    console.log("pi>>> ", d.surName);
+    console.log("pi>>kk ", d.photo);
 
+    let photo = "https://shikatei.co.ke/"+d.photo;
     let dRow = '';
     dRow = dRow + '<tbody><tr>' +
+      // '<td><img height="50%" width="50%" src="'+photo+'"/></td>' +
+      '<td><img height="100%" width="100%" style="width:100%; height:100%" src="../../assets/images/profilemale2.png"/></td>' +
       '<td>' + d.dateOfBirth + '</td>' +
       '<td>' + d.dateOfDeath + '</td>' +
       '<td>' + d.dateOfIssue + '</td>' +
       '<td>' + d.passportExpiryDate + '</td>' +
       '<td>' + d.placeOfBirth + '</td>' +
+      '<td>' + d.placeOfLive + '</td>' +
+      '<td>' + d.placeOfDeath + '</td>' +
+      '<td>' + d.dateCreated + '</td>' +
+      '<td>' + d.regOffice + '</td>' +
       '</tr></tbody>';
 
-    return '<table class="table "><thead class="thead-dark"><tr><th scope="col">Date Of Birth</th><th scope="col">PDate Of Death</th><th scope="col">Date Of Issue</th><th scope="col">Passport Expiry</th><th scope="col">Place</th></tr></thead>' + dRow + '</table>';
+    return '<table class="table "><thead class="thead-dark"><tr><th scope="col">Photo</th><th scope="col">Birth Date</th><th scope="col">Death Date</th><th scope="col">Issue Date</th><th scope="col">Passport Expiry</th><th scope="col">Birth Place</th><th scope="col">Live Place</th><th scope="col">Death Place</th><th scope="col">Date Created</th><th scope="col">Reg Office</th></tr></thead>' + dRow + '</table>';
   }
   }
 
   searchSubmit(form: NgForm){
-    console.log(form.value)
-    this.api.findAllSearch2(form.value.requesttype).subscribe(
+    console.log(">>>> [[ ",form.value)
+    let requestType = form.value.requesttype;
+    let requestNumber = form.value.requestnumber;
+    let requestSerialNumber = form.value.requestserialnumber;
+    // let data = [{idnumber: "22222222", idserialNumber: "3333333", pin: "44444444", firstName: "joe", citizenship: "kenyan",
+    // surName: "osore", otherName: "abala", family: "abala", occupation: "engineer", gender: "male", dateOfBirth: "12/12/1990",
+    // dateOfDeath: "nil", dateOfIssue: "12/12/2009",placeOfBirth:"10/10/2008", passportExpiryDate: "09/09/2007", photo: "liquoricon.jpg"}];
+    // this.searchDatatable.clear().rows.add(data).draw();
+    let searchParams = {requestType: requestType, requestNumber: 223394455, requestSerialNumber: 3456};
+    this.api.findAllSearch3(this.userId, searchParams).subscribe(
       data => {
         console.log("data => ", data);
-        console.log("data => ", data[0]['citizenship']);
-        this.d = data;
-        this.searchDatatable.clear().rows.add(data).draw();
+        let result = [data];
+        this.searchDatatable.clear().rows.add(result).draw();
     }, error => {
       console.log(error);
     });

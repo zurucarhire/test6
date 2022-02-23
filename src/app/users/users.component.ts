@@ -308,14 +308,12 @@ export class UsersComponent implements OnInit {
     this.usersDatatable = $('#dt').DataTable(dtOptions);
 
     $('#dt tbody').on('click', 'td.resetpassword', function () {
+
       console.log("hello");
       let tr = $(this).closest('tr');
       let row = scope.usersDatatable.row(tr);
 
-      let user = JSON.parse(sessionStorage.getItem('user'));
-      let role = user["user"]["roleID"];
-      console.log("the rolexxxx", role);
-      if (role == 2) {
+      if (scope.roleId == 3 || scope.roleId == 4) {
         scope.notifyService.showError("You do not have permissions to perform this action", "Permission Denied");
         return
       }
@@ -436,8 +434,8 @@ export class UsersComponent implements OnInit {
           className: "text-center"
         },
         {
-          title: 'Inserted By',
-          data: 'insertedBy',
+          title: 'Created By',
+          data: 'createdBy',
           className: "text-center"
         },
         {
@@ -608,6 +606,7 @@ export class UsersComponent implements OnInit {
         this.notifyService.showSuccess("Update successful", "Success");
         this.usersDatatable.row(user['rowIndex']).data(data).invalidate().draw();
       }, error => {
+        console.log("error => ", error);
         if (error.error != null){
           if (error.status == 400){
             this.notifyService.showError("Please enter all fields", "Warning");

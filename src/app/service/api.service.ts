@@ -71,6 +71,25 @@ export class ApiService {
     return this.http.get(url);
   }
 
+  findIprsRequests(fromDate, toDate, tag, requestType, requestNumber, requestSerialNumber, requestBy) {
+  //findIprsRequests(fromDate, toDate, reportLog) {
+    const url = this.url+"/api/iprs/search/requests?fromDate="+fromDate+"&toDate="+toDate+"&tag="+tag+"&requestType="+requestType+"&requestNumber="+requestNumber+"&requestSerialNumber="+requestSerialNumber+"&requestBy="+requestBy;
+    //const url = this.url+"/api/iprs/search/requests/"+fromDate+"/"+toDate;
+    return this.http.get(url);
+  }
+
+  findRequests(fromDate, toDate, tag, requestType, requestNumber, requestSerialNumber, requestBy) {
+    //findIprsRequests(fromDate, toDate, reportLog) {
+      const url = this.url+"/api/iprs/search/requests?fromDate="+fromDate+"&toDate="+toDate+"&tag="+tag+"&requestType="+requestType+"&requestNumber="+requestNumber+"&requestSerialNumber="+requestSerialNumber+"&requestBy="+requestBy;
+      //const url = this.url+"/api/iprs/search/requests/"+fromDate+"/"+toDate;
+      return this.http.get(url);
+    }
+
+  findAllSearch3(requestType, searchParams) {
+    const url = this.url+"/api/iprs/search/find/"+requestType;
+    return this.http.post(url, searchParams);
+  }
+
   findAllRoles() {
     const url = this.url+"/api/iprs/role/findall";
     return this.http.get(url);
