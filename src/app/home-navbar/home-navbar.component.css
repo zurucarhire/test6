@@ -1,0 +1,27 @@
+ul li a {
+  color: black;
+  font-weight: bold;
+  font-family: Montserrat;
+}
+
+.navbar-brand {
+  color:#ff5821;
+  font-weight: bold;
+  font-family: Montserrat;
+}
+
+.dropdown-header {
+  font-weight: normal;
+  font-family: Montserrat;
+  font-size: 12px;
+}
+
+.dropdown-item {
+  font-weight: normal;
+  font-family: Montserrat;
+  font-size: 12px;
+}
+
+.navbar-nav li a:hover{
+color: #ff5821;
+}

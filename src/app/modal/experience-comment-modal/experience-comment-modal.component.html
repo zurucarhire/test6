@@ -1,0 +1,30 @@
+
+<ng-template #create [ngIf]="modalData.tag == 'comment'">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" style="color: #ff5821;font-weight: bold;"><i class="fa fa-question-circle" style="padding: 5px; "></i>Share Comment</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #createUserForm="ngForm">
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <textarea  style="font-size: 13px; color: #666;" name="description" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput"  #description="ngModel" rows="5"
+              [(ngModel)]="modalData.description"
+              [class.is-invalid]="description.invalid && description.touched" ngModel required ></textarea>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Comment</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button  style="font-size: 16px; "(click)="passBack()" [disabled]="createUserForm.form.invalid" type="submit" class="btn btn-danger w-100">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

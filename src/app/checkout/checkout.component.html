@@ -1,0 +1,78 @@
+<app-shop-navbar></app-shop-navbar>
+<div class="container-fluid">
+  <div class="row d-flex justify-content-center text-center">
+    <div class="col-6" style="padding: 20px ;">
+      <h4 style="margin-top: 50px; font-weight: bold;">PSM</h4>
+      <h4 style="font-size: 12px;">Cart > Information > Shipping > Payment</h4>
+      <!-- <h4 style="font-size: 12px;">Already have an account? <a href="/login"> Log in</a></h4> -->
+      <form>
+        <div class="form-group">
+          <label for="formGroupExampleInput" style="float: left; padding: 5px;">Contact Information</label>
+          <input style="margin-top: 10px; height: 40px;" type="email" class="form-control" id="formGroupExampleInput"
+            placeholder="Email">
+        </div>
+        <div class="form-group" style="margin-top: 20px;">
+          <label for="formGroupExampleInput" style="float: left; padding: 5px;">Shipping Address</label>
+          <input style="margin-top: 10px; height: 40px;" type="text" class="form-control" id="formGroupExampleInput"
+            placeholder="First Name">
+        </div>
+        <div class="form-group">
+          <input style="margin-top: 10px; height: 40px;" type="text" class="form-control" id="formGroupExampleInput"
+            placeholder="Last Name">
+        </div>
+        <div class="form-group">
+          <input style="margin-top: 10px; height: 40px;" type="text" class="form-control" id="formGroupExampleInput"
+            placeholder="Address">
+        </div>
+        <div class="form-group">
+          <input style="margin-top: 10px; height: 40px;" type="text" class="form-control" id="formGroupExampleInput"
+            placeholder="City">
+        </div>
+        <div class="form-group">
+          <input style="margin-top: 10px; height: 40px;" type="text" class="form-control" id="formGroupExampleInput"
+            placeholder="Postal Code">
+        </div>
+        <div class="form-group">
+          <input style="margin-top: 10px; height: 40px;" type="text" class="form-control" id="formGroupExampleInput"
+            placeholder="Phone">
+        </div>
+        <button type="button" class="btn btn-outline-success"
+          style="font-weight: bold; font-size: 13px; margin: 20px; ">Continue with payment</button>
+
+        <button type="button" class="btn btn-outline-success"
+          style="font-weight: bold; font-size: 13px;margin: 20px;" (click)="cart()">Return to cart</button>
+
+      </form>
+    </div>
+    <div class="col-6" style="background-color: #ccc; padding: 20px;">
+      <div class="summary">
+        <h3 style="margin-top: 50px; font-weight: bold;">Summary</h3>
+        <div class="row">
+          <div class="col-6" style="float: left;">
+            <h5 style="float: left;">Subtotal</h5>
+          </div>
+          <div class="col-6" style="float: right;">
+            <h5 style="float: right;">Ksh {{total}}</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6" style="float: left;">
+            <h5 style="float: left;">Shipping</h5>
+          </div>
+          <div class="col-6" style="float: right;">
+            <h5 style="float: right;">Ksh 0</h5>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-6" style="float: left;">
+            <h5 style="float: left;">Total</h5>
+          </div>
+          <div class="col-6" style="float: right;">
+            <h5 style="float: right;">Ksh {{total}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ <app-footer></app-footer>

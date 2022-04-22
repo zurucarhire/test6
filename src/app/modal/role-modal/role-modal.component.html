@@ -1,7 +1,7 @@
 
-<ng-template #create [ngIf]="modalData.tag == 'createRole'">
+<ng-template #create [ngIf]="modalData.tag == 'shareExperience'">
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Create Role</h4>
+    <h4 class="modal-title" id="modal-basic-title" style="color: #ff5821;font-weight: bold;"><i class="fa fa-beer" style="padding: 5px; "></i>Share Your Experience</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -12,100 +12,34 @@
       <div class="row">
         <div class="col-md-12 col-sm-1 col-lg-12">
           <div class="form-floating mb-3">
-            <input name="rolename" type="text" class="form-control" id="formGroupExampleInput2"
-              id="formGroupExampleInput"  #rolename="ngModel"
-              [(ngModel)]="modalData.roleName"
-              [class.is-invalid]="rolename.invalid && rolename.touched" ngModel required >
-            <label for="floatingInput" style="font-size: 13px; color: #666;">Role Name</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12 col-sm-1 col-lg-12">
-          <div class="form-floating mb-3">
-            <input name="description" type="text" class="form-control" id="formGroupExampleInput2"
-              id="formGroupExampleInput"  #description="ngModel"
-              [(ngModel)]="modalData.description"
-              [class.is-invalid]="description.invalid && description.touched" ngModel required >
-            <label for="floatingInput" style="font-size: 13px; color: #666;">Description</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12 col-sm-1 col-lg-12">
-          <button (click)="passBack()" [disabled]="createUserForm.form.invalid" type="submit" class="btn btn-primary w-100">Create</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</ng-template>
-
-<ng-template #edit [ngIf]="modalData.tag == 'editRole'">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Update Role</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form #editUserForm="ngForm">
-      <div class="row">
-        <div class="col-md-12 col-sm-1 col-lg-12">
-          <div class="form-floating mb-3">
-            <input name="roleeditdescription" type="text" class="form-control" id="formGroupExampleInput2"
-              id="formGroupExampleInput" placeholder="Email your password" #roleeditdescription="ngModel"
-              [(ngModel)]="modalData.description"
-              [class.is-invalid]="roleeditdescription.invalid && roleeditdescription.touched" ngModel required >
-            <label for="floatingInput" style="font-size: 13px; color: #666;">Description</label>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12 col-sm-1 col-lg-12">
-          <div class="form-floating mb-3">
-            <select name="role_active_edit" class="form-select" id="floatingSelect"
-              aria-label="Floating label select example" #role_active_edit="ngModel"
-              [class.is-invalid]="role_active_edit.invalid && role_active_edit.touched" ngModel
-              [(ngModel)]="modalData.active" required>
-              <option [value]="1">Yes</option>
-              <option [value]="0">No</option>
+            <select name="procedureid" class="form-select" id="floatingSelect"
+              aria-label="Floating label select example" #procedureid="ngModel"
+              [(ngModel)]="modalData.procedureid"
+              [class.is-invalid]="procedureid.invalid && procedureid.touched" ngModel
+               required autofocus>
+              <option [value]="item.procedureID" *ngFor="let item of modalData.data | async">{{item.procedureName}}
+              </option>
             </select>
-            <label for="floatingInput" style="font-size: 13px; color: #666;">Active?</label>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Category</label>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12 col-sm-1 col-lg-12">
-          <button (click)="passBack()" [disabled]="editUserForm.form.invalid" type="submit" class="btn btn-primary w-100">Update</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</ng-template>
-
-<ng-template #delete [ngIf]="modalData.tag == 'deleteRole'">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Delete Role</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form #deleteGroupForm="ngForm">
 
       <div class="row">
         <div class="col-md-12 col-sm-1 col-lg-12">
           <div class="form-floating mb-3">
-            <h3 style="text-align: center;">Are you sure you want to delete the role?</h3>
+            <textarea name="description" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput"  #description="ngModel" rows="5"
+              [(ngModel)]="modalData.description"
+              [class.is-invalid]="description.invalid && description.touched" ngModel required ></textarea>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Enter your experience</label>
           </div>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-12 col-sm-1 col-lg-12">
-          <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Delete</button>
+          <button (click)="passBack()" [disabled]="createUserForm.form.invalid" type="submit" class="btn btn-danger w-100">Submit</button>
         </div>
       </div>
     </form>

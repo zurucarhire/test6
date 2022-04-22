@@ -1,0 +1,83 @@
+<app-shop-navbar></app-shop-navbar>
+
+<section class="shopping-cart dark" style="padding: 20px;">
+  <div class="container " >
+
+      <div class="content ">
+          <div class="row">
+
+              <div class="col-md-12 col-lg-8" >
+                  <div class="items">
+                      <div class="product">
+                          <!-- <h3 *ngIf="cartempty" style="text-align: center">Your cart is empty</h3> -->
+                          <div *ngIf="cartempty">
+                            <p style="color: brown; font-size: 16px; padding: 20px; font-weight: bold;">Your cart is Empty</p>
+                          </div>
+                          <div *ngIf="!cartempty">
+                            <div class="row" *ngFor="let item of items">
+                              <div class="col-md-2">
+                                  <img style="height: 80px; margin-top: 30px;" class="img-fluid mx-auto d-block image" src="../../assets/img/mother1.webp">
+                              </div>
+                              <div class="col-md-10">
+                                  <div class="info">
+                                      <div class="row">
+
+                                          <div class="col-md-5 price">
+                                              <span style="color: brown; font-size: 14px">{{item.item}}</span>
+                                          </div>
+                                          <div class="col-lg-5">
+                                            <div class="row" >
+                                              <div class="col-lg-2" style="margin-top: 18px; cursor: pointer;" (click)="minusItem(item.item,item.cost,item.count)">
+                                                  <i class="fa fa-minus"></i>
+                                              </div>
+                                              <div class="col-lg-2" style="margin-top: 18px;">
+                                                {{item.count}}
+                                              </div>
+                                              <div class="col-lg-2" style="margin-top: 18px; cursor: pointer;" (click)="addItem(item.item,item.cost,item.count)">
+                                                <i class="fa fa-plus"></i>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2 price d-flex justify-content-center">
+                                              <span style="color: brown; font-size: 14px; text-align: center">Ksh {{item.cost}}</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12 col-lg-4">
+                  <div class="summary">
+                      <h3>Summary</h3>
+                      <div class="summary-item">
+                          <span class="text">Subtotal</span>
+                          <span class="price">Ksh {{total}}</span>
+                      </div>
+                      <div class="summary-item">
+                          <span class="text">Discount</span>
+                          <span class="price">Ksh 0</span>
+                      </div>
+                      <div class="summary-item">
+                          <span class="text">Shipping</span>
+                          <span class="price">Ksh 0</span>
+                      </div>
+                      <div class="summary-item mt-3">
+                          <span class="text" style="color: brown">Total</span>
+                          <span class="price" style="color: brown">Ksh {{total}}</span>
+                      </div>
+
+
+
+                      <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 13px;" (click)="checkOut()">Checkout</button>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<app-footer></app-footer>

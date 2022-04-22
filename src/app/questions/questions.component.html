@@ -1,0 +1,122 @@
+<app-home-navbar></app-home-navbar>
+
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs" style="margin-top: 5px;">
+    <div class="container">
+      <ol>
+        <li><a href="javascript:void(0)">Home</a></li>
+        <li><a href="javascript:void(0)">Questions</a></li>
+      </ol>
+      <!-- <div class="row">
+        <h2 >Medical Procedures</h2>
+      </div> -->
+
+      <div class="row">
+        <div class="col-lg-10">
+          <h2 >Questions</h2>
+        </div>
+        <!-- <div class="col-lg-2">
+          <button (click)="shareExperience()" type="button" class="btn btn-primary" style="font-size: 13px; background-color: #ff5821; border: 1px solid #ff5821;"><i class="fa fa-share" style="padding: 5px;"></i>Share Experience</button>
+        </div> -->
+      </div>
+
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- ======= Blog Single Section ======= -->
+  <section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row">
+
+        <div class="col-lg-9 entries">
+
+          <div id="team" class="team">
+            <div class="container">
+              <div class="row">
+
+                <div class="col-lg-12 col-md-6 " data-aos="fade-up" *ngFor="let item of productsObservable | async">
+                  <article class="entry">
+
+                    <h2 class="entry-title">
+                      <a href="blog-single.html">{{item.title}}</a>
+                    </h2>
+
+                    <div class="entry-meta">
+                      <ul>
+                        <li class="d-flex align-items-center"><i class="fa fa-user"></i> <a href="blog-single.html">{{item.name}}</a></li>
+                        <li class="d-flex align-items-center"><i class="fa fa-clock-o"></i> <a href="blog-single.html"><time datetime="2020-01-01">{{item.dateCreated}}</time></a></li>
+                        <li class="d-flex align-items-center"><i class="fa fa-comments"></i> <a href="blog-single.html">0 Comments</a></li>
+                      </ul>
+                    </div>
+
+                    <div class="entry-content">
+                      <p>
+                        {{item.description}}
+                      </p>
+                      <div class="read-more" class="col-lg-12" >
+                        <!-- <a href="blog-single.html">Read More</a> -->
+                        <!-- <button type="button" class="btn btn-outline-primary btn-sm">Primary</button> -->
+                        <button type="button" class="btn btn-outline-primary btn-sm btn-block">Recommended Answer</button>
+                      </div>
+                    </div>
+
+                  </article><!-- End blog entry -->
+
+
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+
+
+        </div><!-- End blog entries list -->
+        <div class="col-lg-3">
+
+          <div class="sidebar">
+
+            <!-- <h3 class="sidebar-title">Search</h3>
+            <div class="sidebar-item search-form">
+              <form action="">
+                <input type="text">
+                <button type="submit"><i class="bi bi-search"></i></button>
+              </form>
+            </div> -->
+
+            <h2 class="sidebar-title" style="font-size: 17px;">Procedure Categories</h2>
+            <div class="sidebar-item categories">
+              <ul style="font-family: Montserrat;">
+                <li><a style="cursor: pointer;" href="/procedure">Invasive <span>(2)</span></a></li>
+                <li><a style="cursor: pointer;" href="/procedure">Non Invasive <span>(3)</span></a></li>
+                <li><a style="cursor: pointer;" href="/procedure">All <span>(5)</span></a></li>
+              </ul>
+            </div><!-- End sidebar categories-->
+
+            <h2 class="sidebar-title" style="font-size: 17px;">Procedure Types</h2>
+            <div class="sidebar-item categories">
+              <ul style="font-family: Montserrat;">
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Face Lift')" >Face Lift <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Nose Reshaping')">Nose Reshaping <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Nasal Surgery')" >Nasal Surgery <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Eyelid Lift')">Eyelid Lift <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Ear Reshaping')">Ear Reshaping <span>(1)</span></a></li>
+              </ul>
+            </div><!-- End sidebar categories-->
+
+          </div><!-- End sidebar -->
+
+        </div><!-- End blog sidebar -->
+      </div>
+
+    </div>
+  </section><!-- End Blog Single Section -->
+
+</main><!-- End #main -->
+
+<app-footer></app-footer>

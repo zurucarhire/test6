@@ -24,13 +24,15 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
-              "src/assets/css/bootstrap.min.css",
+              "src/assets/css/bootsrap2.min.css",
+              "src/assets/css/glightbox.min.css",
+              "src/assets/css/swiper-bundle.min.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/sweetalert2/dist/sweetalert2.css",
               "src/assets/css/d.css",
+              "node_modules/aos/dist/aos.css",
               "node_modules/datatables.net/css/responsive.dataTables.min.css"
             ],
             "scripts": [
@@ -38,6 +40,9 @@
               "src/assets/js/moment.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/assets/js/bootstrap.min.js",
+              "src/assets/js/glightbox.min.js",
+              "src/assets/js/isotope.pkgd.min.js",
+              "src/assets/js/swiper-bundle.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.min.js",
               "node_modules/datatables.net/js/dataTables.responsive.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.buttons.min.js",
@@ -47,8 +52,10 @@
               "node_modules/datatables.net/js/vfs_fonts.js",
               "node_modules/datatables.net/js/buttons.html5.min.js",
               "node_modules/datatables.net/js/buttons.print.min.js",
-              "src/assets/js/datetime-moment.js"
-              
+              "src/assets/js/datetime-moment.js",
+              "node_modules/aos/dist/aos.js",
+              "src/assets/js/main.js"
+
             ]
           },
           "configurations": {
@@ -70,13 +77,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "10mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "20mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "20kb"
+                  "maximumWarning": "50kb",
+                  "maximumError": "200kb"
                 }
               ]
             }

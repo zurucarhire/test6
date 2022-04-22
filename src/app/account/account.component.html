@@ -1,146 +1,81 @@
-<app-navbar></app-navbar>
-<div class="container" style="margin-top: 30px; margin-bottom: 50px;">
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-lg-6" style="padding: 5px">
-            <mat-card style="min-height: 332px;">
-                <h4>Personal Information</h4>
-                <div class="form-row">
-                    <div class="col-md-6" >
-                        <label for="validationTooltip01">Client Name</label>
-                    </div>
-                    <div class="col-md-6">
-                        <span class="pull-right">{{user.user.client.clientName}}</span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-6" >
-                        <label for="validationTooltip01">Username</label>
-                    </div>
-                    <div class="col-md-6" >
-                        <span class="pull-right">{{user.user.userName}}</span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-6" >
-                        <label for="validationTooltip01">Full Names</label>
-                    </div>
-                    <div class="col-md-6" >
-                        <span class="pull-right">{{user.user.fullName}}</span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <label for="validationTooltip01">Email Address</label>
-                    </div>
-                    <div class="col-md-6">
-                      <span class="pull-right">{{emailaddressvalue}}</span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <label for="validationTooltip01">ID Number</label>
-                    </div>
-                    <div class="col-md-6" >
-                        <!-- <span (click)="editAccount()" class="pull-right">{{user.user.idNumber}}<i class="fa fa-pencil fa-lg"></i></span> -->
-                        <span class="pull-right">{{idnumbervalue}}</span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-6" >
-                        <label for="validationTooltip01">Phone Number</label>
-                    </div>
-                    <div class="col-md-6">
-                      <span class="pull-right">{{msisdnvalue}}</span>
-                    </div>
-                </div>
-                <input type="submit" name="submit" class="submit action-button btn btn-warning" (click)="editAccount()" value="Edit"/>
+<app-home-navbar></app-home-navbar>
+<div class="dropdown-divider"></div>
+<main id="main">
+  <!-- ======= Blog Single Section ======= -->
+  <section id="blog" class="blog">
+    <div class="container">
 
-            </mat-card>
-        </div>
-        <div class="col-lg-6" style="padding: 5px">
-            <mat-card style="min-height: 240px;">
-                <h4>Change Password</h4>
-                <form #form="ngForm" (ngSubmit)="changePasswordSubmit(form)">
-                    <div class="form-floating mb-3">
-                        <input name="oldpassword" type="password" class="form-control" id="formGroupExampleInput2"
-                        id="formGroupExampleInput" placeholder="Old Password" #oldpassword="ngModel"
-                        [class.is-invalid]="oldpassword.invalid && oldpassword.touched" [(ngModel)]="oldPasswordVal" ngModel required>
-                        <label for="floatingInput" style="font-size: 13px; color: #666;">Old Password</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input name="newpassword" type="password" class="form-control" id="formGroupExampleInput2"
-                        id="formGroupExampleInput" placeholder="New Password" #newpassword="ngModel"
-                        [class.is-invalid]="newpassword.invalid && newpassword.touched" [(ngModel)]="newPasswordVal" ngModel required>
-                        <label for="floatingInput" style="font-size: 13px; color: #666;">New Password</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input name="repeatpassword" type="password" class="form-control" id="formGroupExampleInput2"
-                        id="formGroupExampleInput" placeholder="Repeat Password" #repeatpassword="ngModel"
-                        [class.is-invalid]="repeatpassword.invalid && repeatpassword.touched" [(ngModel)]="confirmPasswordVal" ngModel required>
-                        <label for="floatingInput" style="font-size: 13px; color: #666;">Repeat Password</label>
-                    </div>
-                    <input type="submit" name="submit" class="submit action-button btn btn-primary" [disabled]="form.form.invalid" value="Submit"/>
-                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+      <div class="row">
 
-                </form>
-            </mat-card>
-        </div>
+        <div class="col-lg-9 entries">
+
+          <div id="team" class="team">
+            <div class="container">
+              <div class="row">
+
+                <!-- <div class="col-lg-12   col-md-6 d-flex align-items-stretch" data-aos="fade-up" *ngFor="let item of productsObservable | async"> -->
+                <div class="col-lg-12   col-md-6 " >
+                  <article class="entry">
+                    <div class="entry-content">
+                      <p><i class="fa fa-user-o"></i><span style="padding: 10px;">{{user.user.userName}}</span></p>
+                      <p><i class="fa fa-user"></i><span style="padding: 10px;">{{user.user.fullName}}</span></p>
+                      <p><i class="fa fa-envelope"></i><span style="padding: 10px;">{{user.user.emailAddress}}</span></p>
+
+
+                    </div>
+                  </article><!-- End blog entry -->
+
+
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+
+
+        </div><!-- End blog entries list -->
+        <div class="col-lg-3">
+
+          <div class="sidebar">
+
+            <!-- <h3 class="sidebar-title">Search</h3>
+            <div class="sidebar-item search-form">
+              <form action="">
+                <input type="text">
+                <button type="submit"><i class="bi bi-search"></i></button>
+              </form>
+            </div> -->
+
+            <h2 class="sidebar-title" style="font-size: 17px;">Procedure Categories</h2>
+            <div class="sidebar-item categories">
+              <ul style="font-family: Montserrat;">
+                <li><a style="cursor: pointer;" href="/procedure">Invasive <span>(2)</span></a></li>
+                <li><a style="cursor: pointer;" href="/procedure">Non Invasive <span>(3)</span></a></li>
+                <li><a style="cursor: pointer;" href="/procedure">All <span>(5)</span></a></li>
+              </ul>
+            </div><!-- End sidebar categories-->
+
+            <h2 class="sidebar-title" style="font-size: 17px;">Procedure Types</h2>
+            <div class="sidebar-item categories">
+              <ul style="font-family: Montserrat;">
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Face Lift')" >Face Lift <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Nose Reshaping')">Nose Reshaping <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Nasal Surgery')" >Nasal Surgery <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Eyelid Lift')">Eyelid Lift <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Ear Reshaping')">Ear Reshaping <span>(1)</span></a></li>
+              </ul>
+            </div><!-- End sidebar categories-->
+
+          </div><!-- End sidebar -->
+
+        </div><!-- End blog sidebar -->
+      </div>
+
     </div>
-</div>
-<ng-template #editAccountModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Account Update</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form #editForm="ngForm" (ngSubmit)="submitEditAccount(editForm)">
+  </section><!-- End Blog Single Section -->
 
+</main><!-- End #main -->
 
-      <div class="row">
-        <div class="col-md-12 col-sm-1 col-lg-12">
-          <div class="form-floating mb-3">
-            <input name="editemailaddress" type="text" class="form-control" id="formGroupExampleInput2"
-              #editemailaddress="ngModel"
-              [class.is-invalid]="editemailaddress.invalid && editemailaddress.touched" ngModel
-              [(ngModel)]="emailaddressvalue">
-            <label for="floatingInput" style="font-size: 13px; color: #666;">Email Address</label>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12 col-sm-1 col-lg-12">
-          <div class="form-floating mb-3">
-            <input name="editidnumber" type="number" class="form-control" id="formGroupExampleInput2"
-              #editidnumber="ngModel" [class.is-invalid]="editidnumber.invalid && editidnumber.touched" ngModel
-              [(ngModel)]="idnumbervalue">
-            <label for="floatingInput" style="font-size: 13px; color: #666;">ID Number</label>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12 col-sm-1 col-lg-12">
-          <div class="form-floating mb-3">
-            <input name="editmsisdn" type="number" class="form-control" id="formGroupExampleInput2"
-              #editmsisdn="ngModel" [class.is-invalid]="editmsisdn.invalid && editmsisdn.touched" ngModel
-              [(ngModel)]="msisdnvalue">
-            <label for="floatingInput" style="font-size: 13px; color: #666;">Phone Number</label>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12 col-sm-1 col-lg-12">
-          <button type="submit"
-            class="btn btn-primary btn-block" [disabled]="editForm.form.invalid">Edit</button>
-          <img style="margin-left: 10px;" *ngIf="loading"
-            src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-
-        </div>
-      </div>
-
-
-    </form>
-  </div>
-</ng-template>
 <app-footer></app-footer>

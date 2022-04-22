@@ -1,7 +1,10 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { User } from '../model/user';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/internal/Observable';
+import { QuestionModalComponent } from '../modal/question-modal/question-modal.component';
+import { RoleModalComponent } from '../modal/role-modal/role-modal.component';
+import { Procedure } from '../model/procedure';
 import { ApiService } from '../service/api.service';
 import { NotificationService } from '../service/notification.service';
 
@@ -11,124 +14,159 @@ import { NotificationService } from '../service/notification.service';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  @ViewChild("editAccountModal") editAccountModal: TemplateRef<any>;
-  loading = false;
+
   user: any;
-  userId: number;
-  closeResult: string;
+  procedures: Procedure[];
 
-  emailaddressvalue;
-  idnumbervalue;
-  msisdnvalue;
+   productsObservable : Observable<any> ;
+   experienceObservable : Observable<any> ;
 
-  oldPasswordVal: string;
-  newPasswordVal: string;
-  confirmPasswordVal: string;
+  @ViewChild("mainContent")
+  private mainContentDiv!: ElementRef<HTMLElement>;
 
-  emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  constructor(private api: ApiService, private router: Router,
+    private modalService: NgbModal,private notifyService: NotificationService) {
 
-  constructor(private api: ApiService, private notifyService: NotificationService,private modalService: NgbModal) { }
+    }
 
   ngOnInit(): void {
+    this.experienceObservable = this.api.get_experiences();
+    this.productsObservable = this.api.get_products();
+    //this.observable$ = this.api.getProcedures();
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+          return;
+      }
+      window.scrollTo(0, 0)
+  });
     this.user = JSON.parse(sessionStorage.getItem('user'));
-    this.userId= this.user['user']['userID'];
-    this.emailaddressvalue = this.user['user']['emailAddress'];
-    this.idnumbervalue = this.user['user']['idNumber'];
-    this.msisdnvalue = this.user['user']['msisdn'];
-    console.log("AC",this.user);
+    console.log(this.user);
+    //this.getProcedures();
   }
 
-  openModal(content, size) {
-    this.modalService.open(content, { size: size, ariaLabelledBy: 'modal-basic-title', windowClass: 'modal-holder', centered: true }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
+  onActivate(_event: any): void {
+    // Scrolling back to the top
+    // Reference: https://stackoverflow.com/questions/48048299/angular-5-scroll-to-top-on-every-route-click/48048822
+    if (this.mainContentDiv) {
+      (this.mainContentDiv.nativeElement as HTMLElement).scrollTop = 0;
     }
   }
 
-  changePasswordSubmit(form: NgForm) {
-    console.log(form.value);
-    let oldPassword = form.value.oldpassword;
-    let newPassword = form.value.newpassword;
-    let confirmPassword = form.value.repeatpassword;
-
-    if (newPassword != confirmPassword){
-      this.notifyService.showError("Passwords do not match", "Password mismatch");
-      return
-    }
-
-    this.api.changePassword(this.userId, oldPassword, newPassword, confirmPassword).subscribe(
-      data => {
-        this.oldPasswordVal = "";
-        this.newPasswordVal = "";
-        this.confirmPasswordVal = "";
-        this.notifyService.showSuccess("Your password has been changed", "Success");
-    }, error => {
-      if (error.error != null) {
-        this.notifyService.showError(error.error.message, "Warning");
-      } else {
-        this.notifyService.showError("Something went wrong, please try again", "Oops");
+  openModal(view, data) {
+    const modalRef = this.modalService.open(view, { centered: true });
+    modalRef.componentInstance.modalData = data;
+    modalRef.result.then((result) => {
+      if (result) {
+        console.log(">>>00 " + result['procedureid']);
+        console.log(">>>00gg" + result['tag']);
+        if (result['tag'] == 'shareExperience') {
+          this.saveExperience(result);
+        } else if (result['tag'] == 'askQuestion') {
+          this.saveQuestion(result);
+        }
       }
     });
   }
 
-  editAccount(){
-    console.log(44);
-    this.openModal(this.editAccountModal,'sm');
+  getProcedures() {
+    this.api.get_products().subscribe((res : any[])=>{
+     // this.observable$ = res;
+  });
   }
-  submitEditAccount(form: NgForm) {
-    console.log(form.value);
+  // getProcedures() {
+  //   this.api.getProcedures().subscribe(
+  //     (data: Procedure[]) => {
+  //       let count: number = 1;
+  //       //let questionCount: number = 0;
+  //       this.procedures = data;
+  //       this.procedures.forEach(x => {
+  //         //let questionCount[count] = x.question.length;
+  //         count++;
+  //         //console.log("--",questionCount)
+  //       });
 
-    let email = form.value.editemailaddress;
-    let idNumber = form.value.editidnumber;
-    let phone = form.value.editmsisdn;
-    if (!this.emailRegex.test(email)) {
-      this.notifyService.showError("Please enter a valid email address", "Invalid Email Address");
+  //       console.log(data)
+  //       console.log(data[0].question[0].dateCreated)
+  //     }, error => {
+  //       console.log(error);
+  //     });
+  // }
+
+  findProcedureByCategory(category: string) {
+    console.log(category)
+
+    this.api.getProceduresByCategory(category).subscribe(
+      (data: Procedure[]) => {
+        let count: number = 1;
+        this.procedures.length = 0;
+        this.procedures = data;
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  findProcedureByName(name: string) {
+    console.log(name)
+
+    this.api.getProceduresByName(name).subscribe(
+      (data: Procedure[]) => {
+        this.procedures.length = 0;
+        this.procedures = data;
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  moreDetail2(item){
+    console.log("item -> ", item);
+    this.router.navigate(['/singleprocedure',item]);
+  }
+
+  shareExperience() {
+    if (this.user == null){
+      this.router.navigate(['/login']);
       return;
     }
+    this.openModal(RoleModalComponent, { roleName: "dd", procedureid:"",description: "", tag: "shareExperience", data: this.productsObservable });
+  }
 
-    if (idNumber.toString().length < 8 ){
-      this.notifyService.showError("Please enter a valid ID number", "Invalid ID Number");
-      return;
-    }
+  askQuestion(item) {
+    console.log(item)
+    this.openModal(QuestionModalComponent, { roleName: "dd", procedureid: item['procedureID'],description: "", tag: "askQuestion", data: this.productsObservable });
+  }
 
-    if (phone.toString().length < 10 ){
-      this.notifyService.showError("Please enter a valid mobile number", "Invalid mobile number");
-      return;
-    }
-
-    this.api.editAccount(this.userId, email, idNumber, phone).subscribe(
+  saveExperience(data) {
+    console.log("PPP>> ", data);
+    this.api.saveExperience(data['procedureid'], "joe", data['description']).subscribe(
       data => {
-        this.loading = false;
-        console.log("data 101 => ",data['emailAddress']);
-        this.emailaddressvalue = data['emailAddress'];
-        this.idnumbervalue = data['idNumber'];
-        this.msisdnvalue = data['msisdn'];
-        console.log("yy,",this.user);
-        this.user['user']['emailAddress'] = data['emailAddress'];
-        this.user['user']['idNumber'] = data['idNumber'];
-        this.user['user']['msisdn'] = data['msisdn'];
-        console.log("yy,",this.user);
-        sessionStorage.setItem('user', JSON.stringify(this.user));
-        this.modalService.dismissAll();
-        this.notifyService.showSuccess("Account edited successfully", "Success");
+          console.log(data);
+          this.notifyService.showSuccess("Experience submitted","Success")
+          this.experienceObservable = this.api.get_experiences();
       },
       error => {
-        this.loading = false;
-        console.log("error => ",error);
-        this.modalService.dismissAll();
-        this.notifyService.showError("Something went wrong, please try again", "Something went wrong");
+        console.log("error => ", error);
+
       }
     );
   }
+
+  saveQuestion(data) {
+    console.log("PPP>> ", data);
+    this.api.saveQuestion(data['procedureid'],"", data['description'],data['description']).subscribe(
+      data => {
+          console.log(data);
+          this.productsObservable = this.api.get_products();
+          this.notifyService.showSuccess("Question submitted","Success")
+      },
+      error => {
+        console.log("error => ", error);
+
+      }
+    );
+  }
+  logOut(){
+    sessionStorage.clear();
+    this.router.navigate(['/']);
+  }
 }
+

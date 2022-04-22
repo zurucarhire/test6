@@ -1,0 +1,279 @@
+<app-home-navbar></app-home-navbar>
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs" style="margin-top: 5px;">
+    <div class="container">
+      <ol>
+        <li><a href="javascript:void(0)">Home</a></li>
+        <li><a href="javascript:void(0)">Procedure</a></li>
+      </ol>
+      <!-- <div class="row">
+        <h2 >Medical Procedures</h2>
+      </div> -->
+
+      <div class="row">
+        <div class="col-lg-8">
+          <a class="nav-link scrollto active" href="/procedure"><button type="button" class="btn btn-primary" style="font-size: 13px; background-color: #ff5821; border: 1px solid #ff5821;"><i class="fa fa-arrow-left" style="padding: 5px;"></i>Back</button></a>
+        </div>
+        <div class="col-lg-4" >
+          <button (click)="shareExperience()" type="button" class="btn btn-primary" style="font-size: 13px; background-color: #ff5821; border: 1px solid #ff5821; margin: 5px;"><i class="fa fa-share" style="padding: 5px;"></i>Share Experience</button>
+          <button (click)="askQuestion2()" type="button" class="btn btn-primary" style="font-size: 13px; background-color: #ff5821; border: 1px solid #ff5821; margin: 5px;"><i class="fa fa-question" style="padding: 5px;"></i>Ask Question</button>
+        </div>
+        <!-- <div class="col-lg-2" style="margin: 0 !important; padding: 0 !important;">
+          <button (click)="askQuestion2()" type="button" class="btn btn-primary" style="font-size: 13px; background-color: #ff5821; border: 1px solid #ff5821;"><i class="fa fa-question" style="padding: 5px;"></i>Ask Question</button>
+        </div> -->
+      </div>
+
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- ======= Blog Single Section ======= -->
+  <section id="blog" class="blog">
+    <div class="container" >
+
+      <div class="row">
+
+
+        <div class="col-lg-9 entries" style="padding: 10px;">
+          <div *ngFor="let item of productsObservable | async" >
+          <div class="card">
+            <img src="https://codingyaar.com/wp-content/uploads/bootstrap-4-card-image-left-demo-image.jpg" class="card-img-top" />
+            <div class="card-body">
+              <h5 class="card-title" style="font-size: 20px;">{{item.procedureName}}</h5>
+              <p class="card-text">
+                {{item.description}}
+              </p>
+              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+            </div>
+          </div>
+          <div class="row" style="margin-top: 20px;">
+            <mat-tab-group style="border: 1px solid #fff; background-color: #fff;" mat-align-tabs="center" animationDuration="0ms" (selectedTabChange)="selectedTab($event)"
+            [(selectedIndex)]="tabIndex">
+            <mat-tab label="Questions">
+              <div class="container" style="padding: 15px">
+                <div class="row justify-content-sm-center">
+                  <mat-card >
+                    <h4 *ngIf="item.question.length == 0" style="font-weight: bold; color: #ff5821;">No questions yet</h4>
+                    <div *ngIf="item.question.length != 0"class="col-lg-12 col-md-6 " style="padding: 0 !important;">
+
+                      <article class="entry2" *ngFor="let item2 of item.question">
+
+                        <h2 class="entry-title">
+                          <a href="javascript:void(0)" style="font-weight: bold;">{{item2.title}}</a>
+                        </h2>
+
+                        <div class="entry-meta">
+                          <ul>
+                            <li class="d-flex align-items-center"><i class="fa fa-user"></i> <a href="blog-single.html">{{item2.name}}</a></li>
+                            <li class="d-flex align-items-center"><i class="fa fa-clock-o"></i> <a href="blog-single.html"><time datetime="2020-01-01">{{item2.dateCreated}}</time></a></li>
+                            <li class="d-flex align-items-center"><i class="fa fa-comments"></i> <a href="blog-single.html">0 Comments</a></li>
+                          </ul>
+                        </div>
+
+                        <div class="entry-content" style="margin-top: 20px;">
+                          <p>
+                            {{item2.description}}
+                          </p>
+                          <div class="read-more" class="col-lg-12" >
+                            <!-- <a href="blog-single.html">Read More</a> -->
+                            <!-- <button type="button" class="btn btn-outline-primary btn-sm">Primary</button> -->
+                            <!-- <button type="button" class="btn btn-outline-primary btn-sm btn-block">Recommended Answer</button> -->
+                          </div>
+                        </div>
+                        <hr>
+                      </article><!-- End blog entry -->
+
+
+                    </div>
+                  </mat-card>
+
+                </div>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="Experiences">
+              <div class="container" style="padding: 15px">
+                <div class="row justify-content-sm-center">
+                  <mat-card >
+                    <h4 *ngIf="item.experience.length == 0" style="font-weight: bold; color: #ff5821;">No experiences yet</h4>
+                    <div *ngIf="item.experience.length != 0"  class="col-lg-12 col-md-6 " style="padding: 0 !important;">
+                      <article class="entry2" *ngFor="let item2 of item.experience">
+
+                        <h2 class="entry-title">
+                          <a href="javascript:void(0)" style="font-weight: bold;">{{item2.title}}</a>
+                        </h2>
+
+                        <div class="entry-meta">
+                          <ul>
+                            <li class="d-flex align-items-center"><i class="fa fa-user"></i> <a href="blog-single.html">{{item2.name}}</a></li>
+                            <li class="d-flex align-items-center"><i class="fa fa-clock-o"></i> <a href="blog-single.html"><time datetime="2020-01-01">{{item2.dateCreated}}</time></a></li>
+                            <li class="d-flex align-items-center"><i class="fa fa-comments"></i> <a href="blog-single.html">0 Comments</a></li>
+                          </ul>
+                        </div>
+
+                        <div class="entry-content" style="margin-top: 20px;">
+                          <p>
+                            {{item2.description}}
+                          </p>
+
+                          <article style="padding-left: 15px; padding-right: 15px; " class="entry2" *ngFor="let item3 of item2.experienceComment">
+                            <div class="entry-content" style="margin-top: 5px;">
+                              <p style="color: #999;">
+                                {{item3.description}}
+                              </p>
+                            </div>
+                            <div class="entry-meta">
+                              <ul>
+                                <li class="d-flex align-items-center"><i style="color: #ff5821;"class="fa fa-user"></i> <a href="blog-single.html" style="color: #ff5821;">{{item3.name}}</a></li>
+                                <li class="d-flex align-items-center"><i style="color: #ff5821;"class="fa fa-clock-o"></i> <a href="blog-single.html" style="color: #ff5821;"><time datetime="2020-01-01">{{item3.dateCreated}}</time></a></li>
+                              </ul>
+                            </div>
+                          </article><!-- End blog entry -->
+
+
+                          <div class="read-more" class="col-lg-12" style="margin-top: 10px;">
+                            <!-- <a href="blog-single.html">Read More</a> -->
+                            <!-- <button type="button" class="btn btn-outline-primary btn-sm">Primary</button> -->
+                            <button type="button" class="btn btn-outline-primary btn-sm btn-block" (click)="comment(item2.experienceID)">Comment</button>
+                          </div>
+                        </div>
+                        <hr>
+                      </article><!-- End blog entry -->
+
+
+                    </div>
+                  </mat-card>
+
+                </div>
+              </div>
+            </mat-tab>
+            <!-- <mat-tab label="Reviews">
+              <div class="container" style="padding: 15px">
+                <div class="row justify-content-sm-center">
+                  <mat-card >
+                    <div class="col-lg-12 col-md-6 " style="padding: 0 !important;">
+                      <h4 style="font-weight: bold; color: #ff5821;">No reviews yet</h4>
+                    </div>
+                  </mat-card>
+
+                </div>
+              </div>
+            </mat-tab> -->
+
+          </mat-tab-group>
+          </div>
+          <!-- <div class="card flex-row flex-wrap">
+            <div class="card-header border-0">
+                <img style="width: 50%; height: 50%;" src="../../assets/img/team-1.jpg" alt="">
+            </div>
+            <div class="card-block px-2">
+                <h4 class="card-title">Title</h4>
+                <p class="card-text">Description</p>
+                <a href="#" class="btn btn-primary">BUTTON</a>
+            </div>
+            <div class="w-100"></div>
+            <div class="card-footer w-100 text-muted">
+                FOOTERj
+            </div> -->
+          <!-- <div id="team" class="team">
+              <div class="card" *ngFor="let item of productsObservable | async">
+                <div class="card-horizontal">
+                    <div class="img-square-wrapper">
+                        <img style="height: 50%; width: 100%;" class="" src="../../assets/img/team-1.jpg" alt="Card image cap">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title" style="font-weight: bolder;">{{item.procedureName}}</h4>
+                        <p class="card-text">{{item.description}}</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div> -->
+
+              <!-- <div class="row">
+
+
+                <div class="col-lg-12   col-md-6 " data-aos="fade-up" *ngFor="let item of productsObservable | async">
+                  <article class="entry">
+
+                    <h2 class="entry-title">
+                      <a href="blog-single.html">{{item.procedureName}}</a>
+                    </h2>
+
+
+
+                    <div class="entry-content">
+                      <p>
+                        {{item.description}}
+                      </p>
+
+                    </div>
+
+                    <div class="entry-meta">
+                      <ul>
+                        <li class="d-flex align-items-center"><i class="fa fa-dollar"></i> <a href="javascript:void(0)">{{item.cost}}</a></li>
+                        <li class="d-flex align-items-center"><i class="fa fa-heart-o"></i> <a href="javascript:void(0)">{{item.experience.length}} Experiences</a></li>
+                        <li class="d-flex align-items-center"><i class="fa fa-question-circle"></i> <a href="javascript:void(0)">{{item.question.length}} Questions</a></li>
+                      </ul>
+                    </div>
+
+                  </article>
+
+
+                </div>
+
+              </div> -->
+
+          <!-- </div> -->
+
+
+        </div>
+        </div><!-- End blog entries list -->
+        <div class="col-lg-3" >
+        <!-- <div class="col-lg-3" *ngIf="(productsObservable | async)?.length"> -->
+
+          <div class="sidebar">
+
+            <!-- <h3 class="sidebar-title">Search</h3>
+            <div class="sidebar-item search-form">
+              <form action="">
+                <input type="text">
+                <button type="submit"><i class="bi bi-search"></i></button>
+              </form>
+            </div> -->
+
+            <h2 class="sidebar-title" style="font-size: 17px;">Procedure Categories</h2>
+            <div class="sidebar-item categories">
+              <ul style="font-family: Montserrat;">
+                <li><a style="cursor: pointer;" href="/procedure">Invasive <span>(2)</span></a></li>
+                <li><a style="cursor: pointer;" href="/procedure">Non Invasive <span>(3)</span></a></li>
+                <li><a style="cursor: pointer;" href="/procedure">All <span>(5)</span></a></li>
+              </ul>
+            </div><!-- End sidebar categories-->
+
+            <h2 class="sidebar-title" style="font-size: 17px;">Procedure Types</h2>
+            <div class="sidebar-item categories">
+              <ul style="font-family: Montserrat;">
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Face Lift')" >Face Lift <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Nose Reshaping')">Nose Reshaping <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Nasal Surgery')" >Nasal Surgery <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Eyelid Lift')">Eyelid Lift <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Ear Reshaping')">Ear Reshaping <span>(1)</span></a></li>
+              </ul>
+            </div><!-- End sidebar categories-->
+
+          </div><!-- End sidebar -->
+
+        </div><!-- End blog sidebar -->
+      </div>
+
+
+    </div>
+  </section><!-- End Blog Single Section -->
+
+</main><!-- End #main -->
+
+<app-footer></app-footer>

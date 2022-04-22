@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { RouterModule } from '@angular/router';
+import { ShopNavbarComponent } from '../shop-navbar/shop-navbar.component';
 import { FooterComponent } from '../footer/footer.component';
-import {MatCardModule} from '@angular/material/card';
-import {RouterModule} from '@angular/router';
-
+import { HomeNavbarComponent } from '../home-navbar/home-navbar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [NavbarComponent,FooterComponent],
+  declarations: [ShopNavbarComponent, FooterComponent, HomeNavbarComponent],
   imports: [
     CommonModule,
     RouterModule,
-    MatCardModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  exports:[NavbarComponent,FooterComponent]
+  exports:[ShopNavbarComponent, FooterComponent, HomeNavbarComponent]
 })
 export class SharedModule { }

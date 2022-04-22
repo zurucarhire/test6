@@ -1,0 +1,345 @@
+<app-home-navbar></app-home-navbar>
+<div class="dropdown-divider"></div>
+<div class="container">
+
+  <div class="row">
+
+    <ng-template #createModal let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title" style="color: #ff5821;font-weight: bold;">Create Product</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #form="ngForm" (ngSubmit)="submit(form)">
+
+          <div class="row justify-content-sm-center">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <input name="name" type="text" class="form-control" id="formGroupExampleInput2"
+                  id="formGroupExampleInput" #name="ngModel"
+                  [class.is-invalid]="name.invalid && name.touched" ngModel required >
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Name</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-sm-center">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <input name="price" type="number" class="form-control" id="formGroupExampleInput2"
+                  id="formGroupExampleInput" #price="ngModel"
+                  [class.is-invalid]="price.invalid && price.touched" ngModel required >
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Price</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-sm-center">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <input name="count" type="count" class="form-control" id="formGroupExampleInput2"
+                  id="formGroupExampleInput" #count="ngModel"
+                  [class.is-invalid]="count.invalid && count.touched" ngModel required >
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Count</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-sm-center">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="onSale($event)">
+                <label class="form-check-label" for="flexCheckDefault">
+                  On Sale
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-sm-center">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="onDiscount($event)">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Discount
+                </label>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="onsale" class="row justify-content-sm-center" style="margin-top: 10px;">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <input name="sale" type="number" class="form-control" id="formGroupExampleInput2"
+                  id="formGroupExampleInput" #sale="ngModel"
+                  [class.is-invalid]="sale.invalid && sale.touched" ngModel >
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Sale %</label>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="ondiscount" class="row justify-content-sm-center" style="margin-top: 10px;">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <input name="discount" type="number" class="form-control" id="formGroupExampleInput2"
+                  id="formGroupExampleInput" #discount="ngModel"
+                  [class.is-invalid]="discount.invalid && discount.touched" ngModel >
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Discount</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-sm-center" style="margin-top: 10px;">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <textarea  style="font-size: 13px; color: #666;" name="description" class="form-control" id="formGroupExampleInput2"
+                  id="formGroupExampleInput"  #description="ngModel" rows="5"
+                  [class.is-invalid]="description.invalid && description.touched" ngModel required ></textarea>
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Descriptione</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-sm-center">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="mb-3">
+                <!-- <input type="file" id="myfile" name="myfile"> -->
+                <input name="thumbnail" #thumbnail="ngModel" class="form-control" #file type="file" id="formFile" (change)="fileChangeEvent(file.files)" multiple ngModel accept="image/jpg, image/jpeg, image/png">
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-sm-center">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <button  style="font-size: 16px; "[disabled]="form.form.invalid" type="submit" class="btn btn-danger w-100">Submit</button>
+              <img style="padding: 10px" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                            />
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+
+    <ng-template #editModal let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title" style="color: #ff5821;font-weight: bold;">Update Product</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #form="ngForm" (ngSubmit)="update(form)">
+
+          <div class="row justify-content-sm-center">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <input name="name" type="text" class="form-control" id="formGroupExampleInput2"
+                  id="formGroupExampleInput" #name="ngModel"
+                  [class.is-invalid]="name.invalid && name.touched" [(ngModel)]="productData.name" disabled ngModel required >
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Name</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-sm-center">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <input name="price" type="number" class="form-control" id="formGroupExampleInput2"
+                  id="formGroupExampleInput" #price="ngModel"
+                  [class.is-invalid]="price.invalid && price.touched" [(ngModel)]="productData.price" ngModel required >
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Price</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-sm-center">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <input name="count" type="count" class="form-control" id="formGroupExampleInput2"
+                  id="formGroupExampleInput" #count="ngModel"
+                  [class.is-invalid]="count.invalid && count.touched" [(ngModel)]="productData.count" ngModel required >
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Count</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-sm-center" style="margin-top: 10px;">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <input name="sale" type="number" class="form-control" id="formGroupExampleInput2"
+                  id="formGroupExampleInput" #sale="ngModel"
+                  [class.is-invalid]="sale.invalid && sale.touched" [(ngModel)]="productData.sale"ngModel required >
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Sale %</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-sm-center" style="margin-top: 10px;">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <input name="discount" type="number" class="form-control" id="formGroupExampleInput2"
+                  id="formGroupExampleInput" #discount="ngModel" [(ngModel)]="productData.discount"
+                  [class.is-invalid]="discount.invalid && discount.touched" ngModel required>
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Discount</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-sm-center" style="margin-top: 10px;">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <textarea  style="font-size: 13px; color: #666;" name="description" class="form-control" id="formGroupExampleInput2"
+                  id="formGroupExampleInput"  #description="ngModel" rows="5"
+                  [class.is-invalid]="description.invalid && description.touched" [(ngModel)]="productData.description" ngModel required ></textarea>
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Description</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-sm-center">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <button  style="font-size: 16px; "[disabled]="form.form.invalid" type="submit" class="btn btn-danger w-100">Submit</button>
+              <img style="padding: 10px" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                            />
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+
+    <ng-template #deleteModal let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Delete </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #deleteGroupForm="ngForm">
+
+          <div class="row">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
+                <h3 style="text-align: center;">Are you sure you want to delete {{productData.name}}?</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <button (click)="deleteProduct(productData)" type="submit" class="btn btn-danger w-100">Delete</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+
+    <mat-tab-group mat-align-tabs="center" animationDuration="0ms" (selectedTabChange)="selectedTab($event)"
+    [(selectedIndex)]="tabIndex">
+    <mat-tab label="Overview">
+      <div class="container" style="padding: 15px">
+        <div class="row justify-content-sm-center">
+          <mat-card>
+            <div class="container-fluid">
+
+              <!-- Page Heading -->
+              <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                  <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                          class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+              </div> -->
+
+              <!-- Content Row -->
+              <div class="row">
+                  <!-- Earnings (Monthly) Card Example -->
+                  <div class="col-xl-4 col-md-6 mb-4">
+                      <div class="card border-left-primary shadow h-100 py-2">
+                          <div class="card-body">
+                              <div class="row no-gutters align-items-center">
+                                  <div class="col mr-2">
+                                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                          New Customer</div>
+                                      <div class="h5 mb-0 font-weight-bold text-gray-800">433</div>
+                                  </div>
+                                  <div class="col-auto">
+                                      <i class="fa fa-calendar fa-2x text-gray-300"></i>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Total Orders</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">55</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Total Revenue</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Ksh 40,000</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div id="chartContainer" style="height: 240px; width: 100%; margin:auto;"></div>
+              </div>
+            </div>
+
+          </mat-card>
+
+        </div>
+      </div>
+      <div class="row">
+        <div id="chartContainer" ></div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Products">
+      <div class="container" style="padding: 15px">
+        <div class="row justify-content-sm-center">
+          <mat-card>
+            <button type="button" class="btn btn-primary" style="margin-bottom: 20px; " (click)="createProduct()">Create Product</button>
+
+              <table #dataTable id="dt1" class="display datatable">
+              </table>
+          </mat-card>
+
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Customers">
+      <div class="container" style="padding: 15px;">
+        <div class="row justify-content-sm-center">
+          <mat-card>
+              <!-- <table #dtUserRoles id="dtUserRoles" class="display datatable">
+              </table>-->
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Orders">
+      <div class="container" style="padding: 15px;">
+        <div class="row justify-content-sm-center">
+          <mat-card>
+              <!-- <table #dtUserRoles id="dtUserRoles" class="display datatable">
+              </table>-->
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  </div>
+
+</div>
+<app-footer></app-footer>

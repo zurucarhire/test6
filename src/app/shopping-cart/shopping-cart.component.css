@@ -1,0 +1,27 @@
+/*
+Removes white gap between slides
+*/
+.carousel {
+  background:#444;
+}
+
+/*
+Forces image to be 100% width and not max width of 100%
+*/
+.carousel-item .img-fluid {
+  width:100%;
+  height:300px;
+}
+
+/*
+anchors are inline so you need ot make them block to go full width
+*/
+.carousel-item a {
+  display: block;
+  width:100%;
+}
+
+/* .carousel-inner{
+  height: 50vh;
+  min-height: 300px;
+} */

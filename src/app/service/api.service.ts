@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Procedure } from '../model/procedure';
+import { Question } from '../model/question';
+import { Experience } from '../model/experience';
 const jwtHelper = new JwtHelperService();
 
 const options = {
@@ -17,8 +22,8 @@ const options = {
 })
 export class ApiService {
 
+  //url = "http://52.91.60.228:8090";
   url = "http://localhost:8090";
-  //url = "http://197.248.60.196:8082";
 
 
   constructor(private http: HttpClient) { }
@@ -30,6 +35,7 @@ export class ApiService {
     return !jwtHelper.isTokenExpired(token);
   }
 
+
   authenticate(user) {
     const url = this.url+"/api/login";
     console.log("usesr", user);
@@ -38,6 +44,13 @@ export class ApiService {
         .set('Content-Type', 'application/json')
     }
     return this.http.post(url, user, options);
+
+    // return this.http
+    //   .post<any>(url, {observe: 'response'})
+    //     .subscribe(resp => {
+    //       console.log(resp.headers.get('X-Token'));
+
+    //return this.http.post<any>(url, user, {observe: 'response'});
   }
 
   loadDashboard() {
@@ -45,197 +58,104 @@ export class ApiService {
     return this.http.post(url,{email: "joe"});
   }
 
-  findAllUsers() {
-    const url = this.url+"/api/iprs/user/findall";
+  getProducts() {
+    const url = this.url+"/api/psm/merchant/findall";
     return this.http.get(url);
   }
 
-  findAllUserRoles() {
-    const url = this.url+"/api/iprs/user/findalluserroles";
+  getProcedures() {
+    const url = this.url+"/api/psm/procedure/findall";
     return this.http.get(url);
   }
 
-  findExpiry() {
-    const url = this.url+"/api/iprs/expiryperiod/findall";
+  get_products(){
+    const url = this.url+"/api/psm/procedure/findall";
+    return this.http.get<Procedure[]>(url)
+    .pipe(map((results) => results));
+}
+
+get_products_by_category(category){
+  const url = this.url+"/api/psm/procedure/findbycategory/"+category;
+  return this.http.get<Procedure[]>(url)
+  .pipe(map((results) => results));
+}
+
+get_experiences(){
+  const url = this.url+"/api/psm/experience/findall";
+  return this.http.get<Experience[]>(url)
+  .pipe(map((results) => results));
+}
+
+  getProceduresByCategory(category: string) {
+    const url = this.url+"/api/psm/procedure/findbycategory/"+category;
     return this.http.get(url);
   }
 
-
-  findAllSearch() {
-    const url = this.url+"/api/iprs/customer/findall";
+  getProceduresByName(name: string) {
+    const url = this.url+"/api/psm/procedure/findbyname/"+name;
     return this.http.get(url);
   }
 
-  findAllSearch2(name) {
-    const url = this.url+"/api/iprs/customer/findall2/"+name;
-    return this.http.get(url);
+  findProductByUserID(id: number){
+    const url = this.url+"/api/psm/merchant/findbyuserid?userID="+id;
+    return this.http.get(url, options);
   }
 
-  findIprsRequests(fromDate, toDate, tag, requestType, requestNumber, requestSerialNumber, requestBy) {
-  //findIprsRequests(fromDate, toDate, reportLog) {
-    const url = this.url+"/api/iprs/search/requests?fromDate="+fromDate+"&toDate="+toDate+"&tag="+tag+"&requestType="+requestType+"&requestNumber="+requestNumber+"&requestSerialNumber="+requestSerialNumber+"&requestBy="+requestBy;
-    //const url = this.url+"/api/iprs/search/requests/"+fromDate+"/"+toDate;
-    return this.http.get(url);
-  }
-
-  findRequests(fromDate, toDate, tag, requestType, requestNumber, requestSerialNumber, requestBy) {
-    //findIprsRequests(fromDate, toDate, reportLog) {
-      const url = this.url+"/api/iprs/search/requests?fromDate="+fromDate+"&toDate="+toDate+"&tag="+tag+"&requestType="+requestType+"&requestNumber="+requestNumber+"&requestSerialNumber="+requestSerialNumber+"&requestBy="+requestBy;
-      //const url = this.url+"/api/iprs/search/requests/"+fromDate+"/"+toDate;
-      return this.http.get(url);
-    }
-
-  findAllSearch3(requestType, searchParams) {
-    const url = this.url+"/api/iprs/search/find/"+requestType;
-    return this.http.post(url, searchParams);
-  }
-
-  findAllRoles() {
-    const url = this.url+"/api/iprs/role/findall";
-    return this.http.get(url);
-  }
-
-  findAllActiveRoles() {
-    const url = this.url+"/api/iprs/role/findallactive";
-    return this.http.get(url);
-  }
-
-  updateUser(id, updatedBy, user) {
-    const url = this.url+"/api/iprs/user/update/"+id+"/"+updatedBy;
-    return this.http.put(url,user);
-  }
-
-  changePassword(id, oldPassword, newPassword, confirmPassword) {
-    const url = this.url+"/api/iprs/user/changepassword?userId="+id+"&oldPassword="+oldPassword+"&newPassword="+newPassword+"&confirmPassword="+confirmPassword;
-    return this.http.put(url,{});
-  }
-
-  updateRole(id, role) {
-    const url = this.url+"/api/iprs/role/update/"+id;
-    return this.http.put(url,role);
-  }
-
-  saveExpiryPeriod(createdBy, expiryPeriod) {
-    const url = this.url+"/api/iprs/expiryperiod/create/"+createdBy;
-    return this.http.post(url,expiryPeriod);
-  }
-
-  updateExpiryPeriod(id, period) {
-    const url = this.url+"/api/iprs/expiryperiod/update/"+id+"/"+period
-    return this.http.put(url,{});
-  }
-
-  deleteUser(id, updatedBy) {
-    const url = this.url+"/api/iprs/user/delete/"+id+"/"+updatedBy
+  deleteProduct(id) {
+    const url = this.url+"/api/psm/merchant/deleteproduct/"+id
     return this.http.delete(url,{});
   }
 
-  resetPassword(userId, updatedBy) {
-    const url = this.url+"/api/iprs/user/resetpassword/"+userId+"/"+updatedBy
-    return this.http.put(url,{});
+  registerCustomer(customer) {
+    const url = this.url+"/api/psm/user/create";
+    return this.http.post(url,customer);
   }
 
-  deleteExpiryPeriod(id) {
-    const url = this.url+"/api/iprs/expiry/delete/"+id
-    return this.http.delete(url,{});
+  saveNewsletter(email) {
+    const url = this.url+"/api/psm/newsletter/create?email="+email;
+    return this.http.post(url,{});
   }
 
-
-  deleteRole(id) {
-    const url = this.url+"/api/iprs/role/delete/"+id
-    return this.http.delete(url,{});
+  saveExperience(procedureId, name, description) {
+    console.log("kk ",description)
+    const url = this.url+"/api/psm/experience/create/"+procedureId+"/"+name+"/"+description;
+    return this.http.post(url,{});
   }
 
-  saveUser(createdBy, user) {
-    const url = this.url+"/api/iprs/user/create/"+createdBy;
-    return this.http.post(url,user);
+  saveQuestion(procedureId, name,title, description) {
+    const url = this.url+"/api/psm/question/create/"+procedureId+"/"+name+"/"+title+"/"+description;
+    console.log(url)
+    return this.http.post(url,{});
   }
 
-  saveClient(createdBy, client) {
-    const url = this.url+"/api/iprs/client/create/"+createdBy;
-    return this.http.post(url,client);
+  saveComment(experienceId, name, description) {
+    const url = this.url+"/api/psm/experience/createcomment/"+experienceId+"/"+name+"/"+description;
+    console.log(url)
+    return this.http.post(url,{});
   }
 
-  updateClient(clientId, updatedBy, client) {
-    const url = this.url+"/api/iprs/client/update/"+clientId+"/"+updatedBy;
-    return this.http.put(url,client);
-  }
+  get_questions(){
+    const url = this.url+"/api/psm/question/findall";
+    return this.http.get<Question[]>(url)
+    .pipe(map((results) => results));
+}
 
-  deleteClient(clientId, updatedBy) {
-    const url = this.url+"/api/iprs/client/delete/"+clientId+"/"+updatedBy;
-    return this.http.delete(url,{});
-  }
+updateProduct(productId, price, count, discount, sale, description) {
+  console.log("updateProduct =>> ",productId, price, count, discount, sale, description);
+  const url = this.url+"/api/psm/merchant/updateproduct?productID="+productId+"&price="+price+"&count="+count+"&discount="+discount+"&sale="+sale+"&description="+description;
+  return this.http.put(url,{});
+}
 
-  saveRequestType(createdBy, client) {
-    const url = this.url+"/api/iprs/requesttype/create/"+createdBy;
-    return this.http.post(url,client);
+  updateCustomer(customer) {
+    console.log("cust =>> ",customer);
+    const url = this.url+"/api/customer/update";
+    return this.http.put(url,customer);
   }
-
-  updateRequestType(requestTypeId, updatedBy, requestType) {
-    console.log(requestType['requestTypeID']);
-    console.log(requestType['requestTypeName']);
-    console.log(requestType['active']);
-    console.log(requestType['createdBy']);
-    console.log(requestType['updatedBy']);
-    console.log(requestType['dateCreated']);
-    console.log(requestType['dateModified']);
-    const url = this.url+"/api/iprs/requesttype/update/"+requestTypeId+"/"+updatedBy;
-    return this.http.put(url, requestType);
-  }
-
-  deleteRequestType(requestTypeId, updatedBy) {
-    const url = this.url+"/api/iprs/requesttype/delete/"+requestTypeId+"/"+updatedBy;
-    return this.http.delete(url,{});
-  }
-
-  editAccount(id, email, idNumber, msisdn) {
-    const url = this.url+"/api/iprs/user/updateaccount?userId="+id+"&email="+email+"&idNumber="+idNumber+"&msisdn="+msisdn;
-    return this.http.put(url,{});
-  }
-
-  saveRole(role) {
-    console.log(role)
-    const url = this.url+"/api/iprs/role/create";
-    return this.http.post(url,role);
-  }
-
-  editUserRole(userId, roleId) {
-    const url = this.url+"/api/iprs/user/edituserrole/"+userId+"/"+roleId
-    return this.http.put(url,{});
-  }
-
-  deleteUserRole(userId) {
-    const url = this.url+"/api/iprs/user/deleteuserrole/"+userId
-    return this.http.delete(url,{});
-  }
-
-  findAllClients() {
-    const url = this.url+"/api/iprs/client/findall";
-    return this.http.get(url);
-  }
-
-  findAllActiveClients() {
-    const url = this.url+"/api/iprs/client/findallactive";
-    return this.http.get(url);
-  }
-
-  findAllLoginLogs() {
-    const url = this.url+"/api/iprs/loginlog/findall";
-    return this.http.get(url);
-  }
-
-  findAllChangeLogs() {
-    const url = this.url+"/api/iprs/changelog/findall";
-    return this.http.get(url);
-  }
-
-  findAllRequestTypes() {
-    const url = this.url+"/api/iprs/requesttype/findall";
-    return this.http.get(url);
-  }
-
-  findAllActiveRequestTypes() {
-    const url = this.url+"/api/iprs/requesttype/findallactive";
-    return this.http.get(url);
-  }
+//   getImage(imageUrl: string) {
+//     return this.http
+//                .get(imageUrl, {responseType: ResponseContentType.Blob})
+//                .map((res) => {
+//                    return new Blob([res.blob()], {type: res.headers.get('Content-Type')});
+//                });
+// }
 }

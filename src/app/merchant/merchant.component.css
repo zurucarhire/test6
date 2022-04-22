@@ -1,0 +1,10 @@
+::ng-deep .mat-tab-label .mat-tab-label-content {
+  font-family: 'Montserrat' !important;
+  font-weight: bold;
+}
+
+.form-control, label, button, .datatable {
+  font-family: Montserrat;
+  font-size: 14px;
+}
+

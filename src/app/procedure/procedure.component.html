@@ -1,0 +1,114 @@
+<app-home-navbar></app-home-navbar>
+
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs" style="margin-top: 5px;">
+    <div class="container">
+      <ol>
+        <li><a href="javascript:void(0)">Home</a></li>
+        <li><a href="javascript:void(0)">Procedures</a></li>
+      </ol>
+      <!-- <div class="row">
+        <h2 >Medical Procedures</h2>
+      </div> -->
+
+      <div class="row">
+        <div class="col-lg-10">
+          <h2 >Medical Procedures</h2>
+        </div>
+        <div class="col-lg-2">
+          <button (click)="shareExperience()" type="button" class="btn btn-primary" style="font-size: 13px; background-color: #ff5821; border: 1px solid #ff5821;"><i class="fa fa-share" style="padding: 5px;"></i>Share Experience</button>
+        </div>
+      </div>
+
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- ======= Blog Single Section ======= -->
+  <section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row">
+
+        <div class="col-lg-9 entries">
+
+          <div id="team" class="team">
+            <div class="container">
+              <div class="row">
+
+
+                <div class="col-lg-4   col-md-6 d-flex align-items-stretch" data-aos="fade-up" *ngFor="let item of productsObservable | async">
+                  <div class="member">
+                    <div class="member-img">
+                      <img src="../../assets/img/{{item.photo}}" class="img-fluid" alt="">
+                      <div class="social">
+                        <a href="javascript:void(0)"><i style="padding: 5px;" class="fa fa-phone"></i><span>Contact Specialist</span></a>
+                      </div>
+                    </div>
+                    <div class="member-info">
+                      <h4>{{item.procedureName}}</h4>
+                      <!-- <h5 style=" padding: 0 !important; margin: 0 !important;">{{item.description}}</h5> -->
+                      <h5 style="padding: 0 !important; margin: 0 !important;"><i style="padding: 5px;" class="fa fa-check"></i>Average Cost $ {{item.cost}}</h5>
+                      <h5 style="padding: 0 !important; margin: 0 !important;"><i style="padding: 5px;" class="fa fa-heart-o"></i> {{item.experience.length}} shared experiences</h5>
+                      <h5 style="padding: 0 !important; margin: 0 !important;"><i style="padding: 5px;" class="fa fa-question-circle"></i> {{item.question.length}} questions asked</h5>
+
+                      <div class="btn-wrap">
+                        <a style="cursor: pointer;" (click)="moreDetail(item)" class="btn-buy">More Details</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+
+
+        </div><!-- End blog entries list -->
+        <div class="col-lg-3">
+
+          <div class="sidebar">
+
+            <!-- <h3 class="sidebar-title">Search</h3>
+            <div class="sidebar-item search-form">
+              <form action="">
+                <input type="text">
+                <button type="submit"><i class="bi bi-search"></i></button>
+              </form>
+            </div> -->
+
+            <h2 class="sidebar-title" style="font-size: 17px;">Procedure Categories</h2>
+            <div class="sidebar-item categories">
+              <ul style="font-family: Montserrat;">
+                <li><a style="cursor: pointer;" (click)="findProcedureByCategory('Invasive')">Invasive <span>(2)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="findProcedureByCategory('Non Invasive')">Non Invasive <span>(3)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="findProcedureByCategory('All')">All <span>(5)</span></a></li>
+              </ul>
+            </div><!-- End sidebar categories-->
+
+            <h2 class="sidebar-title" style="font-size: 17px;">Procedure Types</h2>
+            <div class="sidebar-item categories">
+              <ul style="font-family: Montserrat;">
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Face Lift')" >Face Lift <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Nose Reshaping')">Nose Reshaping <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Nasal Surgery')" >Nasal Surgery <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Eyelid Lift')">Eyelid Lift <span>(1)</span></a></li>
+                <li><a style="cursor: pointer;" (click)="moreDetail2('Ear Reshaping')">Ear Reshaping <span>(1)</span></a></li>
+              </ul>
+            </div><!-- End sidebar categories-->
+
+          </div><!-- End sidebar -->
+
+        </div><!-- End blog sidebar -->
+      </div>
+
+    </div>
+  </section><!-- End Blog Single Section -->
+
+</main><!-- End #main -->
+
+<app-footer></app-footer>
