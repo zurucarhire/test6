@@ -22,8 +22,8 @@ const options = {
 })
 export class ApiService {
 
-  //url = "http://52.91.60.228:8090";
-  url = "http://localhost:8090";
+  url = "http://52.91.60.228:8090";
+  //url = "http://localhost:8090";
 
 
   constructor(private http: HttpClient) { }
