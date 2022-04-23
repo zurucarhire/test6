@@ -79,8 +79,8 @@ export class ShopDetailModalComponent implements OnInit {
       });
     }
 
-    fullDescription(item, cost){
-      console.log(item, " :::: ",cost);
+    fullDescription(id){
+      console.log(id);
       // if (this.user == null){
       //   this.activeModal.close(this.modalData);
       //   this.router.navigate(['/login']);
@@ -89,7 +89,7 @@ export class ShopDetailModalComponent implements OnInit {
       //this.modalData["desc"] = "yes"
       //this.passEntry.emit(this.modalData);
       this.activeModal.close(this.modalData);
-      this.router.navigate(['/itemdetail', item, cost]);
+      this.router.navigate(['/itemdetail', id]);
 
     }
 

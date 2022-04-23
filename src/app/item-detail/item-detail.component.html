@@ -2,6 +2,11 @@
 
       <div class="container" data-aos="fade-up">
         <div class="row">
+          <div class="col-lg-3">
+            <h4 style="padding-left: 25px; padding-top: 15px; color:#ff5821; font-size: 12px; font-weight: bold;">Shop > {{item.subcategory}} > {{item.name}}</h4>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-lg-6" >
             <div class="container">
               <div class="row">
@@ -27,21 +32,26 @@
           </div>
           <div class="col-lg-6">
             <!-- <i class="fa fa-close" style="float: right; cursor: pointer;"(click)="activeModal.dismiss('Cross click')" ></i> -->
-            <h3 style="font-weight: bold;">{{name}}</h3>
-            <small style="color: salmon" class="text-muted" ><i style="color: blueviolet; padding: 1px; font-style: normal">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</i> </small>
-            <h4 style="font-size: 13px; font-weight: bold;">Ksh {{cost}}</h4>
+            <h4 *ngIf="item.sale > 0 || item.discount > 0" style="font-size: 13px; font-weight: bold; margin-top: 10px;"><span ><i style="padding: 5px; background-color: red; font-size: 12px; font-style: normal; color: white;" *ngIf="item.sale > 0">On Sale</i><i *ngIf="item.discount > 0" style="font-style: normal; color: white; padding: 5px; background-color: blue; font-size: 12px; margin-left: 10px;">{{item.discount}}% Off</i></span></h4>
+          <p style="font-weight: bold; margin-top: 7px;"><i class="fa fa-user-o" style="padding-right: 10px;"></i>{{item.user.fullName}}</p>
+          <span style="font-weight: bold;">{{item.name}}</span>
+            <!-- <h3 style="font-weight: bold;">{{item.name}}</h3> -->
+            <!-- <small style="color: salmon" class="text-muted" ><i style="color: blueviolet; padding: 1px; font-style: normal">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</i> </small> -->
+            <!-- <h4 style="font-size: 13px; font-weight: bold;">Ksh {{item.price}}</h4> -->
             <!-- <h4 style="font-size: 13px;">It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h4> -->
-            <h4 style="font-size: 13px;">Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.Aldus PageMaker including versions of Lorem Ipsum.</h4>
-            <h4 style="font-size: 13px; font-weight: bold; color: blue;">Add items to cart</h4>
+            <h4 style="font-size: 13px; font-weight: bold;"><span><i style="text-decoration: line-through; font-size: 12px; font-style: normal; padding-right: 5px;" *ngIf="item.sale > 0 || item.discount">Ksh {{item.price}}</i><i style="font-style: normal; color: brown; ">Ksh {{item.overallprice}}</i></span></h4>
+
+            <h4 style="font-size: 13px;">{{item.description}}</h4>
+            <h4 style="font-size: 13px; font-weight: bold; color: blue;">Manage your cart</h4>
             <div class="col-lg-10">
               <div class="row" >
-                <div class="col-lg-2" style="margin-top: 5px; cursor: pointer;" (click)="minusItem(name, cost)">
+                <div class="col-lg-2" style="margin-top: 5px; cursor: pointer;" (click)="minusItem(item.name, item.overallprice)">
                     <i class="fa fa-minus"></i>
                 </div>
                 <div class="col-lg-2" style="margin-top: 5px; font-family: Montserrat">
                   {{count}}
                 </div>
-                <div class="col-lg-2" style="margin-top: 5px; cursor: pointer;" (click)="addItem(name, cost)">
+                <div class="col-lg-2" style="margin-top: 5px; cursor: pointer;" (click)="addItem(item.name, item.overallprice)">
                   <i class="fa fa-plus"></i>
                 </div>
                 <div class="col-lg-4">
@@ -57,10 +67,9 @@
 
       </div>
 
-    <section id="blog" class="blog">
+    <!-- <section id="blog" class="blog">
       <div class="section-title" >
         <h2 data-aos="fade-up" style="font-weight: bolder;">Customer Reviews</h2>
-        <!-- <p data-aos="fade-up">View all our medical procedures.</p> -->
       </div>
       <div class="container" data-aos="fade-up">
         <div class="row">
@@ -85,7 +94,7 @@
                   nijea oyaa
                 </p>
               </div>
-            </article><!-- End blog entry -->
+            </article>
             <article class="entry" style="margin-top: -40px;">
 
               <h2 class="entry-title">
@@ -105,14 +114,14 @@
                   nijea oyaa
                 </p>
               </div>
-            </article><!-- End blog entry -->
+            </article>
 
-          </div><!-- End blog entries list -->
+          </div>
 
         </div>
 
       </div>
 
-    </section><!-- End Blog Single Section -->
+    </section> -->
 
  <app-footer></app-footer>

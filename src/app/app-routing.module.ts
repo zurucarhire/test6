@@ -37,11 +37,11 @@ const routes: Routes = [{path: '', redirectTo: '/', pathMatch: 'full'},
   loadChildren: () => import('src/app/shop/shop.module').then(m => m.ShopModule)
 },
 {
-  path: 'shopdetail',
+  path: 'shopdetail/:name',
   loadChildren: () => import('src/app/shop-detail/shop-detail.module').then(m => m.ShopDetailModule)
 },
 {
-  path: 'itemdetail/:item/:cost',
+  path: 'itemdetail/:id',
   loadChildren: () => import('src/app/item-detail/item-detail.module').then(m => m.ItemDetailModule)
 },
 {

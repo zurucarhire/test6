@@ -29,26 +29,23 @@
          <li class="nav-item px-1">
           <a style="color: #ff5821;" href="/shop" class="nav-link">Shop</a>
          </li>
-        <li class="nav-item dropdown px-2">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <li class="nav-item dropdown px-2">
+          <a style="color: brown" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             My Account
           </a>
-          <div  *ngIf="user == null" class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+          <div *ngIf="user == null" class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/login">Login</a>
           </div>
-
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <ul *ngIf="user != null" style="padding: 5px; list-style: none;">
-              <li ><a style="text-decoration: none; cursor: pointer; font-size: 14px; padding: 10px; margin: 10px;" href="#" [routerLink]="[ '/merchant']"
-                routerLinkActive="active-list-item"
-                [routerLinkActiveOptions]="{exact: true}">Merchant</a></li>
-              <li ><a style="text-decoration: none; cursor: pointer; font-size: 14px; padding: 10px;" href="#" [routerLink]="[ '/account']"
-                routerLinkActive="active-list-item"
-                [routerLinkActiveOptions]="{exact: true}">My Profile</a></li>
-              <li style="text-decoration: none;"><a style="cursor: pointer; padding: 10px;text-decoration: none;font-size: 14px;" (click)="logOut()">Log out</a></li>
-            </ul>
+          <div *ngIf="user != null" class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a [routerLink]="[ '/merchant']"
+            routerLinkActive="active-list-item"
+            [routerLinkActiveOptions]="{exact: true}" class="dropdown-item" href="#">Merchant</a>
+            <a [routerLink]="[ '/account']"
+            routerLinkActive="active-list-item"
+            [routerLinkActiveOptions]="{exact: true}" class="dropdown-item" href="#">My Profile</a>
+            <a class="dropdown-item" href="#" (click)="logOut()">Log Out</a>
           </div>
-
         </li>
       </ul>
     </div>

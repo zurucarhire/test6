@@ -17,6 +17,19 @@
           <div class="row justify-content-sm-center">
             <div class="col-md-12 col-sm-1 col-lg-12">
               <div class="form-floating mb-3">
+                <select name="category" class="form-select" id="floatingSelect"
+                  aria-label="Floating label select example" #category="ngModel"
+                  [class.is-invalid]="category.invalid && category.touched" ngModel required>
+                  <option value="Skin & Body">Skin & Body</option>
+                  <option value="Facial Treatment">Facial Treatment</option>
+                  <option value="Hair Treatment">Hair Treatment</option>
+                  <option value="Facial Treatment">Scars & Stretch Marks</option>
+                </select>
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Category</label>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-1 col-lg-12">
+              <div class="form-floating mb-3">
                 <input name="name" type="text" class="form-control" id="formGroupExampleInput2"
                   id="formGroupExampleInput" #name="ngModel"
                   [class.is-invalid]="name.invalid && name.touched" ngModel required >
@@ -90,7 +103,7 @@
                 <textarea  style="font-size: 13px; color: #666;" name="description" class="form-control" id="formGroupExampleInput2"
                   id="formGroupExampleInput"  #description="ngModel" rows="5"
                   [class.is-invalid]="description.invalid && description.touched" ngModel required ></textarea>
-                <label for="floatingInput" style="font-size: 13px; color: #666;">Descriptione</label>
+                <label for="floatingInput" style="font-size: 13px; color: #666;"></label>
               </div>
             </div>
           </div>
@@ -247,12 +260,12 @@
                           <div class="card-body">
                               <div class="row no-gutters align-items-center">
                                   <div class="col mr-2">
-                                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="font-family: Montserrat; ">
                                           New Customer</div>
-                                      <div class="h5 mb-0 font-weight-bold text-gray-800">433</div>
+                                      <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-family: Montserrat; font-size: 14px;">0</div>
                                   </div>
                                   <div class="col-auto">
-                                      <i class="fa fa-calendar fa-2x text-gray-300"></i>
+                                      <i class="fa fa-users fa-2x text-gray-300"></i>
                                   </div>
                               </div>
                           </div>
@@ -263,9 +276,9 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="font-family: Montserrat; ">
                                         Total Orders</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">55</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-family: Montserrat; font-size: 14px;">0</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fa fa-calendar fa-2x text-gray-300"></i>
@@ -279,12 +292,12 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="font-family: Montserrat;">
                                         Total Revenue</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Ksh 40,000</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-family: Montserrat; font-size: 14px;">Ksh 0.00</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fa fa-calendar fa-2x text-gray-300"></i>
+                                    <i class="fa fa-dollar fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -322,8 +335,8 @@
       <div class="container" style="padding: 15px;">
         <div class="row justify-content-sm-center">
           <mat-card>
-              <!-- <table #dtUserRoles id="dtUserRoles" class="display datatable">
-              </table>-->
+            <table #dataTable id="dt2" class="display datatable">
+            </table>
           </mat-card>
         </div>
       </div>
@@ -332,8 +345,8 @@
       <div class="container" style="padding: 15px;">
         <div class="row justify-content-sm-center">
           <mat-card>
-              <!-- <table #dtUserRoles id="dtUserRoles" class="display datatable">
-              </table>-->
+            <table #dataTable id="dt3" class="display datatable">
+            </table>
           </mat-card>
         </div>
       </div>

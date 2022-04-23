@@ -35,6 +35,7 @@ export class MerchantComponent implements OnInit {
 
   private datatable1: any;
   private datatable2: any;
+  private datatable3: any;
   closeResult: string;
   onsale = false;
   ondiscount = false;
@@ -62,6 +63,10 @@ export class MerchantComponent implements OnInit {
   ngAfterViewInit(): void {
     if (this.tabIndex == 1) {
       this.initDatatables1([]);
+    } else if (this.tabIndex == 2) {
+      this.initDatatables2([]);
+    } else if (this.tabIndex == 3) {
+      this.initDatatables3([]);
     }
     var chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
@@ -73,11 +78,13 @@ export class MerchantComponent implements OnInit {
       data: [{
         type: "column",
         dataPoints: [
-          { y: 71, label: "Pending Host Approval" },
-          { y: 55, label: "Pending Customer Payment" },
-          { y: 100, label: "Active Bookings" },
-          { y: 10, label: "Canceled Bookings" },
-          { y: 150, label: "Completed Bookings" }
+          { y: 71, label: "Pending Orders" },
+          { y: 31, label: "Successful Approvals" },
+          { y: 55, label: "Pending Payments" },
+          { y: 55, label: "Successful Payments" },
+          { y: 100, label: "Active Orders" },
+          { y: 10, label: "Canceled Orders" },
+          { y: 150, label: "Completed Orders" }
         ]
       }]
     });
@@ -258,6 +265,93 @@ export class MerchantComponent implements OnInit {
     }
   }
 
+  initDatatables2(data) {
+    let scope = this;
+    let dtOptions = {
+      data: data,
+      "dom": 'ftipr',
+      columns: [
+        {
+          data: null,
+          className: 'details-control',
+          defaultContent: '',
+          responsivePriority: 1
+        },
+        {
+          title: 'Name',
+          data: 'name',
+          className: "text-center"
+        },
+        {
+          title: 'Email',
+          data: 'price',
+          className: "text-center"
+        },
+        {
+          title: 'Phone',
+          data: 'overallprice',
+          className: "text-center"
+        },
+        {
+          title: 'Location',
+          data: 'count',
+          className: "text-center"
+        },
+        {
+          title: 'Address',
+          data: 'discount',
+          className: "text-center"
+        },
+
+      ]
+    };
+
+    this.datatable2 = $('#dt2').DataTable(dtOptions);
+  }
+
+  initDatatables3(data) {
+    let scope = this;
+    let dtOptions = {
+      data: data,
+      "dom": 'ftipr',
+      columns: [
+        {
+          data: null,
+          className: 'details-control',
+          defaultContent: '',
+          responsivePriority: 1
+        },
+        {
+          title: 'Customer Name',
+          data: 'name',
+          className: "text-center"
+        },
+        {
+          title: 'Product Name',
+          data: 'count',
+          className: "text-center"
+        },
+        {
+          title: 'Count',
+          data: 'discount',
+          className: "text-center"
+        },
+        {
+          title: 'Payment Status',
+          data: 'discount',
+          className: "text-center"
+        },
+        {
+          title: 'Order Date',
+          data: 'dateCreated',
+          className: "text-center"
+        },
+
+      ]
+    };
+
+    this.datatable3 = $('#dt3').DataTable(dtOptions);
+  }
   //   function format(d) {
   //     console.log(d.thumbnail);
   //     let splitThumbnail = d.thumbnail.split(",");
@@ -286,6 +380,18 @@ export class MerchantComponent implements OnInit {
 
       }
       this.getInventory(2);
+    } else if (index == 2) {
+      if (this.datatable2 == null || this.datatable2 == undefined) {
+        this.initDatatables2([]);
+
+      }
+     // this.getInventory(2);
+    } else if (index == 3) {
+      if (this.datatable3 == null || this.datatable3 == undefined) {
+        this.initDatatables3([]);
+
+      }
+     // this.getInventory(2);
     }
   }
 
@@ -357,6 +463,7 @@ export class MerchantComponent implements OnInit {
 
 
     const uploadData = new FormData();
+    uploadData.append('category', form.value.category);
     uploadData.append('userID', userID);
     uploadData.append('name', name);
     uploadData.append('price', price);

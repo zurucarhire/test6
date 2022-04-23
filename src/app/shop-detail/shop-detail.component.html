@@ -5,6 +5,11 @@
       <div class="container" data-aos="fade-up">
         <div class="row">
           <div class="col-lg-3">
+            <h4 style="padding-left: 10px; padding-bottom: 10px; color:#ff5821; font-size: 12px; font-weight: bold;">Shop > Beauty Products > {{productCategory}}</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-3">
 
             <div class="sidebar">
 
@@ -20,62 +25,66 @@
               <h2 class="sidebar-title" style="font-size: 17px;">Availability</h2>
               <div class="sidebar-item categories">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" (change)="handleAvailabilityChange('instock')">
                   <label class="form-check-label" for="flexRadioDefault1">
                     In Stock
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" (change)="handleAvailabilityChange('outofstock')">
                   <label class="form-check-label" for="flexRadioDefault2">
                     Out of stock
                   </label>
                 </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" (change)="handleAvailabilityChange('all')">
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    All
+                  </label>
+                </div>
               </div><!-- End sidebar categories-->
-              <h2 class="sidebar-title" style="font-size: 17px;">Brand</h2>
+              <h2 class="sidebar-title" style="font-size: 17px;">Offers</h2>
               <div class="sidebar-item categories">
                 <div class="sidebar-item categories">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" (change)="handleOfferChange('sale')">
                     <label class="form-check-label" for="flexRadioDefault1">
-                      Gucci
+                      Sale
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" (change)="handleOfferChange('discount')">
                     <label class="form-check-label" for="flexRadioDefault2">
-                      Dolce Gabbana
+                      Discount
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" (change)="handleOfferChange('all')">
                     <label class="form-check-label" for="flexRadioDefault2">
-                      Nike
+                      All
                     </label>
                   </div>
                 </div>
               </div><!-- End sidebar categories-->
-              <h2 class="sidebar-title" style="font-size: 17px;">Product Type</h2>
+              <h2 class="sidebar-title" style="font-size: 17px;">Price</h2>
               <div class="sidebar-item categories">
                 <div class="sidebar-item categories">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      Facial Treatment
-                    </label>
+                  <form #form="ngForm" (ngSubmit)="submitPrice(form)">
+                    <div class="form-floating mb-3">
+                        <input style="height: 40px; font-size: 12px;" name="from" type="number" class="form-control" id="formGroupExampleInput2"
+                        id="formGroupExampleInput" #from="ngModel"
+                        [class.is-invalid]="from.invalid && from.touched" ngModel required >
+                        <label for="floatingInput" style="font-size: 13px; color: #666;">From (Ksh)</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input style="height: 40px; font-size: 12px;" name="to" type="number" class="form-control"
+                      id="formGroupExampleInput"  #to="ngModel"
+                      [class.is-invalid]="to.invalid && to.touched" ngModel required>
+                      <label for="floatingInput" style="font-size: 13px; color: #666;">To (Ksh)</label>
                   </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                    <label class="form-check-label" for="flexRadioDefault2">
-                      Hair Treatment
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                    <label class="form-check-label" for="flexRadioDefault2">
-                      Scrubs
-                    </label>
-                  </div>
+                    <input style="font-size: 12px;" type="submit" name="submit" class="submit action-button btn btn-primary" [disabled]="form.form.invalid" value="Apply"/>
+                </form>
                 </div>
               </div><!-- End sidebar categories-->
             </div><!-- End sidebar -->
@@ -86,121 +95,38 @@
             <div id="team" class="team">
               <div class="container">
                 <div class="row">
+                  <div class="col-lg-12 col-md-6 d-flex align-items-stretch">
+                    <h4 *ngIf="noContent" style="color: red;">There are no items within your search criteria</h4>
+                  </div>
 
-                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch" >
+                </div>
+                <div class="row">
+
+                  <!-- <div class="col-lg-4 col-md-6 d-flex align-items-stretch" *ngFor="let item of products"> -->
+                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch" *ngFor="let item of contentBehaviorSubject | async">
                     <div class="member">
                       <div class="member-img">
+                        <span *ngIf="item.sale > 0" style="float: left; padding: 5px; background-color: red; color: white; font-family: Montserrat; font-size: 12px;">On Sale</span>
+                        <span *ngIf="item.sale == 0" style="float: left; padding: 5px; background-color: white; color: white; font-family: Montserrat; font-size: 12px;">jjj</span>
+                        <span *ngIf="item.discount > 0"style="float: right; padding: 5px; background-color: blue; color: white;font-family: Montserrat; font-size: 12px;">{{item.discount}}% Off</span>
                         <img src="../../assets/img/feed1.webp" class="img-fluid" alt="">
                         <div class="social">
-                          <a href="javascript:void(0)" (click)="quickView('Vaseline',1200)"><span
+                          <a href="javascript:void(0)" (click)="quickView(item)"><span
                               style="border: 2px solid #ff5821; color:#fff; background-color: #ff5821; font-family: Montserrat; font-weight: bold; padding: 10px; border-radius: 25px;">Quick
                               View</span></a>
                         </div>
                       </div>
                       <div class="member-info">
-                        <h4>Vaseline</h4>
+                        <h4>{{item.name}}</h4>
                         <small style="color: salmon" class="text-muted"><i
                             style="color: blueviolet; padding: 1px; font-style: normal">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</i>
                         </small>
-                        <h4 style="font-size: 13px;">Ksh 1200</h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
-                    <div class="member">
-                      <div class="member-img">
-                        <img src="../../assets/img/feed2.webp" class="img-fluid" alt="">
-                        <div class="social">
-                          <a href="javascript:void(0)" (click)="quickView('Arimis',1100)"><span
-                            style="border: 2px solid #ff5821; color:#fff; background-color: #ff5821; font-family: Montserrat; font-weight: bold; padding: 10px; border-radius: 25px;">Quick
-                            View</span></a>
-                        </div>
-                      </div>
-                      <div class="member-info">
-                        <h4>Arimis</h4>
-                        <small style="color: salmon" class="text-muted"><i
-                            style="color: blueviolet; padding: 1px; font-style: normal">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-                        </small>
-                        <h4 style="font-size: 13px;">Ksh 1100</h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
-                    <div class="member">
-                      <div class="member-img">
-                        <img src="../../assets/img/feed3.webp" class="img-fluid" alt="">
-                        <div class="social">
-                          <a href="javascript:void(0)" (click)="quickView('Solea',800)"><span
-                            style="border: 2px solid #ff5821; color:#fff; background-color: #ff5821; font-family: Montserrat; font-weight: bold; padding: 10px; border-radius: 25px;">Quick
-                            View</span></a>
-                        </div>
-                      </div>
-                      <div class="member-info">
-                        <h4>Solea</h4>
-                        <small style="color: salmon" class="text-muted"><i
-                            style="color: blueviolet; padding: 1px; font-style: normal">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-                        </small>
-                        <h4 style="font-size: 13px;">Ksh 800</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
+                        <!-- <h4 *ngIf="item.discount > 0" style="font-size: 13px; text-decoration: line-through;">Ksh {{item.price}}</h4>
+                        <h4 style="font-size: 13px;">Ksh {{item.overallprice}}</h4> -->
+                        <h4 style="margin-top: 5px;">
+                          <span style="font-size: 13px; "><i *ngIf="item.sale > 0 || item.discount > 0" style="font-size: 13px; text-decoration: line-through; font-style: normal; ">Ksh {{item.price}}</i><i style="font-size: 13px; font-style: normal; color: brown; font-weight: bold;padding-left: 5px;">Ksh {{item.overallprice}}</i></span>
 
-                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
-                    <div class="member">
-                      <div class="member-img">
-                        <img src="../../assets/img/feed1.webp" class="img-fluid" alt="">
-                        <div class="social">
-                          <a href="javascript:void(0)" (click)="quickView('Nivea',3700)"><span
-                            style="border: 2px solid #ff5821; color:#fff; background-color: #ff5821; font-family: Montserrat; font-weight: bold; padding: 10px; border-radius: 25px;">Quick
-                            View</span></a>
-                        </div>
-                      </div>
-                      <div class="member-info">
-                        <h4>Nivea</h4>
-                        <small style="color: salmon" class="text-muted"><i
-                            style="color: blueviolet; padding: 1px; font-style: normal">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-                        </small>
-                        <h4 style="font-size: 13px;">Ksh 3700</h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
-                    <div class="member">
-                      <div class="member-img">
-                        <img src="../../assets/img/feed2.webp" class="img-fluid" alt="">
-                        <div class="social">
-                          <a href="javascript:void(0)" (click)="quickView('Samini',1500)"><span
-                            style="border: 2px solid #ff5821; color:#fff; background-color: #ff5821; font-family: Montserrat; font-weight: bold; padding: 10px; border-radius: 25px;">Quick
-                            View</span></a>
-                        </div>
-                      </div>
-                      <div class="member-info">
-                        <h4>Samini</h4>
-                        <small style="color: salmon" class="text-muted"><i
-                            style="color: blueviolet; padding: 1px; font-style: normal">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-                        </small>
-                        <h4 style="font-size: 13px;">Ksh 1500</h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
-                    <div class="member">
-                      <div class="member-img">
-                        <img src="../../assets/img/feed3.webp" class="img-fluid" alt="">
-                        <div class="social">
-                          <a href="javascript:void(0)" (click)="quickView('Kornea', 2800)"><span
-                            style="border: 2px solid #ff5821; color:#fff; background-color: #ff5821; font-family: Montserrat; font-weight: bold; padding: 10px; border-radius: 25px;">Quick
-                            View</span></a>
-                        </div>
-                      </div>
-                      <div class="member-info">
-                        <h4>Kornea</h4>
-                        <small style="color: salmon" class="text-muted"><i
-                            style="color: blueviolet; padding: 1px; font-style: normal">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</i>
-                        </small>
-                        <h4 style="font-size: 13px;">Ksh 2800</h4>
+                        </h4>
                       </div>
                     </div>
                   </div>

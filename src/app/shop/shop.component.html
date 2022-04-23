@@ -18,18 +18,18 @@
   </div> -->
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="container" data-aos="fade-in">
-      <h1 >The New Way To Explore Plastic Surgery</h1>
-      <h2 style="padding: 0; margin: 0; font-size: 20px; font-weight: bold;">Connect with a doctor near you</h2>
-      <h2 style="padding: 0; margin: 7px; font-size: 16px; color: #ccc;"><i class="fa fa-check" style="padding: 4px;"></i>Choose from hundreds of doctors</h2>
-      <h2 style="padding: 0; margin: 7px; font-size: 16px; color: #ccc;"><i class="fa fa-check" style="padding: 4px;"></i>Consult virtually from home or in person</h2>
-      <h2 style="padding: 0; margin: 7px; font-size: 16px; color: #ccc;"><i class="fa fa-check" style="padding: 4px;"></i>View community reviews on procedures by doctors</h2>
+      <h1 >Shop beauty products</h1>
+      <h2 style="padding: 0; margin: 7px; font-size: 16px; color: #ccc;"><i class="fa fa-check" style="padding: 4px;"></i>Skin & Body</h2>
+      <h2 style="padding: 0; margin: 7px; font-size: 16px; color: #ccc;"><i class="fa fa-check" style="padding: 4px;"></i>Facial Treatment</h2>
+      <h2 style="padding: 0; margin: 7px; font-size: 16px; color: #ccc;"><i class="fa fa-check" style="padding: 4px;"></i>Hair Treatment</h2>
+      <h2 style="padding: 0; margin: 7px; font-size: 16px; color: #ccc;"><i class="fa fa-check" style="padding: 4px;"></i>Scars & Stretch Marks</h2>
 
     </div>
   </section>
-  <main id="main" style="margin-top: 150px;">
+  <main id="main" style="margin-top: 170px;">
   <section id="blog" class="blog" >
     <div class="section-title" >
-      <h2 data-aos="fade-up" style="font-weight: bolder;">Skin Treatment</h2>
+      <h2 data-aos="fade-up" style="font-weight: bolder;">Beauty Products</h2>
 
     </div>
     <div class="container" data-aos="fade-up">
@@ -45,7 +45,7 @@
             <div class="container">
               <div class="row">
 
-                <div class="col-lg-3   col-md-6 d-flex align-items-stretch" data-aos="fade-up" (click)="itemDetail()">
+                <div class="col-lg-3   col-md-6 d-flex align-items-stretch" data-aos="fade-up" (click)="itemDetail(item.name)" *ngFor="let item of items">
                   <div class="member">
                     <div class="member-img">
                       <img src="../../assets/img/feed1.webp" class="img-fluid" alt="">
@@ -54,53 +54,10 @@
                       </div> -->
                     </div>
                     <div class="member-info">
-                      <h4>Botox Injections</h4>
+                      <h4>{{item.name}}</h4>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3   col-md-6 d-flex align-items-stretch" data-aos="fade-up" (click)="itemDetail()">
-                  <div class="member">
-                    <div class="member-img">
-                      <img src="../../assets/img/feed2.webp" class="img-fluid" alt="">
-                      <!-- <div class="social">
-                        <a href="javascript:void(0)"><i style="padding: 5px;" class="fa fa-phone"></i><span>Contact Specialist</span></a>
-                      </div> -->
-                    </div>
-                    <div class="member-info">
-                      <h4>Chemical Peel</h4>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3   col-md-6 d-flex align-items-stretch" data-aos="fade-up" (click)="itemDetail()">
-                  <div class="member">
-                    <div class="member-img">
-                      <img src="../../assets/img/feed3.webp" class="img-fluid" alt="">
-                      <!-- <div class="social">
-                        <a href="javascript:void(0)"><i style="padding: 5px;" class="fa fa-phone"></i><span>Contact Specialist</span></a>
-                      </div> -->
-                    </div>
-                    <div class="member-info">
-                      <h4>Skin Resurfacing</h4>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3   col-md-6 d-flex align-items-stretch" data-aos="fade-up" (click)="itemDetail()">
-                  <div class="member">
-                    <div class="member-img">
-                      <img src="../../assets/img/feed4.webp" class="img-fluid" alt="">
-                      <!-- <div class="social">
-                        <a href="javascript:void(0)"><i style="padding: 5px;" class="fa fa-phone"></i><span>Contact Specialist</span></a>
-                      </div> -->
-                    </div>
-                    <div class="member-info">
-                      <h4>Dermabrasion</h4>
-
-                    </div>
-                  </div>
-                </div>
-
               </div>
 
             </div>
@@ -115,83 +72,7 @@
     </div>
 
   </section><!-- End Blog Single Section -->
-  <section id="blog" class="blog">
-    <div class="section-title" >
-      <h2 data-aos="fade-up" style="font-weight: bolder;">Facial Treatment</h2>
-      <!-- <p data-aos="fade-up">View all our medical procedures.</p> -->
-    </div>
-    <div class="container" data-aos="fade-up">
-      <div class="row">
 
-        <div class="col-lg-12 entries">
-
-          <div id="team" class="team">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-3   col-md-6 d-flex align-items-stretch" data-aos="fade-up" (click)="itemDetail()">
-                  <div class="member">
-                    <div class="member-img">
-                      <img src="../../assets/img/feed2.webp" class="img-fluid" alt="">
-                      <!-- <div class="social">
-                        <a href="javascript:void(0)"><i style="padding: 5px;" class="fa fa-phone"></i><span>Contact Specialist</span></a>
-                      </div> -->
-                    </div>
-                    <div class="member-info">
-                      <h4>CHEMICAL PEELS</h4>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3   col-md-6 d-flex align-items-stretch" data-aos="fade-up" (click)="itemDetail()">
-                  <div class="member">
-                    <div class="member-img">
-                      <img src="../../assets/img/feed3.webp" class="img-fluid" alt="">
-                      <!-- <div class="social">
-                        <a href="javascript:void(0)"><i style="padding: 5px;" class="fa fa-phone"></i><span>Contact Specialist</span></a>
-                      </div> -->
-                    </div>
-                    <div class="member-info">
-                      <h4>ENVY FACIAL</h4>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3   col-md-6 d-flex align-items-stretch" data-aos="fade-up" (click)="itemDetail()">
-                  <div class="member">
-                    <div class="member-img">
-                      <img src="../../assets/img/feed4.webp" class="img-fluid" alt="">
-                      <!-- <div class="social">
-                        <a href="javascript:void(0)"><i style="padding: 5px;" class="fa fa-phone"></i><span>Contact Specialist</span></a>
-                      </div> -->
-                    </div>
-                    <div class="member-info">
-                      <h4>HYDRAFACIAL</h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3   col-md-6 d-flex align-items-stretch" data-aos="fade-up" (click)="itemDetail()">
-                  <div class="member">
-                    <div class="member-img">
-                      <img src="../../assets/img/feed4.webp" class="img-fluid" alt="">
-                      <!-- <div class="social">
-                        <a href="javascript:void(0)"><i style="padding: 5px;" class="fa fa-phone"></i><span>Contact Specialist</span></a>
-                      </div> -->
-                    </div>
-                    <div class="member-info">
-                      <h4>HYDRAFACIAL</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- End blog entries list -->
-
-      </div>
-
-    </div>
-
-  </section><!-- End Blog Single Section -->
 </main>
 
 <app-footer></app-footer>

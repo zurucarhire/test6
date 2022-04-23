@@ -9,13 +9,15 @@ import { ApiService } from '../service/api.service';
 })
 export class ShopComponent implements OnInit {
 
-  items = [{image: "mother1.webp"}, {image: "mother2.webp"}, {image: "mother3.webp"}];
+  items;
+  //items = [{image: "mother1.webp"}, {image: "mother2.webp"}, {image: "mother3.webp"}];
   constructor(private router: Router, private api: ApiService) { }
 
   ngOnInit(): void {
-    this.api.getProducts().subscribe(
+    this.api.getProductCategories().subscribe(
       data => {
           console.log(data);
+          this.items = data;
       },
       error => {
         console.log("error => ", error.status);
@@ -24,8 +26,10 @@ export class ShopComponent implements OnInit {
     );
   }
 
-  itemDetail(){
-    this.router.navigate(['/shopdetail']);
+  itemDetail(name){
+    console.log(name)
+    this.router.navigate(['/shopdetail', name]);
+    //this.router.navigate(['/itemdetail', item, cost]);
   }
 
 }

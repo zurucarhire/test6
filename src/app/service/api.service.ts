@@ -63,6 +63,11 @@ export class ApiService {
     return this.http.get(url);
   }
 
+  getProductCategories() {
+    const url = this.url+"/api/psm/misc/findallproductcategory";
+    return this.http.get(url);
+  }
+
   getProcedures() {
     const url = this.url+"/api/psm/procedure/findall";
     return this.http.get(url);
@@ -96,6 +101,16 @@ get_experiences(){
     return this.http.get(url);
   }
 
+  getProductById(id) {
+    const url = this.url+"/api/psm/merchant/findbyproductid/"+id;
+    return this.http.get(url);
+  }
+
+  getProductsByCategory(name: string) {
+    const url = this.url+"/api/psm/merchant/findallbycategory/"+name;
+    return this.http.get(url);
+  }
+
   findProductByUserID(id: number){
     const url = this.url+"/api/psm/merchant/findbyuserid?userID="+id;
     return this.http.get(url, options);
@@ -109,6 +124,11 @@ get_experiences(){
   registerCustomer(customer) {
     const url = this.url+"/api/psm/user/create";
     return this.http.post(url,customer);
+  }
+
+  mpesaExpress(userId, productId, msisdn, amount) {
+    const url = this.url+"/api/psm/mpesa/express?userId="+userId+"&productId="+productId+"&msisdn="+msisdn+"&amount="+amount;
+    return this.http.post(url,{});
   }
 
   saveNewsletter(email) {

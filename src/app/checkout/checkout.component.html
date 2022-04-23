@@ -1,24 +1,37 @@
 <app-shop-navbar></app-shop-navbar>
 <div class="container-fluid">
+  <ng-template #paymentModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title" style="color: #ff5821;font-weight: bold;">Mpesa Payment</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row justify-content-sm-center">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <label for="exampleInputEmail1">Please check your phone number for an STK push</label>
+        </div>
+        <div class="col-md-12 col-sm-1 col-lg-12" style="margin-top: 20px;">
+          <button type="button" class="btn btn-primary" (click)="closeModal()">Ok</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
   <div class="row d-flex justify-content-center text-center">
     <div class="col-6" style="padding: 20px ;">
-      <h4 style="margin-top: 50px; font-weight: bold;">PSM</h4>
-      <h4 style="font-size: 12px;">Cart > Information > Shipping > Payment</h4>
+      <h4 style="margin-top: 50px; font-weight: bold;">Contact Information</h4>
+      <!-- <h4 style="font-size: 12px;">Cart > Information > Shipping > Payment</h4> -->
       <!-- <h4 style="font-size: 12px;">Already have an account? <a href="/login"> Log in</a></h4> -->
       <form>
         <div class="form-group">
-          <label for="formGroupExampleInput" style="float: left; padding: 5px;">Contact Information</label>
+          <!-- <label for="formGroupExampleInput" style="float: left; padding: 5px; color: blue;">Contact Information</label> -->
           <input style="margin-top: 10px; height: 40px;" type="email" class="form-control" id="formGroupExampleInput"
-            placeholder="Email">
-        </div>
-        <div class="form-group" style="margin-top: 20px;">
-          <label for="formGroupExampleInput" style="float: left; padding: 5px;">Shipping Address</label>
-          <input style="margin-top: 10px; height: 40px;" type="text" class="form-control" id="formGroupExampleInput"
-            placeholder="First Name">
+            placeholder="Email" value="{{user.user.emailAddress}}" disabled>
         </div>
         <div class="form-group">
           <input style="margin-top: 10px; height: 40px;" type="text" class="form-control" id="formGroupExampleInput"
-            placeholder="Last Name">
+            placeholder="Name" value="{{user.user.fullName}}" disabled>
         </div>
         <div class="form-group">
           <input style="margin-top: 10px; height: 40px;" type="text" class="form-control" id="formGroupExampleInput"
@@ -37,7 +50,7 @@
             placeholder="Phone">
         </div>
         <button type="button" class="btn btn-outline-success"
-          style="font-weight: bold; font-size: 13px; margin: 20px; ">Continue with payment</button>
+          style="font-weight: bold; font-size: 13px; margin: 20px; " (click)="payment()">Continue with payment</button>
 
         <button type="button" class="btn btn-outline-success"
           style="font-weight: bold; font-size: 13px;margin: 20px;" (click)="cart()">Return to cart</button>
