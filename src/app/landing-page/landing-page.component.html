@@ -83,10 +83,11 @@
 
       <div class="row">
 
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" *ngFor="let item of data | slice:0:4">
           <div class="member">
             <div class="member-img">
-              <img src="../../assets/img/team-1.jpg" class="img-fluid" alt="">
+              <!-- <img src="../../assets/img/team-2.jpg" class="img-fluid" alt=""> -->
+              <img src="http://treasuredlooks.com/{{item.photo}}" class="img-fluid" alt="">
               <div class="social">
                 <a href=""><i class="bi bi-twitter"></i></a>
                 <a href=""><i class="bi bi-facebook"></i></a>
@@ -95,16 +96,16 @@
               </div>
             </div>
             <div class="member-info">
-              <h4>Eyelid Lift</h4>
-              <span>Non Invasive</span>
+              <h4>{{item.procedureName}}</h4>
+              <span>{{item.category}}</span>
               <div class="btn-wrap">
-                <a href="javascript:void(0)" (click)="moreDetail('Eyelid Lift')" class="btn-buy">Explore</a>
+                <a href="javascript:void(0)" (click)="moreDetail(item.procedureID)" class="btn-buy">Explore</a>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+        <!-- <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
           <div class="member">
             <div class="member-img">
               <img src="../../assets/img/team-2.jpg" class="img-fluid" alt="">
@@ -165,10 +166,25 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- <div class="btn-wrap text-center" >
           <a href="/procedure" style="background-color: #ff5821;" class="btn-buy">View More Procedures</a>
         </div> -->
+      </div>
+
+    </div>
+  </section>
+  <section id="cta" class="cta">
+    <div class="container" data-aos="zoom-in">
+
+      <div class="row">
+        <div class="col-lg-9 text-center text-lg-start">
+          <h3>Become A Merchant</h3>
+          <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div class="col-lg-3 cta-btn-container text-center">
+          <a class="cta-btn align-middle" href="/register">Register</a>
+        </div>
       </div>
 
     </div>
@@ -182,11 +198,11 @@
       </div>
 
       <div class="row">
-
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" *ngFor="let item of data | slice:4:8">
           <div class="member">
             <div class="member-img">
-              <img src="../../assets/img/team-1.jpg" class="img-fluid" alt="">
+              <!-- <img src="../../assets/img/team-3.jpg" class="img-fluid" alt=""> -->
+              <img src="http://treasuredlooks.com/{{item.photo}}" class="img-fluid" alt="">
               <div class="social">
                 <a href=""><i class="bi bi-twitter"></i></a>
                 <a href=""><i class="bi bi-facebook"></i></a>
@@ -195,80 +211,14 @@
               </div>
             </div>
             <div class="member-info">
-              <h4>Hair Transplant</h4>
-              <!-- <span>Non Invasive</span> -->
+              <h4>{{item.procedureName}}</h4>
+              <span>{{item.category}}</span>
               <div class="btn-wrap">
-                <a href="javascript:void(0)" (click)="moreDetail('Eyelid Lift')" class="btn-buy">Explore</a>
+                <a href="javascript:void(0)" (click)="moreDetail(item.procedureID)" class="btn-buy">Explore</a>
               </div>
             </div>
           </div>
         </div>
-
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-          <div class="member">
-            <div class="member-img">
-              <img src="../../assets/img/team-2.jpg" class="img-fluid" alt="">
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info">
-              <h4>Gynecomastia</h4>
-              <!-- <span>Invasive</span> -->
-              <div class="btn-wrap">
-                <a href="javascript:void(0)" (click)="moreDetail('Nasal Surgery')" class="btn-buy">Explore</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-          <div class="member">
-            <div class="member-img">
-              <img src="../../assets/img/team-3.jpg" class="img-fluid" alt="">
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info">
-              <h4>Eyelid rejuvenation</h4>
-              <!-- <span>Non Invasive</span> -->
-              <div class="btn-wrap">
-                <a href="javascript:void(0)" (click)="moreDetail('Nose Reshaping')" class="btn-buy">Explore</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-          <div class="member">
-            <div class="member-img">
-              <img src="../../assets/img/team-4.jpg" class="img-fluid" alt="">
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info">
-              <h4>Neck Lift</h4>
-              <!-- <span>Invasive</span> -->
-              <div class="btn-wrap">
-                <a href="javascript:void(0)" (click)="moreDetail('Face Lift')" class="btn-buy">Explore</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="btn-wrap text-center" >
-          <a href="/procedure" style="background-color: #ff5821;" class="btn-buy">View More Procedures</a>
-        </div> -->
       </div>
 
     </div>
@@ -283,10 +233,11 @@
 
       <div class="row">
 
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
-          <div class="member">
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" *ngFor="let item of nonInvasive | slice:0:4">
+          <div class="member" >
             <div class="member-img">
-              <img src="../../assets/img/team-1.jpg" class="img-fluid" alt="">
+              <!-- <img src="../../assets/img/team-1.jpg" class="img-fluid" alt=""> -->
+              <img src="http://treasuredlooks.com/{{item.photo}}" class="img-fluid" alt="">
               <div class="social">
                 <a href=""><i class="bi bi-twitter"></i></a>
                 <a href=""><i class="bi bi-facebook"></i></a>
@@ -295,73 +246,10 @@
               </div>
             </div>
             <div class="member-info">
-              <h4>Consultative Cardiology</h4>
-              <!-- <span>Non Invasive</span> -->
+              <h4>{{item.procedureName}}</h4>
+              <span>{{item.category}}</span>
               <div class="btn-wrap">
-                <a href="javascript:void(0)" (click)="moreDetail('Eyelid Lift')" class="btn-buy">Explore</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-          <div class="member">
-            <div class="member-img">
-              <img src="../../assets/img/team-2.jpg" class="img-fluid" alt="">
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info">
-              <h4>Nuclear Imaging</h4>
-              <!-- <span>Invasive</span> -->
-              <div class="btn-wrap">
-                <a href="javascript:void(0)" (click)="moreDetail('Nasal Surgery')" class="btn-buy">Explore</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-          <div class="member">
-            <div class="member-img">
-              <img src="../../assets/img/team-3.jpg" class="img-fluid" alt="">
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info">
-              <h4>Stress Testing</h4>
-              <!-- <span>Non Invasive</span> -->
-              <div class="btn-wrap">
-                <a href="javascript:void(0)" (click)="moreDetail('Nose Reshaping')" class="btn-buy">Explore</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-          <div class="member">
-            <div class="member-img">
-              <img src="../../assets/img/team-4.jpg" class="img-fluid" alt="">
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info">
-              <h4>Echocardiography</h4>
-              <!-- <span>Invasive</span> -->
-              <div class="btn-wrap">
-                <a href="javascript:void(0)" (click)="moreDetail('Face Lift')" class="btn-buy">Explore</a>
+                <a href="javascript:void(0)" (click)="moreDetail(item.procedureID)" class="btn-buy">Explore</a>
               </div>
             </div>
           </div>
@@ -515,15 +403,15 @@
         <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
       </div>
 
-      <div class="row">
-        <div class="col-lg-4 col-md-6" data-aos="fade-up">
-          <div class="icon-box">
-            <div class="icon"><h2 style="font-size: 18px;">200</h2></div>
-            <h4 class="title"><a href="">Kansas</a></h4>
+      <div class="row" >
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" *ngFor="let item of u | keyvalue">
+          <div class="icon-box" style="cursor: pointer;" (click)="popular(item.key)">
+            <div class="icon"><h2 style="font-size: 18px; ">{{item.value}}</h2></div>
+            <h4 class="title"><a href="">{{item.key}}</a></h4>
             <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <!-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
           <div class="icon-box">
             <div class="icon"><h2 style="font-size: 18px;">187</h2></div>
             <h4 class="title"><a href="">Illinois</a></h4>
@@ -557,7 +445,7 @@
             <h4 class="title"><a href="">Michigan</a></h4>
             <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
           </div>
-        </div>
+        </div> -->
       </div>
 
     </div>

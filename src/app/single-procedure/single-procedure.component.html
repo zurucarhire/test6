@@ -109,7 +109,8 @@
                           <ul>
                             <li class="d-flex align-items-center"><i class="fa fa-user"></i> <a href="blog-single.html">{{item2.name}}</a></li>
                             <li class="d-flex align-items-center"><i class="fa fa-clock-o"></i> <a href="blog-single.html"><time datetime="2020-01-01">{{item2.dateCreated}}</time></a></li>
-                            <li class="d-flex align-items-center"><i class="fa fa-comments"></i> <a href="blog-single.html">0 Comments</a></li>
+                            <li class="d-flex align-items-center"><i class="fa fa-comments"></i> <a href="blog-single.html">{{item2.experienceComment.length}} Comments</a></li>
+
                           </ul>
                         </div>
 
@@ -136,7 +137,7 @@
                           <div class="read-more" class="col-lg-12" style="margin-top: 10px;">
                             <!-- <a href="blog-single.html">Read More</a> -->
                             <!-- <button type="button" class="btn btn-outline-primary btn-sm">Primary</button> -->
-                            <button type="button" class="btn btn-outline-primary btn-sm btn-block" (click)="comment(item2.experienceID)">Comment</button>
+                            <button style="background-color: #ff5821; color: white; border: 1px solid #ff5821" type="button" class="btn btn-outline-primary btn-sm btn-block" (click)="comment(item2.experienceID)">Comment</button>
                           </div>
                         </div>
                         <hr>
@@ -233,17 +234,33 @@
         </div>
         </div><!-- End blog entries list -->
         <div class="col-lg-3" >
-        <!-- <div class="col-lg-3" *ngIf="(productsObservable | async)?.length"> -->
 
           <div class="sidebar">
 
-            <!-- <h3 class="sidebar-title">Search</h3>
-            <div class="sidebar-item search-form">
-              <form action="">
-                <input type="text">
-                <button type="submit"><i class="bi bi-search"></i></button>
-              </form>
-            </div> -->
+            <h2 class="sidebar-title" style="font-size: 17px;">Before Photos</h2>
+            <div class="row">
+              <div class="col-lg-6" style="padding: 5px !important; margin: 0 !important;">
+                <img src="../../assets/img/cta-bg.jpg" alt="Snow" style="width:100%;">
+              </div>
+              <div class="col-lg-6" style="padding: 5px !important; margin: 0 !important;">
+                <img src="../../assets/img/cta-bg.jpg" alt="Forest" style="width:100%">
+              </div>
+            </div>
+
+            <h2 class="sidebar-title" style="font-size: 17px; margin-top: 20px;">After Photos</h2>
+            <div class="sidebar-item categories">
+              <div class="row" >
+                <div class="col-lg-6" style="padding: 5px !important; margin: 0 !important;">
+                  <img src="../../assets/img/cta-bg.jpg" alt="Snow" style="width:100%;">
+                </div>
+                <div class="col-lg-6" style="padding: 5px !important; margin: 0 !important;">
+                  <img src="../../assets/img/cta-bg.jpg" alt="Forest" style="width:100%">
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- <div class="sidebar">
 
             <h2 class="sidebar-title" style="font-size: 17px;">Procedure Categories</h2>
             <div class="sidebar-item categories">
@@ -252,7 +269,7 @@
                 <li><a style="cursor: pointer;" href="/procedure">Non Invasive <span>(3)</span></a></li>
                 <li><a style="cursor: pointer;" href="/procedure">All <span>(5)</span></a></li>
               </ul>
-            </div><!-- End sidebar categories-->
+            </div>
 
             <h2 class="sidebar-title" style="font-size: 17px;">Procedure Types</h2>
             <div class="sidebar-item categories">
@@ -263,11 +280,11 @@
                 <li><a style="cursor: pointer;" (click)="moreDetail2('Eyelid Lift')">Eyelid Lift <span>(1)</span></a></li>
                 <li><a style="cursor: pointer;" (click)="moreDetail2('Ear Reshaping')">Ear Reshaping <span>(1)</span></a></li>
               </ul>
-            </div><!-- End sidebar categories-->
+            </div>
 
-          </div><!-- End sidebar -->
+          </div> -->
 
-        </div><!-- End blog sidebar -->
+        </div>
       </div>
 
 
@@ -276,4 +293,190 @@
 
 </main><!-- End #main -->
 
+<ng-template #experienceModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" style="color: #ff5821;font-weight: bold;">Share Your Experience</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #experienceForm="ngForm" (ngSubmit)="submitExperience(experienceForm)">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="title" type="text" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #title="ngModel"
+              [class.is-invalid]="title.invalid && title.touched" ngModel required >
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Title</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <select name="completed" class="form-select" id="floatingSelect"
+              aria-label="Floating label select example" #completed="ngModel"
+              [class.is-invalid]="completed.invalid && completed.touched" ngModel
+               required>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Have you done this procedure before?</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="averagecost" type="number" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #averagecost="ngModel"
+              [class.is-invalid]="averagecost.invalid && averagecost.touched" ngModel required >
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Average cost</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <textarea name="description" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput"  #description="ngModel" rows="5"
+
+              [class.is-invalid]="description.invalid && description.touched" ngModel required ></textarea>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Enter your experience</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="input-group mb-3">
+            <input name="thumbnail" #thumbnail="ngModel" class="form-control" #file type="file" (change)="fileChangeEvent(file.files)" id="formFile"  multiple ngModel accept="image/jpg, image/jpeg, image/png">
+            <!-- <span style="cursor: pointer;" class="input-group-text" id="basic-addon2" >Edit </span> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-check">
+            <input name="approve" type="checkbox" class="form-check-input" id="exampleCheck1" #approve="ngModel" ngModel required>
+            <label class="form-check-label" for="exampleCheck1">By submitting your experience you agree on our terms and conditions</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button type="submit" class="btn btn-danger w-100">Submit</button>
+          <img style="padding: 10px" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                          />
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #questionModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" style="color: #ff5821;font-weight: bold;">Ask Question</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #questionForm="ngForm" (ngSubmit)="submitQuestion(questionForm)">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="titleQuestion" type="text" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #titleQuestion="ngModel"
+              [class.is-invalid]="titleQuestion.invalid && titleQuestion.touched" ngModel required >
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Title</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <textarea name="descriptionQuestion" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput"  #descriptionQuestion="ngModel" rows="5"
+
+              [class.is-invalid]="descriptionQuestion.invalid && descriptionQuestion.touched" ngModel required ></textarea>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Enter detailed question</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="input-group mb-3">
+            <input name="thumbnailQuestion" #thumbnailQuestion="ngModel" class="form-control" #fileQuestion type="file" (change)="fileChangeEventQuestion(fileQuestion.files)" id="formFile"  multiple ngModel accept="image/jpg, image/jpeg, image/png">
+            <!-- <span style="cursor: pointer;" class="input-group-text" id="basic-addon2" >Edit </span> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-check">
+            <input name="approveQuestion" type="checkbox" class="form-check-input" id="exampleCheck1" #approveQuestion="ngModel" ngModel required>
+            <label class="form-check-label" for="exampleCheck1">By submitting your question you agree on our terms and conditions</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button type="submit" class="btn btn-danger w-100">Submit</button>
+          <img style="padding: 10px" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                          />
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #loginCommentModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" style="color: #ff5821;font-weight: bold;">Comments</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h4>Please Login to comment</h4>
+    <button type="button" class="btn btn-outline-primary" style="margin: 5px;" (click)="login()">Login</button>
+    <button type="button" class="btn btn-outline-secondary" style="margin: 5px;" (click)="modal.dismiss('Cross click')">Cancel</button>
+  </div>
+</ng-template>
+<ng-template #commentModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" style="color: #ff5821;font-weight: bold;"><i class="fa fa-question-circle" style="padding: 5px; "></i>Share Comment</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #commentForm="ngForm" (ngSubmit)="submitComment(commentForm)">
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <textarea  style="font-size: 13px; color: #666;" name="description" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput"  #description="ngModel" rows="5"
+              [class.is-invalid]="description.invalid && description.touched" ngModel required ></textarea>
+            <label for="floatingInput" style="font-size: 13px; color: #666; ">Comment</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button  style="font-size: 16px; " [disabled]="commentForm.form.invalid" type="submit" class="btn btn-danger w-100">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
 <app-footer></app-footer>

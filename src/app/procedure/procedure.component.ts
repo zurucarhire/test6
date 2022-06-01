@@ -24,15 +24,27 @@ export class ProcedureComponent implements OnInit {
   private mainContentDiv!: ElementRef<HTMLElement>;
 
   constructor(private api: ApiService, private router: Router,
-    private modalService: NgbModal,private notifyService: NotificationService) {
+    private modalService: NgbModal,private notifyService: NotificationService,
+    private route: ActivatedRoute) {
 
     }
 
   ngOnInit(): void {
+    this.route
+    .params
+    .subscribe(params => {
+      console.log("paramzq2 : ",params);
+      if (Object.keys(params).length === 0) {
+        console.log("malala");
+        this.productsObservable = this.api.get_products();
+      } else {
+        this.productsObservable = this.api.get_products2(params["name"]);
+      }
+
+    });
 
 
-    this.productsObservable = this.api.get_products();
-    //this.observable$ = this.api.getProcedures();
+
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
           return;
@@ -53,7 +65,9 @@ export class ProcedureComponent implements OnInit {
   }
 
   openModal(view, data) {
-    const modalRef = this.modalService.open(view, { centered: true });
+    const modalRef = this.modalService.open(view, { size: 'lg',centered: true });
+   // this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title', windowClass: 'modal-holder', centered: true }).result.then((result) => {
+
     modalRef.componentInstance.modalData = data;
     modalRef.result.then((result) => {
       if (result) {
@@ -142,8 +156,8 @@ export class ProcedureComponent implements OnInit {
   }
 
   moreDetail(item){
-    console.log("item -> ", item);
-    this.router.navigate(['/singleprocedure',item['procedureName']]);
+    console.log("itemQQ -> ", item);
+    this.router.navigate(['/singleprocedure',item['procedureID']]);
   }
 
   moreDetail2(item){

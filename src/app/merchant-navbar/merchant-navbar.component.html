@@ -1,0 +1,35 @@
+
+<div class="container" style="border: 1px solid #fff;">
+  <nav class="navbar  navbar-expand-lg" id="myNavbar" style="border: 1px solid #fff;">
+
+    <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon fa fa-bars"></span>
+    </button>
+
+    <a href="javascript:void(0)" class="navbar-brand">PSM</a>
+
+    <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item px-1">
+          <a href="/merchant" class="nav-link">Dashboard</a>
+         </li>
+        <li class="nav-item dropdown px-2">
+          <a style="color: brown" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            My Account
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <!-- <a [routerLink]="[ '/merchant']"
+            routerLinkActive="active-list-item"
+            [routerLinkActiveOptions]="{exact: true}" class="dropdown-item" href="#">Merchant</a> -->
+            <a [routerLink]="[ '/merchantaccount']"
+            routerLinkActive="active-list-item"
+            [routerLinkActiveOptions]="{exact: true}" class="dropdown-item" href="#">My Profile</a>
+            <a class="dropdown-item" href="#" (click)="logOut()">Log Out</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+   </nav>
+
+</div>
+<div class="dropdown-divider"></div>

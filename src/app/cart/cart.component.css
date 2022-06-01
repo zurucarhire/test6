@@ -1526,7 +1526,7 @@ section {
   padding: 12px 15px;
 }
 .contact .php-email-form button[type=submit] {
-  background: #ff5821;
+  background: #ff7e54;
   border: 0;
   padding: 10px 24px;
   color: #fff;
@@ -2311,17 +2311,17 @@ h2,h3 {
 
 .shopping-cart .summary button{
 	margin-top: 20px;
-	background: #db4d3f !important;
-	border-color: #db4d3f !important;
+	background: #ff5821 !important;
+	border-color: #ff5821 !important;
 	font-size: 16px;
 }
 
 .shopping-cart .summary button:hover{
 	margin-top: 20px;
 	background: #fff !important;
-	border-color: #db4d3f !important;
+	border-color: #ff5821 !important;
 	font-size: 16px;
-	color: #db4d3f !important;
+	color: #ff5821 !important;
 }
 @media (min-width: 768px) {
 	.shopping-cart .items .product .info {

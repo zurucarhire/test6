@@ -19,10 +19,9 @@
           <h4>Useful Links</h4>
           <ul>
             <li><i class="bx bx-chevron-right"></i> <a href="/procedure">Procedures</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="/experiences">Community Reviews</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/experiences">Shared Experiences</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="/questions">Questions</a></li>
             <li><i class="bx bx-chevron-right"></i> <a style="color: #ff5821;" href="/shop">Shop</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a style="color: #ff5821;" href="/shop">Merchant</a></li>
           </ul>
         </div>
 
@@ -31,9 +30,8 @@
           <ul>
             <li><i class="bx bx-chevron-right"></i> <a href="javascript:void(0)">Privacy</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="javascript:void(0)">Terms</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="javascript:void(0)">Q & A</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="javascript:void(0)">FAQs</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="javascript:void(0)">Contact Us</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="javascript:void(0)" (click)="contact()">Contact Us</a></li>
           </ul>
         </div>
 
@@ -76,3 +74,54 @@
     </div>
   </div>
 </footer><!-- End Footer -->
+<ng-template #contactModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" style="color: #ff5821;font-weight: bold;">Contact Us</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #contactForm="ngForm" (ngSubmit)="submitContact(contactForm)">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="email" type="text" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #email="ngModel"
+              [class.is-invalid]="email.invalid && email.touched" ngModel required >
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Email</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <input name="phone" type="number" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput" #phone="ngModel"
+              [class.is-invalid]="phone.invalid && phone.touched" ngModel required >
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Phone</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <div class="form-floating mb-3">
+            <textarea name="description" class="form-control" id="formGroupExampleInput2"
+              id="formGroupExampleInput"  #description="ngModel" rows="5"
+
+              [class.is-invalid]="description.invalid && description.touched" ngModel required ></textarea>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Enter your query</label>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-md-12 col-sm-1 col-lg-12">
+          <button type="submit" class="btn btn-danger w-100">Submit</button>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

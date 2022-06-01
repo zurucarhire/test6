@@ -5,6 +5,7 @@ import { AccountRoutingModule } from './account-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccountComponent } from './account.component';
 import { SharedModule } from '../shared/shared.module';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { SharedModule } from '../shared/shared.module';
     AccountRoutingModule,
     FormsModule,
     SharedModule,
+    MatCardModule,
     ReactiveFormsModule
   ]
 })

@@ -1,6 +1,6 @@
-
+<app-shop-navbar></app-shop-navbar>
 <!-- ======= Header ======= -->
-<header id="header" class="fixed-top d-flex align-items-center" style="background-color: #eee;">
+<!-- <header id="header" class="fixed-top d-flex align-items-center" style="background-color: #eee;">
 
   <div class="container d-flex align-items-center justify-content-between">
 
@@ -14,12 +14,13 @@
         <li><a class="nav-link scrollto active" href="/signup">Sign Up</a></li>
       </ul>
       <i class="fa fa-bars mobile-nav-toggle"></i>
-    </nav><!-- .navbar -->
+    </nav>
 
   </div>
-</header><!-- End Header -->
+</header> -->
+<!-- End Header -->
 <div class="container" >
-  <div class="row" style="margin-top: 120px;">
+  <div class="row" style="margin-top: 20px;">
       <div class="col-sm-6 mx-auto">
           <div class="card">
               <h3 style="text-align: center;">Login</h3>
@@ -34,7 +35,7 @@
                       id="formGroupExampleInput" placeholder="Email your password" #password="ngModel" [class.is-invalid]="password.invalid && password.touched" ngModel required autofocus>
                       <label for="floatingInput" style="font-size: 13px; color: #666;">Email your password</label>
                   </div>
-                  <input type="submit" name="submit" class="submit action-button btn btn-primary" [disabled]="form.form.invalid" value="Login"/>
+                  <input style="border: 1px solid #ff5821; background-color: #ff5821; " type="submit" name="submit" class="submit action-button btn btn-primary" [disabled]="form.form.invalid" value="Login"/>
                   <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
 
               </form>

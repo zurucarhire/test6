@@ -1,17 +1,14 @@
 <app-home-navbar></app-home-navbar>
-
+<div class="dropdown-divider"></div>
 <main id="main">
 
   <!-- ======= Breadcrumbs ======= -->
-  <section id="breadcrumbs" class="breadcrumbs" style="margin-top: 5px;">
+  <!-- <section id="breadcrumbs" class="breadcrumbs" style="margin-top: 5px;">
     <div class="container">
       <ol>
         <li><a href="javascript:void(0)">Home</a></li>
         <li><a href="javascript:void(0)">Procedures</a></li>
       </ol>
-      <!-- <div class="row">
-        <h2 >Medical Procedures</h2>
-      </div> -->
 
       <div class="row">
         <div class="col-lg-10">
@@ -24,7 +21,8 @@
 
 
     </div>
-  </section><!-- End Breadcrumbs -->
+  </section> -->
+  <!-- End Breadcrumbs -->
 
   <!-- ======= Blog Single Section ======= -->
   <section id="blog" class="blog">
@@ -42,7 +40,7 @@
                 <div class="col-lg-4   col-md-6 d-flex align-items-stretch" data-aos="fade-up" *ngFor="let item of productsObservable | async">
                   <div class="member">
                     <div class="member-img">
-                      <img src="../../assets/img/{{item.photo}}" class="img-fluid" alt="">
+                      <img src="http://treasuredlooks.com/{{item.photo}}" class="img-fluid" alt="">
                       <div class="social">
                         <a href="javascript:void(0)"><i style="padding: 5px;" class="fa fa-phone"></i><span>Contact Specialist</span></a>
                       </div>
@@ -81,23 +79,22 @@
               </form>
             </div> -->
 
-            <h2 class="sidebar-title" style="font-size: 17px;">Procedure Categories</h2>
+            <!-- <h2 class="sidebar-title" style="font-size: 17px;">Procedure Categories</h2>
             <div class="sidebar-item categories">
               <ul style="font-family: Montserrat;">
                 <li><a style="cursor: pointer;" (click)="findProcedureByCategory('Invasive')">Invasive <span>(2)</span></a></li>
                 <li><a style="cursor: pointer;" (click)="findProcedureByCategory('Non Invasive')">Non Invasive <span>(3)</span></a></li>
                 <li><a style="cursor: pointer;" (click)="findProcedureByCategory('All')">All <span>(5)</span></a></li>
               </ul>
-            </div><!-- End sidebar categories-->
+            </div>
+             -->
+
 
             <h2 class="sidebar-title" style="font-size: 17px;">Procedure Types</h2>
             <div class="sidebar-item categories">
               <ul style="font-family: Montserrat;">
-                <li><a style="cursor: pointer;" (click)="moreDetail2('Face Lift')" >Face Lift <span>(1)</span></a></li>
-                <li><a style="cursor: pointer;" (click)="moreDetail2('Nose Reshaping')">Nose Reshaping <span>(1)</span></a></li>
-                <li><a style="cursor: pointer;" (click)="moreDetail2('Nasal Surgery')" >Nasal Surgery <span>(1)</span></a></li>
-                <li><a style="cursor: pointer;" (click)="moreDetail2('Eyelid Lift')">Eyelid Lift <span>(1)</span></a></li>
-                <li><a style="cursor: pointer;" (click)="moreDetail2('Ear Reshaping')">Ear Reshaping <span>(1)</span></a></li>
+                <li *ngFor="let item of productsObservable | async"><a style="cursor: pointer;" (click)="moreDetail2(item.procedureID)" >{{item.procedureName}} </a></li>
+
               </ul>
             </div><!-- End sidebar categories-->
 

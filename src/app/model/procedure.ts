@@ -9,6 +9,7 @@ export interface Procedure {
     type: string;
     subType: string;
     cost: string;
+    city: string;
     dateCreated: string;
     question: Question[]
 }

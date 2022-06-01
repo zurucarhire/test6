@@ -33,7 +33,7 @@
           <div class="col-lg-6">
             <!-- <i class="fa fa-close" style="float: right; cursor: pointer;"(click)="activeModal.dismiss('Cross click')" ></i> -->
             <h4 *ngIf="item.sale > 0 || item.discount > 0" style="font-size: 13px; font-weight: bold; margin-top: 10px;"><span ><i style="padding: 5px; background-color: red; font-size: 12px; font-style: normal; color: white;" *ngIf="item.sale > 0">On Sale</i><i *ngIf="item.discount > 0" style="font-style: normal; color: white; padding: 5px; background-color: blue; font-size: 12px; margin-left: 10px;">{{item.discount}}% Off</i></span></h4>
-          <p style="font-weight: bold; margin-top: 7px;"><i class="fa fa-user-o" style="padding-right: 10px;"></i>{{item.user.fullName}}</p>
+          <p style="font-weight: bold; margin-top: 7px;">{{item.user.businessName}}</p>
           <span style="font-weight: bold;">{{item.name}}</span>
             <!-- <h3 style="font-weight: bold;">{{item.name}}</h3> -->
             <!-- <small style="color: salmon" class="text-muted" ><i style="color: blueviolet; padding: 1px; font-style: normal">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</i> </small> -->
@@ -55,7 +55,7 @@
                   <i class="fa fa-plus"></i>
                 </div>
                 <div class="col-lg-4">
-                  <button type="button" class="btn btn-outline-success" style="font-weight: bold; font-size: 13px;" (click)="checkout()">Checkout</button>
+                  <button type="button" class="btn btn-outline-primary" style="font-weight: bold; font-size: 13px; border: 1px solid #ff5821; background-color: #ff5821; color: white;" (click)="checkout()">Checkout</button>
                 </div>
               </div>
             </div>

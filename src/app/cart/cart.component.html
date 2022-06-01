@@ -2,58 +2,47 @@
 
 <section class="shopping-cart dark" style="padding: 20px;">
   <div class="container " >
+
     <div class="row">
       <div class="col-lg-3">
         <h4 style="padding-left: 1px; padding-bottom: 10px; color:#ff5821; font-size: 12px; font-weight: bold;">Shop > Cart</h4>
       </div>
     </div>
-      <div class="content ">
+    <h3 *ngIf="cartempty == true">Your cart is empty</h3>
+      <div class="content " *ngIf="cartempty == false">
 
-          <div class="row">
 
-              <div class="col-md-12 col-lg-8" >
-                  <div class="items">
-                      <div class="product">
-                          <!-- <h3 *ngIf="cartempty" style="text-align: center">Your cart is empty</h3> -->
-                          <div *ngIf="cartempty">
-                            <p style="color: brown; font-size: 16px; padding: 20px; font-weight: bold;">Your cart is Empty</p>
+          <div class="row" >
+
+              <div class="col-md-12 col-lg-8" style="padding: 10px;">
+                <table class="table table-striped" >
+                  <thead>
+                    <tr>
+                      <th class="text-center" scope="col">Name</th>
+                      <th class="text-center" scope="col">Count</th>
+                      <th class="text-center" scope="col">Cost</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of items">
+                      <td class="text-center">{{item.item}}</td>
+                      <td class="text-center">
+                          <div class="row text-center justify-content-sm-center" style="margin: 0 !important; padding: 0 !important;">
+                            <div class="col-lg-2" style="margin-top: 2px; cursor: pointer;" (click)="minusItem(item.item,item.cost,item.count)">
+                                <i class="fa fa-minus"></i>
+                            </div>
+                            <div class="col-lg-2" style="margin-top: 2px;">
+                              {{item.count}}
+                            </div>
+                            <div class="col-lg-2" style="margin-top: 2px; cursor: pointer;" (click)="addItem(item.item,item.cost,item.count)">
+                              <i class="fa fa-plus"></i>
+                            </div>
                           </div>
-                          <div *ngIf="!cartempty">
-                            <div class="row" *ngFor="let item of items">
-                              <div class="col-md-2">
-                                  <img style="height: 80px; margin-top: 30px;" class="img-fluid mx-auto d-block image" src="../../assets/img/mother1.webp">
-                              </div>
-                              <div class="col-md-10">
-                                  <div class="info">
-                                      <div class="row">
-
-                                          <div class="col-md-5 price">
-                                              <span style="color: brown; font-size: 14px">{{item.item}}</span>
-                                          </div>
-                                          <div class="col-lg-5">
-                                            <div class="row" >
-                                              <div class="col-lg-2" style="margin-top: 18px; cursor: pointer;" (click)="minusItem(item.item,item.cost,item.count)">
-                                                  <i class="fa fa-minus"></i>
-                                              </div>
-                                              <div class="col-lg-2" style="margin-top: 18px;">
-                                                {{item.count}}
-                                              </div>
-                                              <div class="col-lg-2" style="margin-top: 18px; cursor: pointer;" (click)="addItem(item.item,item.cost,item.count)">
-                                                <i class="fa fa-plus"></i>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-md-2 price d-flex justify-content-center">
-                                              <span style="color: brown; font-size: 14px; text-align: center">Ksh {{item.cost}}</span>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          </div>
-
-                      </div>
-                  </div>
+                      </td>
+                      <td class="text-center">Ksh {{item.cost}}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
               <div class="col-md-12 col-lg-4">
                   <div class="summary">
@@ -77,7 +66,7 @@
 
 
 
-                      <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 13px;" (click)="checkOut()">Checkout</button>
+                      <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 13px; " (click)="checkOut()">Checkout</button>
 
                   </div>
               </div>

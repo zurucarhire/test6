@@ -7,7 +7,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../service/api.service';
 import { NotificationService } from '../service/notification.service';
 import * as CanvasJS from '../../assets/js/canvasjs.min.js';
-
+import { Observable } from 'rxjs/internal/Observable';
+import { Experience } from '../model/experience';
+import { map } from 'rxjs/operators';
 
 declare var $;
 
@@ -30,6 +32,8 @@ export class MerchantComponent implements OnInit {
   fileSize: number;
   productData: any;
 
+  experienceObservable : Observable<any> ;
+
   files: any;
   filesAccepted: boolean = false;
 
@@ -47,8 +51,8 @@ export class MerchantComponent implements OnInit {
   rowToDelete: any;
   c: any;
   chart;
-  //url: string = "https://zuru.co.ke";
-  url: string = "http://localhost:8090";
+  url = "http://52.91.60.228:8090";
+  //url: string = "http://localhost:8090";
 
   constructor(private notifyService: NotificationService, private api: ApiService,
     private router: Router, private http: HttpClient,private modalService: NgbModal) { }
@@ -64,7 +68,7 @@ export class MerchantComponent implements OnInit {
     if (this.tabIndex == 1) {
       this.initDatatables1([]);
     } else if (this.tabIndex == 2) {
-      this.initDatatables2([]);
+      this.initDatatables3([]);
     } else if (this.tabIndex == 3) {
       this.initDatatables3([]);
     }
@@ -91,6 +95,12 @@ export class MerchantComponent implements OnInit {
 
     chart.render();
 
+  }
+
+  get_experiences(){
+    const url = this.url+"/api/psm/experience/findall";
+    return this.http.get<Experience[]>(url)
+    .pipe(map((results) => results));
   }
 
   getInventory(userId) {
@@ -381,8 +391,8 @@ export class MerchantComponent implements OnInit {
       }
       this.getInventory(2);
     } else if (index == 2) {
-      if (this.datatable2 == null || this.datatable2 == undefined) {
-        this.initDatatables2([]);
+      if (this.datatable3 == null || this.datatable3 == undefined) {
+        this.initDatatables3([]);
 
       }
      // this.getInventory(2);
@@ -393,6 +403,7 @@ export class MerchantComponent implements OnInit {
       }
      // this.getInventory(2);
     }
+
   }
 
   fileChangeEvent(files) {

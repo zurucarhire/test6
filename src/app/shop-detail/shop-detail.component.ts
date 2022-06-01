@@ -82,7 +82,7 @@ export class ShopDetailComponent implements OnInit {
   }
 
   openModal(view, data) {
-    const modalRef = this.modalService.open(view, {  size: 'lg',centered: true });
+    const modalRef = this.modalService.open(view, {  windowClass : "myCustomModalClass",centered: true });
     modalRef.componentInstance.modalData = data;
     modalRef.result.then((result) => {
       if (result) {

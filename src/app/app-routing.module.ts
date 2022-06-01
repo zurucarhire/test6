@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth-guard';
+import { MerchantAuthGuard } from './guards/merchant-auth-guard';
 
 
 const routes: Routes = [{path: '', redirectTo: '/', pathMatch: 'full'},
@@ -17,11 +18,19 @@ const routes: Routes = [{path: '', redirectTo: '/', pathMatch: 'full'},
   loadChildren: () => import('src/app/signup/signup.module').then(m => m.SignupModule)
 },
 {
+  path: 'register',
+  loadChildren: () => import('src/app/register/register.module').then(m => m.RegisterModule)
+},
+{
   path: 'account',
   loadChildren: () => import('src/app/account/account.module').then(m => m.AccountModule)
 },
 {
   path: 'procedure',
+  loadChildren: () => import('src/app/procedure/procedure.module').then(m => m.ProcedureModule)
+},
+{
+  path: 'procedure/:name',
   loadChildren: () => import('src/app/procedure/procedure.module').then(m => m.ProcedureModule)
 },
 {
@@ -49,15 +58,27 @@ const routes: Routes = [{path: '', redirectTo: '/', pathMatch: 'full'},
   loadChildren: () => import('src/app/checkout/checkout.module').then(m => m.CheckoutModule)
 },
 {
+  path: 'checkoutsuccess',
+  loadChildren: () => import('src/app/checkout-success/checkout-success.module').then(m => m.CheckoutSuccessModule)
+},
+{
+  path: 'notallowed',
+  loadChildren: () => import('src/app/not-allowed/not-allowed.module').then(m => m.NotAllowedModule)
+},
+{
   path: 'cart',
   loadChildren: () => import('src/app/cart/cart.module').then(m => m.CartModule)
 },
 {
-  path: 'merchant',
+  path: 'merchant',canActivate: [MerchantAuthGuard],
   loadChildren: () => import('src/app/merchant/merchant.module').then(m => m.MerchantModule)
 },
 {
-  path: 'singleprocedure/:name',
+  path: 'merchantaccount',canActivate: [MerchantAuthGuard],
+  loadChildren: () => import('src/app/account-merchant/account-merchant.module').then(m => m.AccountMerchantModule)
+},
+{
+  path: 'singleprocedure/:id',
   loadChildren: () => import('src/app/single-procedure/single-procedure.module').then(m => m.SingleProcedureModule)
 },
 

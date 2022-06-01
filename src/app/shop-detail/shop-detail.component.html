@@ -83,7 +83,7 @@
                       [class.is-invalid]="to.invalid && to.touched" ngModel required>
                       <label for="floatingInput" style="font-size: 13px; color: #666;">To (Ksh)</label>
                   </div>
-                    <input style="font-size: 12px;" type="submit" name="submit" class="submit action-button btn btn-primary" [disabled]="form.form.invalid" value="Apply"/>
+                    <input style="font-size: 12px; border: 1px solid #ff5821; background-color: #ff5821; " type="submit" name="submit" class="submit action-button btn btn-primary" [disabled]="form.form.invalid" value="Apply"/>
                 </form>
                 </div>
               </div><!-- End sidebar categories-->
@@ -118,6 +118,7 @@
                       </div>
                       <div class="member-info">
                         <h4>{{item.name}}</h4>
+                        <h5>By {{item.user.businessName}}</h5>
                         <small style="color: salmon" class="text-muted"><i
                             style="color: blueviolet; padding: 1px; font-style: normal">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</i>
                         </small>

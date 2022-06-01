@@ -6,7 +6,7 @@
      <span class="navbar-toggler-icon fa fa-bars"></span>
     </button>
 
-    <a href="#" class="navbar-brand">PSM</a>
+    <a href="/" class="navbar-brand">PSM</a>
     <div class="collapse navbar-collapse" id="mainNav">
      <ul class="navbar-nav ml-auto">
      </ul>
@@ -38,9 +38,9 @@
             <a class="dropdown-item" href="/login">Login</a>
           </div>
           <div *ngIf="user != null" class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a [routerLink]="[ '/merchant']"
+            <!-- <a [routerLink]="[ '/merchant']"
             routerLinkActive="active-list-item"
-            [routerLinkActiveOptions]="{exact: true}" class="dropdown-item" href="#">Merchant</a>
+            [routerLinkActiveOptions]="{exact: true}" class="dropdown-item" href="#">Merchant</a> -->
             <a [routerLink]="[ '/account']"
             routerLinkActive="active-list-item"
             [routerLinkActiveOptions]="{exact: true}" class="dropdown-item" href="#">My Profile</a>

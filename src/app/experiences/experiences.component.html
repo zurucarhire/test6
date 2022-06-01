@@ -113,4 +113,105 @@
   </section><!-- End Blog Single Section -->
 
 
+  <ng-template #experienceModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title" style="color: #ff5821;font-weight: bold;">Share Your Experience</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #experienceForm="ngForm" (ngSubmit)="submitExperience(experienceForm)">
+
+        <div class="row">
+          <div class="col-md-12 col-sm-1 col-lg-12">
+            <div class="form-floating mb-3">
+              <select name="procedure" class="form-select" id="floatingSelect"
+                aria-label="Floating label select example" #procedure="ngModel"
+
+                [class.is-invalid]="procedure.invalid && procedure.touched" ngModel
+                 required autofocus>
+                <option value="{{item.procedureID}}:{{item.procedureName}}" *ngFor="let item of productsObservable | async">{{item.procedureName}}
+                </option>
+              </select>
+              <label for="floatingInput" style="font-size: 13px; color: #666;">Category</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-1 col-lg-12">
+            <div class="form-floating mb-3">
+              <input name="title" type="text" class="form-control" id="formGroupExampleInput2"
+                id="formGroupExampleInput" #title="ngModel"
+                [class.is-invalid]="title.invalid && title.touched" ngModel required >
+              <label for="floatingInput" style="font-size: 13px; color: #666;">Title</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-1 col-lg-12">
+            <div class="form-floating mb-3">
+              <select name="completed" class="form-select" id="floatingSelect"
+                aria-label="Floating label select example" #completed="ngModel"
+                [class.is-invalid]="completed.invalid && completed.touched" ngModel
+                 required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+              <label for="floatingInput" style="font-size: 13px; color: #666;">Have you done this procedure before?</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-1 col-lg-12">
+            <div class="form-floating mb-3">
+              <input name="averagecost" type="number" class="form-control" id="formGroupExampleInput2"
+                id="formGroupExampleInput" #averagecost="ngModel"
+                [class.is-invalid]="averagecost.invalid && averagecost.touched" ngModel required >
+              <label for="floatingInput" style="font-size: 13px; color: #666;">Average cost</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-1 col-lg-12">
+            <div class="form-floating mb-3">
+              <textarea name="description" class="form-control" id="formGroupExampleInput2"
+                id="formGroupExampleInput"  #description="ngModel" rows="5"
+
+                [class.is-invalid]="description.invalid && description.touched" ngModel required ></textarea>
+              <label for="floatingInput" style="font-size: 13px; color: #666;">Enter your experience</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-1 col-lg-12">
+            <div class="input-group mb-3">
+              <input name="thumbnail" #thumbnail="ngModel" class="form-control" #file type="file" (change)="fileChangeEvent(file.files)" id="formFile"  multiple ngModel accept="image/jpg, image/jpeg, image/png">
+              <!-- <span style="cursor: pointer;" class="input-group-text" id="basic-addon2" >Edit </span> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-1 col-lg-12">
+            <div class="form-check">
+              <input name="approve" type="checkbox" class="form-check-input" id="exampleCheck1" #approve="ngModel" ngModel required>
+              <label class="form-check-label" for="exampleCheck1">By submitting your experience you agree on our terms and conditions</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-md-12 col-sm-1 col-lg-12">
+            <button type="submit" class="btn btn-danger w-100">Submit</button>
+            <img style="padding: 10px" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                            />
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
 <app-footer></app-footer>

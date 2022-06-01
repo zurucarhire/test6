@@ -1,81 +1,65 @@
 <app-home-navbar></app-home-navbar>
 <div class="dropdown-divider"></div>
-<main id="main">
-  <!-- ======= Blog Single Section ======= -->
-  <section id="blog" class="blog">
-    <div class="container">
 
-      <div class="row">
-
-        <div class="col-lg-9 entries">
-
-          <div id="team" class="team">
-            <div class="container">
-              <div class="row">
-
-                <!-- <div class="col-lg-12   col-md-6 d-flex align-items-stretch" data-aos="fade-up" *ngFor="let item of productsObservable | async"> -->
-                <div class="col-lg-12   col-md-6 " >
-                  <article class="entry">
-                    <div class="entry-content">
-                      <p><i class="fa fa-user-o"></i><span style="padding: 10px;">{{user.user.userName}}</span></p>
-                      <p><i class="fa fa-user"></i><span style="padding: 10px;">{{user.user.fullName}}</span></p>
-                      <p><i class="fa fa-envelope"></i><span style="padding: 10px;">{{user.user.emailAddress}}</span></p>
-
-
-                    </div>
-                  </article><!-- End blog entry -->
-
-
-                </div>
-
+<div class="container" style="margin-top: 30px; margin-bottom: 50px;">
+  <div class="row" style="margin-top: 10px;">
+      <div class="col-lg-6" style="padding: 5px">
+        <div class="card" style="height: 347px;">
+          <h3 style="text-align: center; color: blue; font-weight: bold;">Account Information</h3>
+          <form #form="ngForm">
+            <div class="form-group row">
+              <div class="col-md-5" style=" border: 1px solid #fff; padding: 0 !important; margin: 0 !important;">
+                  <img style="width: 60px; height: 60px; padding: 0px; margin: 10px;" [src]="profilephoto" id="icon" alt="User Icon" />
+                  <input id="profileimg" type="file" #file1 type="file" (change)="fileChangeEvent('profile',file1.files)" style="display: none;"/>
+                  <label style="cursor: pointer; color: #212529; padding: 5px; background-color: #e9ecef; border: 1px solid #ced4da;" for="profileimg">Edit Profile Photo</label>
               </div>
 
             </div>
-          </div>
-
-
-
-        </div><!-- End blog entries list -->
-        <div class="col-lg-3">
-
-          <div class="sidebar">
-
-            <!-- <h3 class="sidebar-title">Search</h3>
-            <div class="sidebar-item search-form">
-              <form action="">
-                <input type="text">
-                <button type="submit"><i class="bi bi-search"></i></button>
-              </form>
+            <div class="input-group mb-3" style="margin-top: 15px;">
+              <input type="text" class="form-control" disabled value="{{user.user.emailAddress}}" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <!-- <span class="input-group-text" id="basic-addon2">Edit</span> -->
+            </div>
+            <!-- <div class="input-group mb-3">
+              <input name="username" type="text" class="form-control" value="{{myusername}}" #username="ngModel" [(ngModel)]="myusername" ngModel aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <span style="cursor: pointer;" class="input-group-text" id="basic-addon2" (click)="editAccount('username')">Edit Username</span>
             </div> -->
 
-            <h2 class="sidebar-title" style="font-size: 17px;">Procedure Categories</h2>
-            <div class="sidebar-item categories">
-              <ul style="font-family: Montserrat;">
-                <li><a style="cursor: pointer;" href="/procedure">Invasive <span>(2)</span></a></li>
-                <li><a style="cursor: pointer;" href="/procedure">Non Invasive <span>(3)</span></a></li>
-                <li><a style="cursor: pointer;" href="/procedure">All <span>(5)</span></a></li>
-              </ul>
-            </div><!-- End sidebar categories-->
-
-            <h2 class="sidebar-title" style="font-size: 17px;">Procedure Types</h2>
-            <div class="sidebar-item categories">
-              <ul style="font-family: Montserrat;">
-                <li><a style="cursor: pointer;" (click)="moreDetail2('Face Lift')" >Face Lift <span>(1)</span></a></li>
-                <li><a style="cursor: pointer;" (click)="moreDetail2('Nose Reshaping')">Nose Reshaping <span>(1)</span></a></li>
-                <li><a style="cursor: pointer;" (click)="moreDetail2('Nasal Surgery')" >Nasal Surgery <span>(1)</span></a></li>
-                <li><a style="cursor: pointer;" (click)="moreDetail2('Eyelid Lift')">Eyelid Lift <span>(1)</span></a></li>
-                <li><a style="cursor: pointer;" (click)="moreDetail2('Ear Reshaping')">Ear Reshaping <span>(1)</span></a></li>
-              </ul>
-            </div><!-- End sidebar categories-->
-
-          </div><!-- End sidebar -->
-
-        </div><!-- End blog sidebar -->
+            <div class="input-group mb-3">
+              <input name="fullname" type="text" class="form-control" value="{{myfullname}}" #fullname="ngModel" [(ngModel)]="myfullname" ngModel aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <span style="cursor: pointer;" class="input-group-text" id="basic-addon2" (click)="editAccount('fullname')">Edit Full Name</span>
+            </div>
+          </form>
+        </div>
       </div>
+      <div class="col-lg-6" style="padding: 5px">
+        <div class="card">
+          <h3 style="text-align: center; color: blue; font-weight: bold;">Change Password</h3>
+          <form #cform="ngForm" (ngSubmit)="changePassword(cform)">
+            <div class="form-floating mb-3">
+                <input name="oldpassword" type="password" class="form-control" id="formGroupExampleInput2"
+                id="formGroupExampleInput" #oldpassword="ngModel"
+                [class.is-invalid]="oldpassword.invalid && oldpassword.touched" ngModel required>
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Old Password</label>
+            </div>
 
-    </div>
-  </section><!-- End Blog Single Section -->
+            <div class="form-floating mb-3">
+              <input name="newpassword" type="password" class="form-control"
+              id="formGroupExampleInput"  #newpassword="ngModel"
+              [class.is-invalid]="newpassword.invalid && newpassword.touched" ngModel required>
+              <label for="floatingInput" style="font-size: 13px; color: #666;">New Password</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input name="confirmpassword" type="password" class="form-control"
+            id="formGroupExampleInput"  #confirmpassword="ngModel"
+            [class.is-invalid]="confirmpassword.invalid && confirmpassword.touched" ngModel required>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Confirm Password</label>
+        </div>
+            <input style="background-color: #ff5821; color: white; border: 1px solid #ff5821" type="submit" name="submit" class="submit action-button btn btn-primary" [disabled]="cform.form.invalid" value="Submit"/>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
 
-</main><!-- End #main -->
-
-<app-footer></app-footer>
+        </form>
+        </div>
+      </div>
+  </div>
+</div>
+<app-footer ></app-footer>

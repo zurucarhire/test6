@@ -1,0 +1,72 @@
+<app-merchant-navbar></app-merchant-navbar>
+<div class="dropdown-divider"></div>
+
+<div class="container" style="margin-top: 30px; margin-bottom: 50px;">
+  <div class="row" style="margin-top: 10px;">
+      <div class="col-lg-6" style="padding: 5px">
+        <div class="card">
+          <h3 style="text-align: center; color: blue; font-weight: bold;">Account Information</h3>
+          <form #form="ngForm">
+            <div class="form-group row">
+              <div class="col-md-5" style=" border: 1px solid #fff; padding: 0 !important; margin: 0 !important;">
+                  <img style="width: 60px; height: 60px; padding: 0px; margin: 10px;" [src]="profilephoto" id="icon" alt="User Icon" />
+                  <input id="profileimg" type="file" #file1 type="file" (change)="fileChangeEvent('profile',file1.files)" style="display: none;"/>
+                  <label style="cursor: pointer; color: #212529; padding: 5px; background-color: #e9ecef; border: 1px solid #ced4da;" for="profileimg">Edit Profile Photo</label>
+              </div>
+
+            </div>
+            <div class="input-group mb-3" style="margin-top: 15px;">
+              <input type="text" class="form-control" disabled value="{{user.user.emailAddress}}" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <!-- <span class="input-group-text" id="basic-addon2">Edit</span> -->
+            </div>
+            <div class="input-group mb-3">
+              <input name="fullname" type="text" class="form-control" value="{{myfullname}}" #fullname="ngModel" [(ngModel)]="myfullname" ngModel aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <span style="cursor: pointer;" class="input-group-text" id="basic-addon2" (click)="editAccount('fullname')">Edit Full Name</span>
+            </div>
+            <div class="input-group mb-3">
+              <input name="shoplocation" type="text" class="form-control" value="{{myshoplocation}}" #shoplocation="ngModel" [(ngModel)]="myshoplocation" ngModel aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <span style="cursor: pointer;" class="input-group-text" id="basic-addon2" (click)="editAccount('shoplocation')">Edit Shop Location</span>
+            </div>
+            <div class="input-group mb-3">
+              <input name="businessname" type="text" class="form-control" value="{{mybusinessname}}" #businessname="ngModel" [(ngModel)]="mybusinessname" ngModel aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <span style="cursor: pointer;" class="input-group-text" id="basic-addon2" (click)="editAccount('businessname')">Edit Business Name</span>
+            </div>
+            <div class="input-group mb-3">
+              <input name="phone" type="text" class="form-control" value="{{myphone}}" #phone="ngModel" [(ngModel)]="myphone" ngModel aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <span style="cursor: pointer;" class="input-group-text" id="basic-addon2" (click)="editAccount('phone')">Edit Phone Number</span>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-6" style="padding: 5px">
+        <div class="card" style="height: 453px;">
+          <h3 style="text-align: center; color: blue; font-weight: bold;">Change Password</h3>
+          <form #cform="ngForm" (ngSubmit)="changePassword(cform)">
+            <div class="form-floating mb-3">
+                <input name="oldpassword" type="password" class="form-control" id="formGroupExampleInput2"
+                id="formGroupExampleInput" #oldpassword="ngModel"
+                [class.is-invalid]="oldpassword.invalid && oldpassword.touched" ngModel required>
+                <label for="floatingInput" style="font-size: 13px; color: #666;">Old Password</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input name="newpassword" type="password" class="form-control"
+              id="formGroupExampleInput"  #newpassword="ngModel"
+              [class.is-invalid]="newpassword.invalid && newpassword.touched" ngModel required>
+              <label for="floatingInput" style="font-size: 13px; color: #666;">New Password</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input name="confirmpassword" type="password" class="form-control"
+            id="formGroupExampleInput"  #confirmpassword="ngModel"
+            [class.is-invalid]="confirmpassword.invalid && confirmpassword.touched" ngModel required>
+            <label for="floatingInput" style="font-size: 13px; color: #666;">Confirm Password</label>
+        </div>
+            <input type="submit" name="submit" class="submit action-button btn btn-primary" [disabled]="cform.form.invalid" value="Submit"/>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+
+        </form>
+        </div>
+      </div>
+  </div>
+</div>
+<app-footer ></app-footer>

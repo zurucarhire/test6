@@ -23,71 +23,106 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('user'));
 
-    this.firebaseCartPath = "cart"+ "/" + this.user['user']['userID'];
-
-    this.firebaseDb.list(this.firebaseCartPath)
-        .valueChanges().subscribe((data) => {
-          this.items.length = 0;
-          this.total = 0;
-          if (data.length == 0){
-            // console.log("elem =>ww ");
-            this.cartempty = true;
-            //   this.cartcount = 0;
-               return;
-          }
-          this.cartempty = false;
-          data.forEach(elem => {
-            console.log("elemrr => ",elem);
-            this.total = this.total + elem['cost'] * elem['count'];
-            // this.total = this.total + elem.cost;
-            // // this.cartcount = this.cartcount + 1;
-            // // elem['total'] = elem['cost'] * elem['counter'];
-            // // console.log("elem -- ", elem);
-              this.items.push(elem);
-        });
-      });
+    this.refresh();
+    // this.firebaseCartPath = "cart"+ "/" + this.user['user']['userID'];
 
     // this.firebaseDb.list(this.firebaseCartPath)
-    //   .query.once('value')
-    //   .then(data => {
-    //     console.log("-> ",data.val())
-    //     if (data.val() == null){
-    //     } else {
+    //     .valueChanges().subscribe((data) => {
+    //       this.items.length = 0;
+    //       this.total = 0;
+    //       if (data.length == 0){
+    //         this.cartempty = true;
+    //            return;
+    //       }
+    //       this.cartempty = false;
     //       data.forEach(elem => {
-    //         console.log("elemrr => ",elem.val());
-    //         this.total = this.total + elem.val().cost;
-    //         // this.cartcount = this.cartcount + 1;
-    //         // elem['total'] = elem['cost'] * elem['counter'];
-    //         // console.log("elem -- ", elem);
-    //          this.items.push(elem.val());
+    //         console.log("elemrr => ",elem);
+    //         this.total = this.total + elem['cost'] * elem['count'];
+    //           this.items.push(elem);
     //     });
-    //     }
-    //   //
-    //   }).catch(error => {
-    //     console.log("2 => ", error);
     //   });
+
   }
 
-  addItem(item, cost, count){
-    console.log(item,"+", cost)
-    this.firebaseDb.object(this.firebaseCartPath + "/" + item).update({ count: count+1}).catch(error => this.handleError(error));
-    this.notifyService.showSuccess("Added "+item+" to cart","success");
+  refresh() {
+    this.items.length = 0;
+    this.total = 0;
+    this.items.length = 0;
+    let cart: [] = JSON.parse(localStorage.getItem('pmscart'));
+    console.log("ggg", cart.length == 0)
+
+    if (cart == null) {
+      console.log("ggg1", cart.length == 0)
+      this.cartempty = true;
+      return;
+    }
+
+    if (cart.length == 0) {
+      console.log("ggg2", cart.length == 0)
+      this.cartempty = true;
+      return;
+    }
+
+    this.cartempty = false;
+    cart.forEach(x => {
+      this.total = this.total + x['cost'] * x['count'];
+      this.items.push(x);
+    });
   }
 
-  minusItem(item, cost, count){
-    console.log(item,"-", cost)
-    if (count == 1){
-      this.firebaseDb.object(this.firebaseCartPath + "/"+item).remove().catch(error => this.handleError(error));
-      this.notifyService.showSuccess("removed "+item+" from cart","success");
+  addItem(item, cost, count) {
+    let cart = JSON.parse(localStorage.getItem('pmscart'));
+    console.log(item, "+", cost)
+    cart.forEach(x => {
+      console.log(x)
+      if (item == x["item"]) {
+        console.log("yessss")
+        x['count'] = x['count'] + 1;
+        //break;
+      }
+    });
+    localStorage.setItem("pmscart", JSON.stringify(cart));
+    this.refresh();
+    //this.firebaseDb.object(this.firebaseCartPath + "/" + item).update({ count: count + 1 }).catch(error => this.handleError(error));
+    this.notifyService.showSuccess("Added " + item + " to cart", "success");
+  }
+
+  minusItem(item, cost, count) {
+    let cart = JSON.parse(localStorage.getItem('pmscart'));
+    console.log(item, "-", cost)
+    if (count == 1) {
+      let num = 0;
+      for (let i = 0; i < cart.length; i++) {
+        if (item == cart[i]["item"]) {
+          console.log("yessss22 ", cart[i]["item"])
+          console.log("yessss22ff ", i)
+          num = i;
+        }
+      }
+      cart.splice(num, 1);
+      localStorage.setItem("pmscart", JSON.stringify(cart));
+      this.refresh()
+      //this.firebaseDb.object(this.firebaseCartPath + "/" + item).remove().catch(error => this.handleError(error));
+      this.notifyService.showSuccess("removed " + item + " from cart", "success");
     } else {
-      this.firebaseDb.object(this.firebaseCartPath + "/" + item).update({ count: count-1}).catch(error => this.handleError(error));
-      this.notifyService.showSuccess("removed "+item+" from cart","success");
+      cart.forEach(x => {
+        console.log(x)
+        if (item == x["item"]) {
+          console.log("yessss")
+          x['count'] = x['count'] - 1;
+          //break;
+        }
+      });
+      localStorage.setItem("pmscart", JSON.stringify(cart));
+      this.refresh()
+      //this.firebaseDb.object(this.firebaseCartPath + "/" + item).update({ count: count - 1 }).catch(error => this.handleError(error));
+      this.notifyService.showSuccess("removed " + item + " from cart", "success");
     }
   }
 
-  checkOut(){
-    if (this.cartempty){
-      this.notifyService.showError("No items in cart","Cart Empty");
+  checkOut() {
+    if (this.cartempty) {
+      this.notifyService.showError("No items in cart", "Cart Empty");
       return;
     }
     this.router.navigate(["/checkout"]);

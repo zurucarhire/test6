@@ -1,4 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/internal/Observable';
@@ -15,17 +17,27 @@ import { NotificationService } from '../service/notification.service';
 })
 export class AccountComponent implements OnInit {
 
+  profilephoto = "https://zuru.co.ke/profile_20220402015403.png"
   user: any;
   procedures: Procedure[];
 
-   productsObservable : Observable<any> ;
-   experienceObservable : Observable<any> ;
+  myusername;
+  myfullname;
+
+  productsObservable : Observable<any> ;
+  experienceObservable : Observable<any> ;
+
+  loading = false;
+
+  url = "http://52.91.60.228:8090";
+  //url = "http://localhost:8090";
 
   @ViewChild("mainContent")
   private mainContentDiv!: ElementRef<HTMLElement>;
 
   constructor(private api: ApiService, private router: Router,
-    private modalService: NgbModal,private notifyService: NotificationService) {
+    private modalService: NgbModal,private notifyService: NotificationService,
+    private http: HttpClient) {
 
     }
 
@@ -40,6 +52,9 @@ export class AccountComponent implements OnInit {
       window.scrollTo(0, 0)
   });
     this.user = JSON.parse(sessionStorage.getItem('user'));
+    console.log("the user is ", this.user);
+    this.myusername = this.user["user"]["userName"];
+    this.myfullname = this.user["user"]["fullName"];
     console.log(this.user);
     //this.getProcedures();
   }
@@ -163,6 +178,99 @@ export class AccountComponent implements OnInit {
 
       }
     );
+  }
+
+  editAccount(tag){
+    console.log("tag", tag);
+    console.log("username", this.myusername);
+    console.log("userid", this.user["user"]["userID"]);
+
+    let value = this.myusername;
+    if (tag == "username"){
+      if (this.myusername.length == 0){
+        this.notifyService.showError("Please enter username","Invalid username");
+        return
+      }
+    } else if (tag == "fullname"){
+      value = this.myfullname;
+      if (this.myfullname.length == 0){
+        this.notifyService.showError("Please enter full name","Invalid full name");
+        return
+      }
+    }
+
+    this.api.updateAccount(this.user["user"]["userID"], tag, value).subscribe(
+      data => {
+        this.notifyService.showSuccess(value + " updated successfully","Success");
+        this.myusername = data["userName"];
+        this.myfullname = data["fullName"];
+
+        //sessionStorage.setItem('user', JSON.stringify(data));
+        this.user["user"] = data;
+        sessionStorage.setItem('user', JSON.stringify(this.user));
+        console.log("data => ",data);
+        console.log("data22 => ",JSON.parse(sessionStorage.getItem('user')));
+      },
+      error => {
+        console.log("error => ",error);
+        this.notifyService.showError("Something went wrong", "Oops");
+      }
+    );
+
+  }
+
+  changePassword(form: NgForm){
+    let oldpassword = form.value.oldpassword;
+    let newpassword = form.value.newpassword;
+    let confirmpassword = form.value.confirmpassword;
+
+    console.log(form.value);
+    console.log(oldpassword);
+    console.log(newpassword);
+    console.log(confirmpassword);
+
+    if (oldpassword == "" || newpassword == "" || confirmpassword == ""){
+      this.notifyService.showError("please enter all values","Invalid");
+      return
+    }
+
+    if (newpassword != confirmpassword){
+      this.notifyService.showError("Passwords do not match","Invalid passwords");
+      return
+    }
+
+    this.api.changePass(this.user["user"]["userID"],oldpassword, newpassword, confirmpassword).subscribe(
+      data => {
+        form.resetForm()
+        this.notifyService.showSuccess("Password changed successful","Success");
+      },
+      error => {
+        console.log("error => ",error);
+        this.notifyService.showError("Old password is incorrect", "Old Password Incorrect");
+      }
+    );
+  }
+
+  fileChangeEvent(tag, files) {
+    const selectedFile = files[0];
+
+    const uploadImageData = new FormData();
+    uploadImageData.append('imageFile', selectedFile, selectedFile.name);
+    uploadImageData.append('userId', this.user["user"]["userID"]);
+    //this.http.put('http://localhost:8085/api/zuru/user/uploadpic', uploadImageData, options)
+    this.http.put(this.url+'/api/psm/user/uploadpic', uploadImageData)
+      .subscribe(
+        data => {
+          console.log("data -> ", data);
+          console.log("data ->>: ", tag);
+          this.user["user"] = data;
+          sessionStorage.setItem('user', JSON.stringify(this.user));
+          this.notifyService.showSuccess("Your " + tag + " has been changed","Success");
+          this.profilephoto = this.url+"/"+data["profilephoto"];
+        },
+        error => console.log(error)
+      );
+
   }
   logOut(){
     sessionStorage.clear();

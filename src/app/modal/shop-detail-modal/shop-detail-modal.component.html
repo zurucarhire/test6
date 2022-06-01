@@ -9,7 +9,7 @@
           </div>
         </div>
       <div class="row">
-        <div class="col-lg-6" >
+        <div class="col-lg-7" >
           <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -32,22 +32,23 @@
             </div>
         </div>
         </div>
-        <div class="col-lg-6" >
+        <div class="col-lg-5" >
           <!-- <i class="fa fa-close" style="float: right; cursor: pointer;"(click)="activeModal.dismiss('Cross click')" ></i> -->
           <h4 *ngIf="modalData.item.sale > 0 || modalData.item.discount > 0" style="font-size: 13px; font-weight: bold; margin-top: 10px;"><span><i style="padding: 5px; background-color: red; font-size: 12px; font-style: normal; color: white;" *ngIf="modalData.item.sale > 0">On Sale</i><i *ngIf="modalData.item.discount > 0" style="font-style: normal; color: white; padding: 5px; background-color: blue; font-size: 12px; margin-left: 10px;">{{modalData.item.discount}}% Off</i></span></h4>
-          <p style="font-weight: bold; margin-top: 7px;"><i class="fa fa-user-o" style="padding-right: 10px;"></i>{{modalData.item.user.fullName}}</p>
+          <p style="font-weight: bold; margin-top: 7px;">{{modalData.item.user.businessName}}</p>
           <span style="font-weight: bold; ">{{modalData.item.name}}</span>
           <!-- <small style="color: salmon" class="text-muted" ><i style="color: blueviolet; padding: 1px; font-style: normal">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</i> </small> -->
           <!-- <h4 style="font-size: 13px; font-weight: bold;">Ksh {{modalData.item.overallprice}}</h4> -->
           <h4 style="font-size: 13px; font-weight: bold;"><span><i style="text-decoration: line-through; font-size: 12px; font-style: normal; padding-right: 5px;" *ngIf="modalData.item.sale > 0 || modalData.item.discount">Ksh {{modalData.item.price}}</i><i style="font-style: normal; color: brown; ">Ksh {{modalData.item.overallprice}}</i></span></h4>
           <!-- <h4 style="font-size: 13px;">It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h4> -->
           <h4 style="font-size: 13px;">{{modalData.item.description}}</h4>
-          <h4><a style="font-size: 13px; color: blue; cursor: pointer;" (click)="fullDescription(modalData.item.productID)">View full product description</a></h4>
+          <!-- <h4><a style="font-size: 13px; color: blue; cursor: pointer;" (click)="fullDescription(modalData.item.productID)">View full product description</a></h4> -->
+          <button  type="button" class="btn btn-outline-primary" style="font-weight: bold; font-size: 13px; margin: 5px; border: 1px solid #ff5821; background-color: #ff5821; color: white;" (click)="fullDescription(modalData.item.productID)">View Full Description</button>
 
-          <div class="button-box col-lg-12">
+          <!-- <div class="button-box col-lg-12">
             <button type="button" class="btn btn-outline-success" style="font-weight: bold; font-size: 13px; margin: 5px;" (click)="addToCart(modalData.item,modalData.cost)">Add To Cart</button>
             <button type="button" class="btn btn-outline-danger" style="font-weight: bold; font-size: 13px; margin: 5px;" (click)="checkOut()">Check Out</button>
-   </div>
+   </div> -->
           <!-- <p><button type="button" class="btn btn-outline-warning">Buy It Now</button></p> -->
         </div>
       </div>

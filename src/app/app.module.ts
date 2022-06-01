@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '../../node_modules/@angular/common/http';
 import { AuthGuard } from './guards/auth-guard';
+import { MerchantAuthGuard } from './guards/merchant-auth-guard';
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -50,7 +51,7 @@ const firebaseConfig = {
   // providers: [WindowrefService, AuthGuard, ApiService,MatDatepickerModule, {
   //   provide:HTTP_INTERCEPTORS, useClass:AuthenticationInterceptor, multi:true
   // }],
-  providers: [AuthGuard,ApiService, {
+  providers: [AuthGuard, MerchantAuthGuard, ApiService, {
     provide:HTTP_INTERCEPTORS, useClass:AuthenticationInterceptor, multi:true
   }],
   //providers: [],
